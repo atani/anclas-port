@@ -32,7 +32,26 @@ GitHub Actions (cron)
 ## 構成
 
 - `docs/` — 設計ドキュメント
-- `reference/anclas-mcp-server/` — 流用元のパーサー資産（[atani/idea](https://github.com/atani/idea) の anclas-mcp-server）。Actions のデータパイプラインで再利用
+- `scripts/` — データパイプライン（TypeScript / Node 20）。q-league・anclas.jp を正規化JSON化
+- `data/` — 生成された配信用JSON（`matches.json` / `standings.json` / `players.json`）。Actions が自動更新
+- `.github/workflows/data-pipeline.yml` — cron で生成 → 差分があれば commit
+- `reference/anclas-mcp-server/` — 流用元のパーサー資産（[atani/idea](https://github.com/atani/idea) の anclas-mcp-server）。データパイプラインで再利用
+
+## データパイプライン（Phase 1）
+
+```bash
+cd scripts
+npm install
+npm run typecheck   # 型チェック
+npm test            # パーサー単体テスト（実データ fixture 付き）
+npm run generate    # q-league / anclas.jp を取得して data/*.json を生成
+```
+
+| 生成物 | 内容 |
+|---|---|
+| `data/matches.json` | アンクラスのリーグ全試合 + `anclas.nextMatch` / `anclas.latestResult` の派生情報 |
+| `data/standings.json` | 確定結果から自前計算した順位表 |
+| `data/players.json` | 選手名鑑（背番号順） |
 
 ## フェーズ
 

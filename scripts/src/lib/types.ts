@@ -1,0 +1,122 @@
+/** アンクラスPort 正規化JSON の型定義 */
+
+export const ANCLAS_TEAM_NAME = "福岡J・アンクラス";
+
+/** 試合の状態 */
+export type MatchStatus = "scheduled" | "finished";
+
+/** 1試合 */
+export interface Match {
+  /** q-league の su-post id 由来の安定ID（例: "su-post-9354"） */
+  id: string;
+  /** 大会名（現状 "Qリーグ"） */
+  competition: string;
+  /** 節番号。HTMLから取れない場合 null */
+  round: number | null;
+  /** 試合日 YYYY-MM-DD */
+  date: string;
+  /** キックオフ HH:MM。未定なら null */
+  kickoff: string | null;
+  /** ISO8601（JST固定 +09:00）。kickoff が無い場合は日付の 00:00 */
+  datetime: string;
+  /** ホームチーム名（q-league 表記を正規化済み） */
+  homeTeam: string;
+  /** アウェイチーム名（正規化済み） */
+  awayTeam: string;
+  /** scheduled = 未消化（【vs】） / finished = 確定（【n-n】） */
+  status: MatchStatus;
+  /** 確定スコア。未消化なら null */
+  score: { home: number; away: number } | null;
+  /** ホーム・アウェイのいずれかがアンクラスか */
+  isAnclas: boolean;
+  /** q-league の試合詳細URL */
+  sourceUrl: string;
+}
+
+/** matches.json のルート */
+export interface MatchesData {
+  /** 生成時刻 ISO8601 */
+  generatedAt: string;
+  /** シーズン年（試合日付の最頻年） */
+  season: string;
+  /** アプリのホーム画面でそのまま大きく出すための派生情報 */
+  anclas: {
+    /** 次の未消化アンクラス試合（最も近い未来）。無ければ null */
+    nextMatch: Match | null;
+    /** 直近の確定アンクラス試合（最も新しい過去）。無ければ null */
+    latestResult: Match | null;
+  };
+  /** アンクラスが所属する1部の全試合（節・日時順） */
+  matches: Match[];
+}
+
+/** 順位表の1行 */
+export interface StandingRow {
+  rank: number;
+  team: string;
+  played: number;
+  win: number;
+  draw: number;
+  loss: number;
+  /** 総得点 goals for */
+  gf: number;
+  /** 総失点 goals against */
+  ga: number;
+  /** 得失点差 */
+  gd: number;
+  points: number;
+  isAnclas: boolean;
+}
+
+/** standings.json のルート */
+export interface StandingsData {
+  generatedAt: string;
+  season: string;
+  competition: string;
+  table: StandingRow[];
+}
+
+/** 選手の写真サイズ別URL */
+export interface PlayerPhoto {
+  thumbnail: string | null;
+  medium: string | null;
+  large: string | null;
+  full: string | null;
+}
+
+/** 選手の基本プロフィール（本文 <p> 由来） */
+export interface PlayerProfile {
+  birthdate: string | null;
+  hometown: string | null;
+  height: string | null;
+  bloodType: string | null;
+  career: string | null;
+}
+
+/** 1選手 */
+export interface Player {
+  /** WP 投稿ID */
+  id: number;
+  /** 背番号（タイトル #n 由来）。取れなければ null */
+  number: number | null;
+  /** 漢字名 */
+  nameJa: string;
+  /** ローマ字名（大文字化）。取れなければ null */
+  nameEn: string | null;
+  /** ニックネーム。取れなければ null */
+  nickname: string | null;
+  photo: PlayerPhoto;
+  profile: PlayerProfile;
+  /** 本文 <table> 由来のパーソナル情報（ラベル・値の配列・表示順保持） */
+  personal: { label: string; value: string }[];
+  /** クラブ公式の選手ページURL */
+  sourceUrl: string;
+}
+
+/** players.json のルート */
+export interface PlayersData {
+  generatedAt: string;
+  /** カテゴリ名から抽出したシーズン年（例: "2026"） */
+  season: string;
+  players: Player[];
+}

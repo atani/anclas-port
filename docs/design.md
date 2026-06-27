@@ -37,13 +37,22 @@
 - URL: `https://q-league.net/match/`
 - HTML 構造（実測済み）:
   ```html
-  <li class="su-post"><a href="...">2026/04/12 12:00 福岡J・アンクラス【2-2】ヴィアマテラス宮崎Alegrita</a></li>
+  <li id="su-post-9354" class="su-post "><a href="...">2026/04/12 12:00 福岡J・アンクラス 【2-2】ヴィアマテラス宮崎Alegrita</a></li>
   ```
 - パースルール:
-  - `YYYY/MM/DD HH:MM ホーム【スコア or vs】アウェイ` の固定形式
+  - `YYYY/MM/DD HH:MM ホーム【スコア or vs】アウェイ` の形式（時刻は無い行もある）
   - `【数字-数字】` → 確定結果 / `【vs】` → 未消化
   - アンクラスの試合 = ホーム or アウェイに「福岡J・アンクラス」を含む行
 - ここから取れるもの: **次の試合・試合結果・順位表（全試合の勝敗から自前計算）**
+
+##### 実装で判明した補正（重要）
+
+- `<li>` は実際には `id="su-post-XXXX" class="su-post "`（末尾スペース付き）。
+- 同一ページに複数リーグが縦に並ぶ。「日程・結果」見出し配下のトップリーグと、別の「1部／2部 日程表・順位表」下部リーグが続く。
+- **アンクラスは「N部」ではなく最初の「日程・結果」セクション配下**（8チーム・17節）にいる。よって「N部」判定は使えず、**アンクラスの試合を含むセクションだけ**を対象に抽出する。
+- 区切りはタブ・全角スペース・半角スペースが混在する。チーム名とスコアの間や、時刻とチーム名の間の空白有無も揺れる（`11:00八女学院` のように直結する例もある）。
+- チーム名に表記揺れがある（全角表記のFC／「東海大付属」と「東海大学付属」）。正規化してから集計する。
+- 節番号は元データ側で日付と一部ずれる。日程表示は**日付順を主**、節番号は補助とする。
 
 ### 2.2 二次ソース: anclas.jp WP REST API（リッチコンテンツ）
 
@@ -72,6 +81,7 @@
 
 q-league.net に順位表の構造化データは無い（画像 or GoalNote へのリンク）。
 → **全試合の確定結果から自前計算**する（勝点・得失点差・総得点）。外部依存を増やさず最も堅牢。
+→ 対象は**アンクラスの試合を含むセクションのチームのみ**（混在する下部リーグを除外）。確定済み試合（`【数字-数字】`）だけを勝点・得失点差・総得点で集計する。
 
 ### 2.4 三次ソース: Spotify ポッドキャスト「アンクラスのロッカールーム」
 
@@ -177,8 +187,8 @@ GitHub Actions (cron 5分間隔)
 ## 7. フェーズ計画
 
 ### Phase 1（MVP・完全無料・サーバレス）
-- [ ] GitHub Actions: q-league パース → matches.json / standings.json 生成 → Pages 配信
-- [ ] GitHub Actions: anclas top-players パース → players.json 生成
+- [x] GitHub Actions: q-league パース → matches.json / standings.json 生成（`scripts/`）。Pages 配信設定は別途
+- [x] GitHub Actions: anclas top-players パース → players.json 生成（`scripts/`）
 - [ ] SwiftUI: ホーム（次の試合）/ 日程 / 試合結果 / 順位表 / 選手名鑑 の5画面
 - [ ] WidgetKit: 次の試合 Widget
 - [ ] ローカル通知: 試合リマインド（キックオフ前）
@@ -209,5 +219,25 @@ GitHub Actions (cron 5分間隔)
 
 ## 9. 既存資産
 
-- `anclas-mcp-server/src/parser.ts`: 試合情報・得点者・会場・日時のパースロジック（TypeScript）。Actions にほぼ流用可能
-- `anclas-mcp-server/src/wordpress-client.ts`: anclas.jp WP API クライアント・カテゴリ動的検出
+- `reference/anclas-mcp-server/parser.ts`: 試合情報・得点者・会場・日時のパースロジック（TypeScript）。Actions に流用
+- `reference/anclas-mcp-server/wordpress-client.ts`: anclas.jp WP API クライアント・カテゴリ動的検出。`scripts/src/lib/wordpress-client.ts` の土台に流用
+
+---
+
+## 10. データ出力仕様（Phase 1 実装）
+
+データパイプラインは `scripts/`（TypeScript / Node 20 / 依存は dev のみ）。`npm run generate` で `data/` に3ファイルを生成し、GitHub Actions（`.github/workflows/data-pipeline.yml`）が差分時に commit する。
+
+| ファイル | 中身 | 主なフィールド |
+|---|---|---|
+| `data/matches.json` | アンクラスのリーグ全試合 | `matches[]`（id/round/datetime/home/away/status/score/isAnclas/sourceUrl）+ `anclas.nextMatch` / `anclas.latestResult` の派生情報 |
+| `data/standings.json` | 順位表 | `table[]`（rank/team/played/win/draw/loss/gf/ga/gd/points/isAnclas） |
+| `data/players.json` | 選手名鑑 | `players[]`（number/nameJa/nameEn/nickname/photo/profile/personal/sourceUrl） |
+
+- **`anclas.nextMatch` / `anclas.latestResult`** は中継側で計算して埋める。アプリはホーム最上部にそのまま大きく描画するだけでよい（UX「トップに大きく」を中継側で支える）。
+- パーサーは `scripts/test/` に実データ fixture 付きの単体テストを持つ（`npm test`）。HTML 構造変化はテスト failで検知する。
+
+### クラブカラー（ビジュアル方針の採取候補）
+
+- anclas.jp で頻出するネイビー系（`#273349`）を採取候補とする。
+- ただし WordPress プリセット色も混在するため、**最終確定は申請前にロゴ・ユニフォームから採る**。
