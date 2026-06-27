@@ -1,0 +1,27 @@
+# macOS
+.DS_Store
+
+# Node (Actions data pipeline)
+node_modules/
+dist/
+*.log
+
+# Secrets
+.env
+*.p8
+.envrc
+
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+
+# Swift Package Manager
+.swiftpm/
+.build/
+
+# Generated data (build artifacts, fetched at runtime)
+data/*.json
