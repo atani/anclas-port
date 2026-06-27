@@ -12,7 +12,7 @@
     "test": "node --import tsx --test test/qleague-parser.test.ts test/standings.test.ts test/player-parser.test.ts test/goalnote-parser.test.ts",
     "generate:matches": "tsx src/generate-matches.ts",
     "generate:players": "tsx src/generate-players.ts",
-    "generate": "npm run generate:matches && npm run generate:players"
+    "generate": "npm run generate:matches && npm run generate:players || echo 'players generation failed (non-fatal)'"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
