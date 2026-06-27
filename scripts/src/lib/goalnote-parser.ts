@@ -1,4 +1,4 @@
-import { ANCLAS_TEAM_NAME, type GoalEvent, type Position } from "./types.js";
+import { ANCLAS_TEAM_NAME, type GoalEvent, type Position, type Substitution } from "./types.js";
 
 /**
  * GoalNote (goalnote.net) パーサー。
@@ -114,6 +114,7 @@ export interface GoalNoteGameData {
   goals: GoalEvent[];
   starters: GoalNotePlayer[];
   subs: GoalNotePlayer[];
+  substitutions: Substitution[];
   stats: MatchStats;
 }
 
@@ -229,6 +230,66 @@ function parseLineups(html: string, homeTeam: string): { starters: GoalNotePlaye
   return { starters, subs };
 }
 
+/** game page から選手交代を抽出 */
+function parseSubstitutions(html: string, homeTeam: string): Substitution[] {
+  const subs: Substitution[] = [];
+  // 交代セクション: 時間行(1セル) + 交代行(4セル: OUT#, OUT名, IN#, IN名)
+  const trRe = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+  const tdRe = /<td[^>]*>([\s\S]*?)<\/td>/gi;
+
+  // 得点経過と先発メンバーの後ろに交代セクションがある
+  // 「監督」行より前、「スタメン控え」の後を探す
+  let currentMinute = "";
+  let inHomeSubs = true;
+  let homeSubCount = 0;
+
+  // 交代行は lineups セクションの後に出現する
+  // 簡易判定: 4セルで [数字, 名前, 数字, 名前] のパターン
+  let tr: RegExpExecArray | null;
+  let pastLineups = false;
+  while ((tr = trRe.exec(html)) !== null) {
+    const cells: string[] = [];
+    tdRe.lastIndex = 0;
+    let td: RegExpExecArray | null;
+    while ((td = tdRe.exec(tr[1] ?? "")) !== null) {
+      cells.push(strip(td[1] ?? ""));
+    }
+
+    // 監督行で終了
+    if (cells.length >= 1 && /^監督$/.test(cells[0] ?? "")) {
+      pastLineups = true;
+    }
+
+    if (!pastLineups) continue;
+
+    // 時間行（1セル）
+    if (cells.length === 1 && /\d+分|ＨＴ|HT/.test(cells[0] ?? "")) {
+      currentMinute = cells[0] ?? "";
+      continue;
+    }
+
+    // 交代行（4セル: OUT#, OUT名, IN#, IN名）
+    if (cells.length >= 4 && /^\d+$/.test(cells[0] ?? "") && /^\d+$/.test(cells[2] ?? "")) {
+      // ホーム/アウェイ判定: 最初のチームの交代がまとまって出た後にアウェイ
+      subs.push({
+        minute: currentMinute,
+        team: inHomeSubs ? "home" : "away",
+        outNumber: Number(cells[0]),
+        outName: (cells[1] ?? "").replace(/\s*\(Cap\.\)/i, ""),
+        inNumber: Number(cells[2]),
+        inName: (cells[3] ?? "").replace(/\s*\(Cap\.\)/i, ""),
+      });
+      if (inHomeSubs) homeSubCount++;
+    }
+
+    // 得点経過セクションに入ったらホーム交代は終了
+    if (cells.length >= 2 && /得点経過/.test(cells[0] ?? "")) {
+      if (homeSubCount > 0) inHomeSubs = false;
+    }
+  }
+  return subs;
+}
+
 /** game page から試合情報（観客数・天候・気温・ピッチ状態）を抽出 */
 function parseStats(html: string): MatchStats {
   const stats: MatchStats = { attendance: null, weather: null, temperature: null, pitch: null };
@@ -258,6 +319,7 @@ export function parseGoalNoteGame(html: string, homeTeam: string): GoalNoteGameD
   return {
     goals: parseGoals(html),
     ...parseLineups(html, homeTeam),
+    substitutions: parseSubstitutions(html, homeTeam),
     stats: parseStats(html),
   };
 }

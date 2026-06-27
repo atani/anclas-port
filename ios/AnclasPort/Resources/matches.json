@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T21:46:15.535Z",
+  "generatedAt": "2026-06-27T21:52:54.359Z",
   "season": "2026",
   "anclas": {
     "nextMatch": {
@@ -19,6 +19,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -251,6 +252,48 @@
           "team": "home"
         }
       ],
+      "substitutions": [
+        {
+          "minute": "51分(後半11分)",
+          "team": "home",
+          "outNumber": 28,
+          "outName": "中尾 奈摘",
+          "inNumber": 17,
+          "inName": "堀田 花凛"
+        },
+        {
+          "minute": "51分(後半11分)",
+          "team": "home",
+          "outNumber": 36,
+          "outName": "遠山 瑠菜",
+          "inNumber": 12,
+          "inName": "岡野 夏稀"
+        },
+        {
+          "minute": "65分(後半25分)",
+          "team": "home",
+          "outNumber": 25,
+          "outName": "川本 心埜",
+          "inNumber": 38,
+          "inName": "猿楽 初音"
+        },
+        {
+          "minute": "50分(後半10分)",
+          "team": "home",
+          "outNumber": 11,
+          "outName": "嘉数 クレア姫麗",
+          "inNumber": 23,
+          "inName": "北条 あゆみ"
+        },
+        {
+          "minute": "67分(後半27分)",
+          "team": "home",
+          "outNumber": 8,
+          "outName": "野沢 真由",
+          "inNumber": 25,
+          "inName": "伊藤 なずな"
+        }
+      ],
       "stats": {
         "attendance": "217人",
         "weather": "雨",
@@ -289,6 +332,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341564",
       "posterUrl": null
@@ -536,6 +580,56 @@
           "team": "home"
         }
       ],
+      "substitutions": [
+        {
+          "minute": "62分(後半22分)",
+          "team": "home",
+          "outNumber": 11,
+          "outName": "嘉数 クレア姫麗",
+          "inNumber": 25,
+          "inName": "伊藤 なずな"
+        },
+        {
+          "minute": "78分(後半38分)",
+          "team": "home",
+          "outNumber": 18,
+          "outName": "玉城 薪瀬",
+          "inNumber": 26,
+          "inName": "立石 琴子"
+        },
+        {
+          "minute": "80+1分(後半41分)",
+          "team": "home",
+          "outNumber": 16,
+          "outName": "端山 新",
+          "inNumber": 9,
+          "inName": "田邉 いちご"
+        },
+        {
+          "minute": "52分(後半12分)",
+          "team": "home",
+          "outNumber": 38,
+          "outName": "猿楽 初音",
+          "inNumber": 12,
+          "inName": "岡野 夏稀"
+        },
+        {
+          "minute": "59分(後半19分)",
+          "team": "home",
+          "outNumber": 36,
+          "outName": "遠山 瑠菜",
+          "inNumber": 13,
+          "inName": "南平 夏里奈"
+        },
+        {
+          "minute": "69分(後半29分)",
+          "team": "home",
+          "outNumber": 31,
+          "outName": "上永 ひかり",
+          "inNumber": 25,
+          "inName": "川本 心埜"
+        }
+      ],
       "stats": {
         "attendance": "656人",
         "weather": "曇",
@@ -565,6 +659,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341566",
       "posterUrl": null
@@ -589,6 +684,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341568",
       "posterUrl": null
@@ -613,6 +709,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341585",
       "posterUrl": null
@@ -637,6 +734,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341584",
       "posterUrl": null
@@ -661,6 +759,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341569",
       "posterUrl": null
@@ -685,6 +784,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341571",
       "posterUrl": null
@@ -709,6 +809,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341572",
       "posterUrl": null
@@ -949,6 +1050,40 @@
           "team": "home"
         }
       ],
+      "substitutions": [
+        {
+          "minute": "",
+          "team": "home",
+          "outNumber": 7,
+          "outName": "鴨川 雛乃",
+          "inNumber": 9,
+          "inName": "山下 夢生"
+        },
+        {
+          "minute": "61分(後半21分)",
+          "team": "home",
+          "outNumber": 3,
+          "outName": "平 望優",
+          "inNumber": 10,
+          "inName": "中村 怜愛"
+        },
+        {
+          "minute": "71分(後半31分)",
+          "team": "home",
+          "outNumber": 6,
+          "outName": "岡﨑 亜美伽",
+          "inNumber": 19,
+          "inName": "牛嶋 空来"
+        },
+        {
+          "minute": "71分(後半31分)",
+          "team": "home",
+          "outNumber": 18,
+          "outName": "桜井 みゆき",
+          "inNumber": 5,
+          "inName": "中村 朱里"
+        }
+      ],
       "stats": {
         "attendance": "214人",
         "weather": "雨",
@@ -978,6 +1113,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -1002,6 +1138,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341574",
       "posterUrl": null
@@ -1026,6 +1163,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341578",
       "posterUrl": null
@@ -1050,6 +1188,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341575",
       "posterUrl": null
@@ -1304,6 +1443,48 @@
           "team": "home"
         }
       ],
+      "substitutions": [
+        {
+          "minute": "ＨＴ",
+          "team": "home",
+          "outNumber": 6,
+          "outName": "伊藤 翼",
+          "inNumber": 11,
+          "inName": "氷室 かんな"
+        },
+        {
+          "minute": "70分(後半30分)",
+          "team": "home",
+          "outNumber": 13,
+          "outName": "福本 來実花",
+          "inNumber": 30,
+          "inName": "松瀬 きりく"
+        },
+        {
+          "minute": "50分(後半10分)",
+          "team": "home",
+          "outNumber": 18,
+          "outName": "玉城 薪瀬",
+          "inNumber": 8,
+          "inName": "野沢 真由"
+        },
+        {
+          "minute": "65分(後半25分)",
+          "team": "home",
+          "outNumber": 25,
+          "outName": "伊藤 なずな",
+          "inNumber": 11,
+          "inName": "嘉数 クレア姫麗"
+        },
+        {
+          "minute": "80+1分(後半41分)",
+          "team": "home",
+          "outNumber": 15,
+          "outName": "田中 花奈",
+          "inNumber": 9,
+          "inName": "田邉 いちご"
+        }
+      ],
       "stats": {
         "attendance": "100人",
         "weather": "晴れ",
@@ -1333,6 +1514,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -1357,6 +1539,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341580",
       "posterUrl": null
@@ -1381,6 +1564,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341582",
       "posterUrl": null
@@ -1650,6 +1834,40 @@
           "team": "home"
         }
       ],
+      "substitutions": [
+        {
+          "minute": "63分(後半23分)",
+          "team": "home",
+          "outNumber": 15,
+          "outName": "田中 花奈",
+          "inNumber": 20,
+          "inName": "田川 葵"
+        },
+        {
+          "minute": "78分(後半38分)",
+          "team": "home",
+          "outNumber": 18,
+          "outName": "玉城 薪瀬",
+          "inNumber": 9,
+          "inName": "田邉 いちご"
+        },
+        {
+          "minute": "80+2分(後半42分)",
+          "team": "home",
+          "outNumber": 11,
+          "outName": "嘉数 クレア姫麗",
+          "inNumber": 14,
+          "inName": "宮脇 ゆりあ"
+        },
+        {
+          "minute": "67分(後半27分)",
+          "team": "home",
+          "outNumber": 6,
+          "outName": "楠 彩由菜",
+          "inNumber": 2,
+          "inName": "竹田 美佐也"
+        }
+      ],
       "stats": {
         "attendance": "433人",
         "weather": "晴れ",
@@ -1897,6 +2115,56 @@
           "team": "home"
         }
       ],
+      "substitutions": [
+        {
+          "minute": "ＨＴ",
+          "team": "home",
+          "outNumber": 42,
+          "outName": "桑代 心彩",
+          "inNumber": 21,
+          "inName": "大藪 妃紗"
+        },
+        {
+          "minute": "72分(後半32分)",
+          "team": "home",
+          "outNumber": 12,
+          "outName": "木塚 美羽",
+          "inNumber": 5,
+          "inName": "園田 結凜"
+        },
+        {
+          "minute": "78分(後半38分)",
+          "team": "home",
+          "outNumber": 55,
+          "outName": "中村 葵",
+          "inNumber": 59,
+          "inName": "橋 あんず"
+        },
+        {
+          "minute": "54分(後半14分)",
+          "team": "home",
+          "outNumber": 20,
+          "outName": "田川 葵",
+          "inNumber": 23,
+          "inName": "北条 あゆみ"
+        },
+        {
+          "minute": "75分(後半35分)",
+          "team": "home",
+          "outNumber": 8,
+          "outName": "野沢 真由",
+          "inNumber": 11,
+          "inName": "嘉数 クレア姫麗"
+        },
+        {
+          "minute": "80+3分(後半43分)",
+          "team": "home",
+          "outNumber": 10,
+          "outName": "平坂 咲希",
+          "inNumber": 14,
+          "inName": "宮脇 ゆりあ"
+        }
+      ],
       "stats": {
         "attendance": "70人",
         "weather": "曇り",
@@ -1926,6 +2194,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -1950,6 +2219,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341588",
       "posterUrl": null
@@ -2212,6 +2482,56 @@
           "team": "home"
         }
       ],
+      "substitutions": [
+        {
+          "minute": "ＨＴ",
+          "team": "home",
+          "outNumber": 5,
+          "outName": "大河内 友貴",
+          "inNumber": 25,
+          "inName": "伊藤 なずな"
+        },
+        {
+          "minute": "64分(後半24分)",
+          "team": "home",
+          "outNumber": 25,
+          "outName": "伊藤 なずな",
+          "inNumber": 11,
+          "inName": "嘉数 クレア姫麗"
+        },
+        {
+          "minute": "ＨＴ",
+          "team": "home",
+          "outNumber": 16,
+          "outName": "仲松 叶実",
+          "inNumber": 30,
+          "inName": "宇津木 陽奈"
+        },
+        {
+          "minute": "ＨＴ",
+          "team": "home",
+          "outNumber": 10,
+          "outName": "伊藤 美菜子",
+          "inNumber": 37,
+          "inName": "松尾 瑚々"
+        },
+        {
+          "minute": "80+3分(後半43分)",
+          "team": "home",
+          "outNumber": 19,
+          "outName": "小川 優花",
+          "inNumber": 11,
+          "inName": "小島 千明"
+        },
+        {
+          "minute": "80+3分(後半43分)",
+          "team": "home",
+          "outNumber": 37,
+          "outName": "松尾 瑚々",
+          "inNumber": 58,
+          "inName": "柳瀬 絵莉"
+        }
+      ],
       "stats": {
         "attendance": "80人",
         "weather": "晴れ",
@@ -2241,6 +2561,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2265,6 +2586,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341592",
       "posterUrl": null
@@ -2286,6 +2608,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341581",
       "posterUrl": null
@@ -2518,6 +2841,48 @@
           "team": "home"
         }
       ],
+      "substitutions": [
+        {
+          "minute": "51分(後半11分)",
+          "team": "home",
+          "outNumber": 28,
+          "outName": "中尾 奈摘",
+          "inNumber": 17,
+          "inName": "堀田 花凛"
+        },
+        {
+          "minute": "51分(後半11分)",
+          "team": "home",
+          "outNumber": 36,
+          "outName": "遠山 瑠菜",
+          "inNumber": 12,
+          "inName": "岡野 夏稀"
+        },
+        {
+          "minute": "65分(後半25分)",
+          "team": "home",
+          "outNumber": 25,
+          "outName": "川本 心埜",
+          "inNumber": 38,
+          "inName": "猿楽 初音"
+        },
+        {
+          "minute": "50分(後半10分)",
+          "team": "home",
+          "outNumber": 11,
+          "outName": "嘉数 クレア姫麗",
+          "inNumber": 23,
+          "inName": "北条 あゆみ"
+        },
+        {
+          "minute": "67分(後半27分)",
+          "team": "home",
+          "outNumber": 8,
+          "outName": "野沢 真由",
+          "inNumber": 25,
+          "inName": "伊藤 なずな"
+        }
+      ],
       "stats": {
         "attendance": "217人",
         "weather": "雨",
@@ -2544,6 +2909,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341594",
       "posterUrl": null
@@ -2565,6 +2931,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2586,6 +2953,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2607,6 +2975,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2628,6 +2997,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2649,6 +3019,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2670,6 +3041,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2691,6 +3063,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2712,6 +3085,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2733,6 +3107,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2754,6 +3129,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2775,6 +3151,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2796,6 +3173,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2817,6 +3195,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2838,6 +3217,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2859,6 +3239,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2880,6 +3261,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2901,6 +3283,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2922,6 +3305,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2943,6 +3327,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2964,6 +3349,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -2985,6 +3371,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -3006,6 +3393,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -3027,6 +3415,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -3048,6 +3437,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -3069,6 +3459,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -3090,6 +3481,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -3111,6 +3503,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
@@ -3132,6 +3525,7 @@
       "goals": [],
       "starters": [],
       "subs": [],
+      "substitutions": [],
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null

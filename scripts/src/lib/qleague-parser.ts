@@ -186,6 +186,7 @@ function collectAllMatches(html: string, competition: string): SectionedMatch[] 
         goals: [],
         starters: [],
         subs: [],
+        substitutions: [],
         stats: null,
         goalnoteUrl: null,
         posterUrl: null,

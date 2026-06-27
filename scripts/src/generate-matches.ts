@@ -85,6 +85,7 @@ async function main(): Promise<void> {
       m.goals = gameData.goals;
       m.starters = gameData.starters;
       m.subs = gameData.subs;
+      m.substitutions = gameData.substitutions;
       m.stats = gameData.stats;
       goalCount += gameData.goals.length;
     } catch (e) {
