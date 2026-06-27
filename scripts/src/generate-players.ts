@@ -34,6 +34,7 @@ async function main(): Promise<void> {
 }
 
 main().catch((err) => {
-  console.error("[generate-players] 失敗:", err);
+  console.error("[generate-players] 失敗:", err instanceof Error ? err.message : err);
+  console.error("選手データは前回の生成物を維持します（anclas.jp が一時的にアクセス不可の可能性）。");
   process.exit(1);
 });
