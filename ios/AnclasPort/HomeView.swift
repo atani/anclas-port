@@ -60,7 +60,10 @@ struct HomeView: View {
 
                         if let latest = store.data?.anclas.latestResult {
                             SectionLabel("LATEST RESULT")
-                            LatestResultCard(match: latest)
+                            NavigationLink(value: latest) {
+                                LatestResultCard(match: latest)
+                            }
+                            .buttonStyle(.plain)
                         }
 
                         if let err = store.errorText {
@@ -82,6 +85,9 @@ struct HomeView: View {
             }
             .background(Color(.systemGroupedBackground))
             .navigationBarHidden(true)
+            .navigationDestination(for: Match.self) { match in
+                MatchDetailView(match: match)
+            }
             .refreshable { await store.refresh() }
         }
     }

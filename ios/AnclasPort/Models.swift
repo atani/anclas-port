@@ -36,8 +36,19 @@ struct Match: Codable, Identifiable, Hashable {
     let isAnclas: Bool
     let sourceUrl: String
     let venue: String?
+    let goals: [GoalEvent]?
     let goalnoteUrl: String?
     let posterUrl: String?
+}
+
+struct GoalEvent: Codable, Hashable, Identifiable {
+    let minute: String
+    let team: String
+    let playerNumber: Int?
+    let playerName: String
+    let assist: String?
+
+    var id: String { "\(minute)-\(playerName)" }
 }
 
 // MARK: - 表示用の派生ロジック（アンクラス視点）
