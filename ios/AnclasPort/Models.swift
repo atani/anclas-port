@@ -80,3 +80,71 @@ extension Match {
         return anclasIsHome ? (score.home, score.away) : (score.away, score.home)
     }
 }
+
+// MARK: - standings.json
+
+struct StandingsData: Codable {
+    let generatedAt: String
+    let season: String
+    let competition: String
+    let table: [StandingRow]
+}
+
+struct StandingRow: Codable, Identifiable {
+    let rank: Int
+    let team: String
+    let played: Int
+    let win: Int
+    let draw: Int
+    let loss: Int
+    let gf: Int
+    let ga: Int
+    let gd: Int
+    let points: Int
+    let isAnclas: Bool
+
+    var id: String { team }
+}
+
+// MARK: - players.json
+
+struct PlayersData: Codable {
+    let generatedAt: String
+    let season: String
+    let players: [Player]
+}
+
+struct PlayerPhoto: Codable, Hashable {
+    let thumbnail: String?
+    let medium: String?
+    let large: String?
+    let full: String?
+}
+
+struct PlayerProfile: Codable, Hashable {
+    let birthdate: String?
+    let hometown: String?
+    let height: String?
+    let bloodType: String?
+    let career: String?
+}
+
+struct PersonalItem: Codable, Hashable {
+    let label: String
+    let value: String
+}
+
+struct Player: Codable, Identifiable, Hashable {
+    let id: Int
+    let number: Int?
+    let position: String?
+    let nameJa: String
+    let nameEn: String?
+    let nickname: String?
+    let photo: PlayerPhoto
+    let profile: PlayerProfile
+    let personal: [PersonalItem]
+    let sourceUrl: String
+
+    var displayNumber: String { number.map { "#\($0)" } ?? "" }
+}
