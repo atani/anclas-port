@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T16:19:35.492Z",
+  "generatedAt": "2026-06-27T17:09:20.745Z",
   "season": "2026",
   "anclas": {
     "nextMatch": {
@@ -17,7 +17,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-29/",
       "venue": "南島原多目的運動広場",
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": "https://anclas.jp/wp-content/uploads/2026/04/0503kunimi-insta.webp"
     },
     "latestResult": {
       "id": "su-post-9519",
@@ -45,7 +46,8 @@
           "assist": "13右S"
         }
       ],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341591"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341591",
+      "posterUrl": null
     }
   },
   "matches": [
@@ -67,7 +69,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-7/",
       "venue": "東風平運動公園サッカー場",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341564"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341564",
+      "posterUrl": null
     },
     {
       "id": "su-post-9354",
@@ -116,7 +119,8 @@
           "assist": "5クリア→12シュート"
         }
       ],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341563"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341563",
+      "posterUrl": null
     },
     {
       "id": "su-post-9459",
@@ -136,7 +140,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-74/",
       "venue": "東海大学付属福岡高校人工芝グランド",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341566"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341566",
+      "posterUrl": null
     },
     {
       "id": "su-post-9359",
@@ -156,7 +161,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-9-2/",
       "venue": "東海大学付属福岡高校人工芝グランド",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341568"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341568",
+      "posterUrl": null
     },
     {
       "id": "su-post-9441",
@@ -176,7 +182,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-39/",
       "venue": "百花台公園サッカー場",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341585"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341585",
+      "posterUrl": null
     },
     {
       "id": "su-post-9540",
@@ -196,7 +203,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-16/",
       "venue": "新富町富田浜公園",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341584"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341584",
+      "posterUrl": null
     },
     {
       "id": "su-post-9434",
@@ -216,7 +224,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-37/",
       "venue": "島原市営平成町多目的広場",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341569"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341569",
+      "posterUrl": null
     },
     {
       "id": "su-post-9417",
@@ -236,7 +245,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-58/",
       "venue": "東風平運動公園サッカー場",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341571"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341571",
+      "posterUrl": null
     },
     {
       "id": "su-post-9362",
@@ -256,7 +266,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-5/",
       "venue": "宮崎県串間陸上競技場",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341572"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341572",
+      "posterUrl": null
     },
     {
       "id": "su-post-9448",
@@ -298,7 +309,8 @@
           "assist": "16PK"
         }
       ],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341570"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341570",
+      "posterUrl": null
     },
     {
       "id": "su-post-9390",
@@ -318,7 +330,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-11/",
       "venue": null,
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9470",
@@ -338,7 +351,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-6/",
       "venue": "新富町富田浜公園",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341574"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341574",
+      "posterUrl": null
     },
     {
       "id": "su-post-9552",
@@ -358,7 +372,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-25/",
       "venue": "いちご宮崎新富サッカー場",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341578"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341578",
+      "posterUrl": null
     },
     {
       "id": "su-post-9404",
@@ -378,7 +393,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-22/",
       "venue": "国見総合運動公園(遊学の館)",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341575"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341575",
+      "posterUrl": null
     },
     {
       "id": "su-post-9420",
@@ -398,7 +414,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-34/",
       "venue": "東海大学付属福岡高校人工芝グランド",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341576"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341576",
+      "posterUrl": null
     },
     {
       "id": "su-post-9496",
@@ -418,7 +435,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-7-3/",
       "venue": null,
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9410",
@@ -438,7 +456,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-19/",
       "venue": "西原町民陸上競技場",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341580"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341580",
+      "posterUrl": null
     },
     {
       "id": "su-post-9422",
@@ -458,7 +477,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-44/",
       "venue": "南島原多目的運動広場",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341582"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341582",
+      "posterUrl": null
     },
     {
       "id": "su-post-9416",
@@ -493,7 +513,8 @@
           "assist": "11PK"
         }
       ],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341579"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341579",
+      "posterUrl": null
     },
     {
       "id": "su-post-9357",
@@ -513,7 +534,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-16-2/",
       "venue": "桷志田サッカー場人工芝A",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341583"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341583",
+      "posterUrl": null
     },
     {
       "id": "su-post-9396",
@@ -533,7 +555,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-13/",
       "venue": null,
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9409",
@@ -553,7 +576,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-27/",
       "venue": "ビーラインフットボールセンター姶良(天然芝)",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341588"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341588",
+      "posterUrl": null
     },
     {
       "id": "su-post-9408",
@@ -581,7 +605,8 @@
           "assist": "×11S"
         }
       ],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341587"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341587",
+      "posterUrl": null
     },
     {
       "id": "su-post-9555",
@@ -601,7 +626,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-57/",
       "venue": null,
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9452",
@@ -621,7 +647,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-68/",
       "venue": "南島原多目的運動広場",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341592"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341592",
+      "posterUrl": null
     },
     {
       "id": "su-post-9400",
@@ -638,7 +665,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-24/",
       "venue": "東海大学付属福岡高校人工芝グランド",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341581"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341581",
+      "posterUrl": null
     },
     {
       "id": "su-post-9519",
@@ -666,7 +694,8 @@
           "assist": "13右S"
         }
       ],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341591"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341591",
+      "posterUrl": null
     },
     {
       "id": "su-post-9389",
@@ -683,7 +712,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-15/",
       "venue": "福岡フットボールセンター",
       "goals": [],
-      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341594"
+      "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341594",
+      "posterUrl": null
     },
     {
       "id": "su-post-9426",
@@ -700,7 +730,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-40/",
       "venue": null,
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9432",
@@ -717,7 +748,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-41/",
       "venue": null,
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9457",
@@ -734,7 +766,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-73/",
       "venue": null,
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9514",
@@ -751,7 +784,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-17/",
       "venue": null,
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9548",
@@ -768,7 +802,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-31/",
       "venue": "新富町富田浜公園",
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9411",
@@ -785,7 +820,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-29/",
       "venue": "南島原多目的運動広場",
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": "https://anclas.jp/wp-content/uploads/2026/04/0503kunimi-insta.webp"
     },
     {
       "id": "su-post-9405",
@@ -802,7 +838,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-26/",
       "venue": "東海大学付属福岡高校人工芝グランド",
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9414",
@@ -819,7 +856,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-17/",
       "venue": null,
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9892",
@@ -836,7 +874,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-7-2/",
       "venue": null,
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9380",
@@ -853,7 +892,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-3/",
       "venue": "東海大学付属福岡高校人工芝グランド",
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9536",
@@ -870,7 +910,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-24/",
       "venue": null,
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9412",
@@ -887,7 +928,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-21/",
       "venue": null,
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9451",
@@ -904,7 +946,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-67/",
       "venue": "宇美町総合スポーツ公園",
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9442",
@@ -921,7 +964,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-55/",
       "venue": "いぶすきフットボールパーク(人工芝)",
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9437",
@@ -938,7 +982,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-35/",
       "venue": null,
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9415",
@@ -955,7 +1000,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-54/",
       "venue": "ビーラインフットボールセンター姶良(天然芝)",
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9549",
@@ -972,7 +1018,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-41/",
       "venue": "新富町富田浜公園",
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9532",
@@ -989,7 +1036,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-30/",
       "venue": null,
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9428",
@@ -1006,7 +1054,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-32/",
       "venue": "石垣市サッカ-パークあかんま",
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9447",
@@ -1023,7 +1072,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-63/",
       "venue": "東風平運動公園サッカー場",
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9449",
@@ -1040,7 +1090,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-65/",
       "venue": "東海大学付属福岡高校人工芝グランド",
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9438",
@@ -1057,7 +1108,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-51/",
       "venue": "宇美町総合スポーツ公園",
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9462",
@@ -1074,7 +1126,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-2/",
       "venue": null,
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9512",
@@ -1091,7 +1144,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-29/",
       "venue": null,
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9421",
@@ -1108,7 +1162,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-60/",
       "venue": null,
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9454",
@@ -1125,7 +1180,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-70/",
       "venue": "東風平運動公園サッカー場",
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9371",
@@ -1142,7 +1198,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-14/",
       "venue": "志布志しおかぜ公園",
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     },
     {
       "id": "su-post-9439",
@@ -1159,7 +1216,8 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-43/",
       "venue": "国見総合運動公園(遊学の館)",
       "goals": [],
-      "goalnoteUrl": null
+      "goalnoteUrl": null,
+      "posterUrl": null
     }
   ]
 }

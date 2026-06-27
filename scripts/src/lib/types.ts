@@ -54,6 +54,8 @@ export interface Match {
   goals: GoalEvent[];
   /** GoalNote の試合詳細URL。未取得なら null */
   goalnoteUrl: string | null;
+  /** 試合告知ポスター画像URL（anclas.jp featured_media 由来）。無ければ null */
+  posterUrl: string | null;
 }
 
 /** matches.json のルート */

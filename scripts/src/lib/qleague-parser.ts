@@ -185,6 +185,7 @@ function collectAllMatches(html: string, competition: string): SectionedMatch[] 
         venue: null,
         goals: [],
         goalnoteUrl: null,
+        posterUrl: null,
         section: currentSection,
       });
     }

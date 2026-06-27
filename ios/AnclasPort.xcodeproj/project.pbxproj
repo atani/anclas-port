@@ -7,10 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B91D4834EFED303919BE50D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F038957E896810999D0FA8C /* SplashView.swift */; };
 		28DAD895429F6AE066E709B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3464DCEBB5E835F222A20E12 /* Assets.xcassets */; };
 		3D3E51F2F2FE05842E3A6BE0 /* players.json in Resources */ = {isa = PBXBuildFile; fileRef = F60A2F769C2E87B7C63CF906 /* players.json */; };
 		43A3954B7AD475B4E9A24F66 /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38CD710B02E069D8F72F881 /* ScheduleView.swift */; };
 		5191773AA8562C67CED6D297 /* PlayersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2853101ABF5A7E31C6B4C431 /* PlayersView.swift */; };
+		583D525BC294665D8A4FFFA9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 271B435B7A407225CE450DC8 /* ContentView.swift */; };
+		5872B1BB99BC8305AD6B7D72 /* HeaderBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77A4F1D3F5DC7A948EA20D /* HeaderBar.swift */; };
 		71599EC924A3BD5DCF1A7FA1 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AAC7CE1BF1F6F66EA834 /* DataStore.swift */; };
 		8EE0A32C44DF90A8C367DF41 /* matches.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CCA593D44C3330BAA2D1BB6 /* matches.json */; };
 		A66065A6D1E84F2AB537973F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF92157645B63B9B49772203 /* HomeView.swift */; };
@@ -23,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		047CC8DE224B6EC4A441C722 /* AnclasPortApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnclasPortApp.swift; sourceTree = "<group>"; };
+		271B435B7A407225CE450DC8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2851D0C1A8EC647F06B0FEF4 /* AnclasPort.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = AnclasPort.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2853101ABF5A7E31C6B4C431 /* PlayersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersView.swift; sourceTree = "<group>"; };
 		3464DCEBB5E835F222A20E12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -31,6 +35,8 @@
 		81A4AAC7CE1BF1F6F66EA834 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		9279E5F800C7ACB899B4FA4F /* standings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = standings.json; sourceTree = "<group>"; };
 		9CCA593D44C3330BAA2D1BB6 /* matches.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = matches.json; sourceTree = "<group>"; };
+		9F038957E896810999D0FA8C /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		BE77A4F1D3F5DC7A948EA20D /* HeaderBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderBar.swift; sourceTree = "<group>"; };
 		CCD8E0E7ACDC1F57019BFBC2 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		F38CD710B02E069D8F72F881 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		F60A2F769C2E87B7C63CF906 /* players.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = players.json; sourceTree = "<group>"; };
@@ -69,11 +75,14 @@
 			children = (
 				047CC8DE224B6EC4A441C722 /* AnclasPortApp.swift */,
 				3464DCEBB5E835F222A20E12 /* Assets.xcassets */,
+				271B435B7A407225CE450DC8 /* ContentView.swift */,
 				81A4AAC7CE1BF1F6F66EA834 /* DataStore.swift */,
+				BE77A4F1D3F5DC7A948EA20D /* HeaderBar.swift */,
 				FF92157645B63B9B49772203 /* HomeView.swift */,
 				CCD8E0E7ACDC1F57019BFBC2 /* Models.swift */,
 				2853101ABF5A7E31C6B4C431 /* PlayersView.swift */,
 				F38CD710B02E069D8F72F881 /* ScheduleView.swift */,
+				9F038957E896810999D0FA8C /* SplashView.swift */,
 				64216B77292BA4D691813DE8 /* StandingsView.swift */,
 				5319AAC6FD7F2703FE50BF07 /* Theme.swift */,
 				1833CB025FDC6A166964F9B1 /* Resources */,
@@ -155,11 +164,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDB43DA03E7756B8DAB21A8F /* AnclasPortApp.swift in Sources */,
+				583D525BC294665D8A4FFFA9 /* ContentView.swift in Sources */,
 				71599EC924A3BD5DCF1A7FA1 /* DataStore.swift in Sources */,
+				5872B1BB99BC8305AD6B7D72 /* HeaderBar.swift in Sources */,
 				A66065A6D1E84F2AB537973F /* HomeView.swift in Sources */,
 				CDF91766AA98E68BFD201FEB /* Models.swift in Sources */,
 				5191773AA8562C67CED6D297 /* PlayersView.swift in Sources */,
 				43A3954B7AD475B4E9A24F66 /* ScheduleView.swift in Sources */,
+				0B91D4834EFED303919BE50D /* SplashView.swift in Sources */,
 				D29F00A8CDF3CE4C3185D9C9 /* StandingsView.swift in Sources */,
 				CFFFE58244231F6BC8C818AA /* Theme.swift in Sources */,
 			);
