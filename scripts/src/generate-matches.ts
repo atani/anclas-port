@@ -111,6 +111,35 @@ async function main(): Promise<void> {
   }
   if (reportCount > 0) logger.info(`マッチレポート: ${reportCount}件取得`);
 
+  // 4.5 確定試合の不変データを前回 matches.json から引き継ぐ
+  // CI 環境では anclas.jp が 403 を返しマッチレポート等を取得できないため、
+  // 一度取得済みの確定試合データ（得点・メンバー・レポート）を前回値で補完する
+  const prevPath = new URL("matches.json", DATA_DIR);
+  if (existsSync(prevPath)) {
+    try {
+      const prev = JSON.parse(readFileSync(prevPath, "utf-8")) as MatchesData;
+      const prevById = new Map(prev.matches.map((p) => [p.id, p]));
+      let restoredReports = 0;
+      for (const m of matches) {
+        if (m.status !== "finished") continue;
+        const p = prevById.get(m.id);
+        if (!p) continue;
+        if (m.goals.length === 0 && p.goals.length > 0) m.goals = p.goals;
+        if (m.starters.length === 0 && p.starters.length > 0) m.starters = p.starters;
+        if (m.subs.length === 0 && p.subs.length > 0) m.subs = p.subs;
+        if (m.substitutions.length === 0 && p.substitutions.length > 0) m.substitutions = p.substitutions;
+        if (!m.stats && p.stats) m.stats = p.stats;
+        if (!m.matchReport && p.matchReport) {
+          m.matchReport = p.matchReport;
+          restoredReports++;
+        }
+      }
+      if (restoredReports > 0) logger.info(`前回値から${restoredReports}件のマッチレポートを引き継ぎ`);
+    } catch {
+      // 非致命
+    }
+  }
+
   // 5. 次の試合のポスター画像を anclas.jp から取得
   // 該当する告知投稿が無ければ null のまま（古いポスターは出さない）
   const nextMatch = pickNextMatch(matches, Date.now());
