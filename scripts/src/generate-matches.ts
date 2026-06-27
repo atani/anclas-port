@@ -9,7 +9,7 @@ import {
 import { parseQLeagueMatches } from "./lib/qleague-parser.js";
 import { fetchLatestPodcast } from "./lib/spotify.js";
 import { calculateStandings } from "./lib/standings.js";
-import { findMatchPoster } from "./lib/wordpress-client.js";
+import { findMatchPoster, findMatchReport } from "./lib/wordpress-client.js";
 import { logger } from "./lib/logger.js";
 import { ANCLAS_TEAM_NAME, type Match, type MatchesData, type StandingsData } from "./lib/types.js";
 
@@ -94,7 +94,24 @@ async function main(): Promise<void> {
   }
   logger.info(`GoalNote game: ${anclasFinished.length}試合から${goalCount}ゴール取得`);
 
-  // 4. 次の試合のポスター画像を anclas.jp から取得
+  // 4. anclas.jp マッチレポート → 監督・選手コメントを補完
+  const allAnclasFinished = matches.filter((m) => m.isAnclas && m.status === "finished");
+  let reportCount = 0;
+  for (const m of allAnclasFinished) {
+    try {
+      const opponent = m.homeTeam === ANCLAS_TEAM_NAME ? m.awayTeam : m.homeTeam;
+      const report = await findMatchReport(opponent, m.date);
+      if (report) {
+        m.matchReport = report;
+        reportCount++;
+      }
+    } catch {
+      // 非致命
+    }
+  }
+  if (reportCount > 0) logger.info(`マッチレポート: ${reportCount}件取得`);
+
+  // 5. 次の試合のポスター画像を anclas.jp から取得
   // 該当する告知投稿が無ければ null のまま（古いポスターは出さない）
   const nextMatch = pickNextMatch(matches, Date.now());
   if (nextMatch) {

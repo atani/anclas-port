@@ -4,6 +4,8 @@
  * 選手名鑑（TOP選手紹介カテゴリ）の動的検出と _embed 取得を追加した。
  */
 
+import type { MatchReport } from "./types.js";
+
 const BASE_URL = "https://anclas.jp/wp-json/wp/v2";
 
 export interface WPMediaSize {
@@ -140,6 +142,98 @@ export async function findMatchPoster(opponentName: string, matchDate: string): 
       if (postMs < matchMs - thirtyDaysMs || postMs > matchMs) continue;
       const media = p._embedded?.["wp:featuredmedia"]?.[0];
       if (media?.source_url) return media.source_url;
+    }
+  } catch {
+    // WP API 失敗は無視
+  }
+  return null;
+}
+
+/** HTMLをプレーンテキストに変換 */
+function htmlToPlainText(html: string): string {
+  return html
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/p>/gi, "\n\n")
+    .replace(/<\/?(div|li|tr|h[1-6])[^>]*>/gi, "\n")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+/** マッチレポート本文からコメントを抽出 */
+function parseMatchReportContent(html: string, postUrl: string): MatchReport {
+  const text = htmlToPlainText(html);
+
+  // 「マッチレポート」以降のテキストを取得
+  const reportStart = text.search(/マッチレポート\s*\n/);
+  const reportText = reportStart >= 0 ? text.slice(reportStart) : text;
+
+  // コメントセクションを分割: 「監督 XXX コメント」「#N選手名 コメント」
+  const commentPattern = /(?:監督\s+.+?\s*コメント|#\d+.+?\s*コメント)/g;
+  const commentHeaders: { index: number; header: string }[] = [];
+  let m: RegExpExecArray | null;
+  while ((m = commentPattern.exec(reportText)) !== null) {
+    commentHeaders.push({ index: m.index, header: m[0] });
+  }
+
+  // レポート本文: マッチレポート見出しから最初のコメントまで
+  const summaryEnd = commentHeaders.length > 0 ? commentHeaders[0]!.index : reportText.length;
+  const summaryRaw = reportText.slice(0, summaryEnd);
+  const summary = summaryRaw
+    .replace(/^マッチレポート\s*\n/, "")
+    .trim();
+
+  // 監督コメント
+  let coachComment: MatchReport["coachComment"] = null;
+  const playerComments: MatchReport["playerComments"] = [];
+
+  for (let i = 0; i < commentHeaders.length; i++) {
+    const header = commentHeaders[i]!;
+    const start = header.index + header.header.length;
+    const end = i + 1 < commentHeaders.length ? commentHeaders[i + 1]!.index : reportText.length;
+    const body = reportText.slice(start, end).trim();
+
+    const coachMatch = header.header.match(/監督\s+(.+?)\s*コメント/);
+    if (coachMatch) {
+      coachComment = { name: coachMatch[1]!.trim(), comment: body };
+      continue;
+    }
+
+    const playerMatch = header.header.match(/#(\d+)\s*(.+?)\s*コメント/);
+    if (playerMatch) {
+      playerComments.push({
+        name: playerMatch[2]!.trim(),
+        number: Number(playerMatch[1]),
+        comment: body,
+      });
+    }
+  }
+
+  return { summary, coachComment, playerComments, sourceUrl: postUrl };
+}
+
+/**
+ * マッチレポート投稿を探してコメントを抽出する。
+ * 投稿日が試合日の前後7日以内の「マッチレポート」投稿を対象にする。
+ */
+export async function findMatchReport(opponentName: string, matchDate: string): Promise<MatchReport | null> {
+  try {
+    const posts = await getPosts({ search: "マッチレポート " + opponentName.slice(0, 6), perPage: 5, order: "desc" });
+    const matchMs = new Date(matchDate).getTime();
+    const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
+
+    for (const p of posts) {
+      const title = p.title.rendered;
+      if (!/マッチレポート/.test(title)) continue;
+      const postMs = new Date(p.date).getTime();
+      if (Math.abs(postMs - matchMs) > sevenDaysMs) continue;
+      return parseMatchReportContent(p.content.rendered, p.link);
     }
   } catch {
     // WP API 失敗は無視
