@@ -11,10 +11,16 @@ struct MatchesData: Codable {
 }
 
 struct AnclasDerived: Codable {
-    /// 次の未消化アンクラス試合（最も近い未来）
     let nextMatch: Match?
-    /// 直近の確定アンクラス試合（最も新しい過去）
     let latestResult: Match?
+    let latestPodcast: PodcastEpisode?
+}
+
+struct PodcastEpisode: Codable, Hashable {
+    let title: String
+    let thumbnailUrl: String
+    let showUrl: String
+    let embedUrl: String
 }
 
 struct Score: Codable, Hashable {

@@ -18,6 +18,8 @@ targets:
     platform: iOS
     sources:
       - AnclasPort
+    dependencies:
+      - target: AnclasPortWidgetExtension
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.atani.AnclasPort
@@ -28,3 +30,18 @@ targets:
         INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+
+  AnclasPortWidgetExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - AnclasPortWidget
+    info:
+      path: AnclasPortWidget/Info.plist
+      properties:
+        CFBundleDisplayName: アンクラスPort Widget
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.atani.AnclasPort.Widget
