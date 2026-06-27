@@ -47,10 +47,6 @@ struct HomeView: View {
 
                     VStack(spacing: 20) {
                         if let next = store.data?.anclas.nextMatch {
-                            // ポスターがあれば大きく表示
-                            if let posterUrl = next.posterUrl, let url = URL(string: posterUrl) {
-                                PosterCard(url: url)
-                            }
                             SectionLabel("NEXT MATCH")
                             NextMatchCard(match: next)
                         } else if store.data != nil {
@@ -67,7 +63,7 @@ struct HomeView: View {
                         }
 
                         if let podcast = store.data?.anclas.latestPodcast {
-                            SectionLabel("PODCAST")
+                            SectionLabel(podcast.isNew ? "🎙 NEW EPISODE" : "PODCAST")
                             PodcastCard(episode: podcast)
                         }
 
@@ -131,35 +127,56 @@ private struct NextMatchCard: View {
     let match: Match
 
     var body: some View {
-        VStack(spacing: 16) {
-            if !match.roundLabel.isEmpty {
-                Text("\(match.competition) \(match.roundLabel)")
-                    .font(.headline.weight(.bold))
-                    .foregroundStyle(.white)
-                    .padding(.horizontal, 14).padding(.vertical, 6)
-                    .background(Theme.orange, in: Capsule())
+        VStack(spacing: 0) {
+            // ポスターがあればカード上部に表示
+            if let posterUrl = match.posterUrl, let url = URL(string: posterUrl) {
+                AsyncImage(url: url) { phase in
+                    switch phase {
+                    case .success(let image):
+                        image.resizable().aspectRatio(contentMode: .fit)
+                    default:
+                        EmptyView()
+                    }
+                }
+                .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                .padding(.horizontal, 16)
+                .padding(.top, 16)
             }
 
-            HStack(spacing: 12) {
-                TeamName(name: match.homeTeam, isAnclas: match.anclasIsHome)
-                Text("VS").font(.title3.weight(.heavy)).foregroundStyle(Theme.orange)
-                TeamName(name: match.awayTeam, isAnclas: !match.anclasIsHome)
-            }
+            VStack(spacing: 16) {
+                if !match.roundLabel.isEmpty {
+                    Text("\(match.competition) \(match.roundLabel)")
+                        .font(.headline.weight(.bold))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 14).padding(.vertical, 6)
+                        .background(Theme.orange, in: Capsule())
+                }
 
-            if let d = match.startDate {
-                Text(d.formattedJa() + " KO")
-                    .font(.title3.weight(.semibold))
-                    .monospacedDigit()
-                CountdownBadge(days: d.daysFromNow())
-            }
+                HStack(spacing: 12) {
+                    TeamName(name: match.homeTeam, isAnclas: match.anclasIsHome)
+                    Text("VS").font(.title3.weight(.heavy)).foregroundStyle(Theme.orange)
+                    TeamName(name: match.awayTeam, isAnclas: !match.anclasIsHome)
+                }
 
-            if let venue = match.venue {
-                Label(venue, systemImage: "mappin.and.ellipse")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                if let d = match.startDate {
+                    Text(d.formattedJa() + " KO")
+                        .font(.title3.weight(.semibold))
+                        .monospacedDigit()
+                    CountdownBadge(days: d.daysFromNow())
+                }
+
+                if let venue = match.venue {
+                    Label(venue, systemImage: "mappin.and.ellipse")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
             }
+            .padding(20)
         }
-        .card()
+        .frame(maxWidth: .infinity)
+        .background(Color(.secondarySystemGroupedBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .padding(.horizontal, 16)
     }
 }
 
@@ -230,52 +247,67 @@ private struct PodcastCard: View {
     var body: some View {
         if let url = URL(string: episode.showUrl) {
             Link(destination: url) {
-                HStack(spacing: 14) {
-                    AsyncImage(url: URL(string: episode.thumbnailUrl)) { phase in
-                        switch phase {
-                        case .success(let image):
-                            image.resizable().aspectRatio(contentMode: .fill)
-                        default:
-                            Color(.tertiarySystemFill)
+                VStack(spacing: 0) {
+                    if episode.isNew {
+                        // NEW: サムネイルを大きく表示
+                        AsyncImage(url: URL(string: episode.thumbnailUrl)) { phase in
+                            switch phase {
+                            case .success(let image):
+                                image.resizable().aspectRatio(contentMode: .fit)
+                            default:
+                                Color(.tertiarySystemFill).frame(height: 100)
+                            }
                         }
+                        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                        .padding(.horizontal, 16).padding(.top, 16)
                     }
-                    .frame(width: 60, height: 60)
-                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
 
-                    VStack(alignment: .leading, spacing: 4) {
-                        Label("アンクラスのロッカールーム", systemImage: "headphones")
-                            .font(.caption2.weight(.semibold))
-                            .foregroundStyle(Theme.orange)
-                        Text(episode.title)
-                            .font(.subheadline.weight(.medium))
-                            .lineLimit(2)
-                            .multilineTextAlignment(.leading)
-                        Text("Spotify で聴く →")
-                            .font(.caption2)
-                            .foregroundStyle(.secondary)
+                    HStack(spacing: 14) {
+                        if !episode.isNew {
+                            AsyncImage(url: URL(string: episode.thumbnailUrl)) { phase in
+                                switch phase {
+                                case .success(let image):
+                                    image.resizable().aspectRatio(contentMode: .fill)
+                                default:
+                                    Color(.tertiarySystemFill)
+                                }
+                            }
+                            .frame(width: 60, height: 60)
+                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                        }
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            HStack(spacing: 6) {
+                                Label("アンクラスのロッカールーム", systemImage: "headphones")
+                                    .font(.caption2.weight(.semibold))
+                                    .foregroundStyle(Theme.orange)
+                                if episode.isNew {
+                                    Text("NEW")
+                                        .font(.caption2.weight(.heavy))
+                                        .foregroundStyle(.white)
+                                        .padding(.horizontal, 6).padding(.vertical, 2)
+                                        .background(Theme.orange, in: Capsule())
+                                }
+                            }
+                            Text(episode.title)
+                                .font(.subheadline.weight(.medium))
+                                .lineLimit(3)
+                                .multilineTextAlignment(.leading)
+                            Text("Spotify で聴く →")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                        }
+                        Spacer()
                     }
-                    Spacer()
+                    .padding(16)
                 }
-                .card()
+                .frame(maxWidth: .infinity)
+                .background(Color(.secondarySystemGroupedBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .padding(.horizontal, 16)
             }
             .buttonStyle(.plain)
         }
-    }
-}
-
-private struct PosterCard: View {
-    let url: URL
-    var body: some View {
-        AsyncImage(url: url) { phase in
-            switch phase {
-            case .success(let image):
-                image.resizable().aspectRatio(contentMode: .fit)
-                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-            default:
-                EmptyView()
-            }
-        }
-        .padding(.horizontal, 16)
     }
 }
 

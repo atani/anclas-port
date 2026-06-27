@@ -21,6 +21,13 @@ struct PodcastEpisode: Codable, Hashable {
     let thumbnailUrl: String
     let showUrl: String
     let embedUrl: String
+    let publishedAt: String?
+
+    var isNew: Bool {
+        guard let pubDate = publishedAt else { return false }
+        guard let date = ISO8601DateFormatter().date(from: pubDate + "T00:00:00+09:00") else { return false }
+        return date.timeIntervalSinceNow > -7 * 24 * 60 * 60
+    }
 }
 
 struct Score: Codable, Hashable {
@@ -43,8 +50,27 @@ struct Match: Codable, Identifiable, Hashable {
     let sourceUrl: String
     let venue: String?
     let goals: [GoalEvent]?
+    let starters: [MatchPlayer]?
+    let subs: [MatchPlayer]?
+    let stats: MatchStats?
     let goalnoteUrl: String?
     let posterUrl: String?
+}
+
+struct MatchPlayer: Codable, Hashable, Identifiable {
+    let number: Int
+    let position: String
+    let name: String
+    let team: String
+
+    var id: String { "\(team)-\(number)-\(name)" }
+}
+
+struct MatchStats: Codable, Hashable {
+    let attendance: String?
+    let weather: String?
+    let temperature: String?
+    let pitch: String?
 }
 
 struct GoalEvent: Codable, Hashable, Identifiable {

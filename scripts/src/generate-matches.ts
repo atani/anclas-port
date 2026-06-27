@@ -83,6 +83,9 @@ async function main(): Promise<void> {
       const gameHtml = await fetchGoalNoteGame(m.goalnoteUrl!);
       const gameData = parseGoalNoteGame(gameHtml, m.homeTeam);
       m.goals = gameData.goals;
+      m.starters = gameData.starters;
+      m.subs = gameData.subs;
+      m.stats = gameData.stats;
       goalCount += gameData.goals.length;
     } catch (e) {
       logger.warn(`GoalNote game 取得失敗 ${m.goalnoteUrl}: ${e}`);

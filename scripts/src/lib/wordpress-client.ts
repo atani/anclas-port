@@ -121,29 +121,25 @@ export async function getPlayerPosts(categoryId: number): Promise<WPPost[]> {
  * 「開催情報」投稿から試合告知ポスター画像URLを取得する。
  * タイトルに対戦相手名を含む最新投稿の featured_media を返す。
  */
+/**
+ * 次節の告知ポスターを探す。
+ * 投稿日が試合日の30日前以内の「開催情報」投稿のみを対象にする。
+ * 古い試合の告知ポスターを誤って返さないための日付ガード。
+ */
 export async function findMatchPoster(opponentName: string, matchDate: string): Promise<string | null> {
   try {
     const posts = await getPosts({ search: opponentName, perPage: 10, embed: true, order: "desc" });
     const shortName = opponentName.slice(0, 4);
-    // 試合日の月を含む告知投稿を優先
-    const matchMonth = matchDate.slice(5, 7).replace(/^0/, "");
+    const matchMs = new Date(matchDate).getTime();
+    const thirtyDaysMs = 30 * 24 * 60 * 60 * 1000;
+
     for (const p of posts) {
       const title = p.title.rendered;
-      if (/開催情報|試合情報|GAME/.test(title) && title.includes(shortName)) {
-        const media = p._embedded?.["wp:featuredmedia"]?.[0];
-        if (!media?.source_url) continue;
-        // ファイル名やタイトルに試合月の日付が含まれていれば最優先
-        const url = media.source_url;
-        if (url.includes(matchDate.slice(5, 7) + matchDate.slice(8, 10)) || title.includes(`${matchMonth}.`)) {
-          return url;
-        }
-      }
-    }
-    // 月一致が無くても、最新の告知系投稿のポスターを返す
-    for (const p of posts) {
-      if (/開催情報|試合情報/.test(p.title.rendered) && p.title.rendered.includes(shortName)) {
-        return p._embedded?.["wp:featuredmedia"]?.[0]?.source_url ?? null;
-      }
+      if (!/開催情報|試合情報/.test(title) || !title.includes(shortName)) continue;
+      const postMs = new Date(p.date).getTime();
+      if (postMs < matchMs - thirtyDaysMs || postMs > matchMs) continue;
+      const media = p._embedded?.["wp:featuredmedia"]?.[0];
+      if (media?.source_url) return media.source_url;
     }
   } catch {
     // WP API 失敗は無視

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T21:30:40.300Z",
+  "generatedAt": "2026-06-27T21:41:30.424Z",
   "season": "2026",
   "anclas": {
     "nextMatch": {
@@ -17,6 +17,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-29/",
       "venue": "南島原多目的運動広場",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": "https://anclas.jp/wp-content/uploads/2026/04/0503kunimi-insta.webp"
     },
@@ -46,14 +49,223 @@
           "assist": "13右S"
         }
       ],
+      "starters": [
+        {
+          "number": 27,
+          "position": "GK",
+          "name": "鈴木 寛那",
+          "team": "home"
+        },
+        {
+          "number": 2,
+          "position": "DF",
+          "name": "大森 日花里",
+          "team": "home"
+        },
+        {
+          "number": 25,
+          "position": "DF",
+          "name": "川本 心埜",
+          "team": "home"
+        },
+        {
+          "number": 32,
+          "position": "DF",
+          "name": "野口 佳音",
+          "team": "home"
+        },
+        {
+          "number": 28,
+          "position": "MF",
+          "name": "中尾 奈摘",
+          "team": "home"
+        },
+        {
+          "number": 40,
+          "position": "MF",
+          "name": "税田 琳花",
+          "team": "home"
+        },
+        {
+          "number": 44,
+          "position": "MF",
+          "name": "田中 娃李",
+          "team": "home"
+        },
+        {
+          "number": 13,
+          "position": "FW",
+          "name": "南平 夏里奈",
+          "team": "home"
+        },
+        {
+          "number": 29,
+          "position": "FW",
+          "name": "横山 真鈴",
+          "team": "home"
+        },
+        {
+          "number": 31,
+          "position": "FW",
+          "name": "上永 ひかり",
+          "team": "home"
+        },
+        {
+          "number": 36,
+          "position": "FW",
+          "name": "遠山 瑠菜",
+          "team": "home"
+        },
+        {
+          "number": 17,
+          "position": "GK",
+          "name": "釜坂 慧",
+          "team": "away"
+        },
+        {
+          "number": 3,
+          "position": "DF",
+          "name": "澁澤 光",
+          "team": "away"
+        },
+        {
+          "number": 10,
+          "position": "DF",
+          "name": "平坂 咲希",
+          "team": "away"
+        },
+        {
+          "number": 15,
+          "position": "MF",
+          "name": "田中 花奈",
+          "team": "away"
+        },
+        {
+          "number": 16,
+          "position": "MF",
+          "name": "端山 新",
+          "team": "away"
+        },
+        {
+          "number": 20,
+          "position": "MF",
+          "name": "田川 葵",
+          "team": "away"
+        },
+        {
+          "number": 22,
+          "position": "MF",
+          "name": "野田 夏未",
+          "team": "away"
+        },
+        {
+          "number": 8,
+          "position": "FW",
+          "name": "野沢 真由",
+          "team": "away"
+        },
+        {
+          "number": 11,
+          "position": "FW",
+          "name": "嘉数 クレア姫麗",
+          "team": "away"
+        },
+        {
+          "number": 13,
+          "position": "FW",
+          "name": "原 日樺",
+          "team": "away"
+        },
+        {
+          "number": 18,
+          "position": "FW",
+          "name": "玉城 薪瀬",
+          "team": "away"
+        }
+      ],
+      "subs": [
+        {
+          "number": 17,
+          "position": "DF",
+          "name": "堀田 花凛",
+          "team": "home"
+        },
+        {
+          "number": 5,
+          "position": "MF",
+          "name": "宮永 美海",
+          "team": "home"
+        },
+        {
+          "number": 12,
+          "position": "MF",
+          "name": "岡野 夏稀",
+          "team": "home"
+        },
+        {
+          "number": 34,
+          "position": "MF",
+          "name": "出口 桜子",
+          "team": "home"
+        },
+        {
+          "number": 37,
+          "position": "MF",
+          "name": "HE XIN-ROU",
+          "team": "home"
+        },
+        {
+          "number": 38,
+          "position": "MF",
+          "name": "猿楽 初音",
+          "team": "home"
+        },
+        {
+          "number": 21,
+          "position": "GK",
+          "name": "進藤 真奈花",
+          "team": "home"
+        },
+        {
+          "number": 6,
+          "position": "DF",
+          "name": "森 和奏",
+          "team": "home"
+        },
+        {
+          "number": 23,
+          "position": "DF",
+          "name": "北条 あゆみ",
+          "team": "home"
+        },
+        {
+          "number": 25,
+          "position": "MF",
+          "name": "伊藤 なずな",
+          "team": "home"
+        },
+        {
+          "number": 9,
+          "position": "FW",
+          "name": "田邉 いちご",
+          "team": "home"
+        }
+      ],
+      "stats": {
+        "attendance": "217人",
+        "weather": "雨",
+        "temperature": "22℃",
+        "pitch": "良芝、水含み"
+      },
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341591",
       "posterUrl": null
     },
     "latestPodcast": {
       "title": "#13【インタビュー：田中花奈】またサッカーを頑張りたいと思えた。花からつながり広がる元気",
-      "thumbnailUrl": "https://image-cdn-fa.spotifycdn.com/image/ab67656300005f1f6f0f6ab1742b8da81b49e9d6",
+      "thumbnailUrl": "https://image-cdn-ak.spotifycdn.com/image/ab67656300005f1f6f0f6ab1742b8da81b49e9d6",
       "showUrl": "https://open.spotify.com/show/3RnkWRyIMYe9IdtMmK7KFK",
-      "embedUrl": "https://open.spotify.com/embed/show/3RnkWRyIMYe9IdtMmK7KFK?utm_source=oembed"
+      "embedUrl": "https://open.spotify.com/embed/show/3RnkWRyIMYe9IdtMmK7KFK?utm_source=oembed",
+      "publishedAt": "2026-06-25"
     }
   },
   "matches": [
@@ -75,6 +287,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-7/",
       "venue": "東風平運動公園サッカー場",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341564",
       "posterUrl": null
     },
@@ -125,6 +340,208 @@
           "assist": "5クリア→12シュート"
         }
       ],
+      "starters": [
+        {
+          "number": 17,
+          "position": "GK",
+          "name": "釜坂 慧",
+          "team": "home"
+        },
+        {
+          "number": 3,
+          "position": "DF",
+          "name": "澁澤 光",
+          "team": "home"
+        },
+        {
+          "number": 5,
+          "position": "DF",
+          "name": "大河内 友貴",
+          "team": "home"
+        },
+        {
+          "number": 6,
+          "position": "DF",
+          "name": "森 和奏",
+          "team": "home"
+        },
+        {
+          "number": 10,
+          "position": "DF",
+          "name": "平坂 咲希",
+          "team": "home"
+        },
+        {
+          "number": 15,
+          "position": "MF",
+          "name": "田中 花奈",
+          "team": "home"
+        },
+        {
+          "number": 16,
+          "position": "MF",
+          "name": "端山 新",
+          "team": "home"
+        },
+        {
+          "number": 22,
+          "position": "MF",
+          "name": "野田 夏未",
+          "team": "home"
+        },
+        {
+          "number": 11,
+          "position": "FW",
+          "name": "嘉数 クレア姫麗",
+          "team": "home"
+        },
+        {
+          "number": 13,
+          "position": "FW",
+          "name": "原 日樺",
+          "team": "home"
+        },
+        {
+          "number": 18,
+          "position": "FW",
+          "name": "玉城 薪瀬",
+          "team": "home"
+        },
+        {
+          "number": 27,
+          "position": "GK",
+          "name": "鈴木 寛那",
+          "team": "away"
+        },
+        {
+          "number": 2,
+          "position": "DF",
+          "name": "大森 日花里",
+          "team": "away"
+        },
+        {
+          "number": 32,
+          "position": "DF",
+          "name": "野口 佳音",
+          "team": "away"
+        },
+        {
+          "number": 28,
+          "position": "MF",
+          "name": "中尾 奈摘",
+          "team": "away"
+        },
+        {
+          "number": 35,
+          "position": "MF",
+          "name": "CHAN DAKOTA WEBSTER",
+          "team": "away"
+        },
+        {
+          "number": 38,
+          "position": "MF",
+          "name": "猿楽 初音",
+          "team": "away"
+        },
+        {
+          "number": 40,
+          "position": "MF",
+          "name": "税田 琳花",
+          "team": "away"
+        },
+        {
+          "number": 44,
+          "position": "MF",
+          "name": "田中 娃李",
+          "team": "away"
+        },
+        {
+          "number": 29,
+          "position": "FW",
+          "name": "横山 真鈴",
+          "team": "away"
+        },
+        {
+          "number": 31,
+          "position": "FW",
+          "name": "上永 ひかり",
+          "team": "away"
+        },
+        {
+          "number": 36,
+          "position": "FW",
+          "name": "遠山 瑠菜",
+          "team": "away"
+        }
+      ],
+      "subs": [
+        {
+          "number": 21,
+          "position": "GK",
+          "name": "進藤 真奈花",
+          "team": "home"
+        },
+        {
+          "number": 24,
+          "position": "MF",
+          "name": "馬場 奈都子",
+          "team": "home"
+        },
+        {
+          "number": 25,
+          "position": "MF",
+          "name": "伊藤 なずな",
+          "team": "home"
+        },
+        {
+          "number": 26,
+          "position": "MF",
+          "name": "立石 琴子",
+          "team": "home"
+        },
+        {
+          "number": 27,
+          "position": "MF",
+          "name": "尾中 明莉",
+          "team": "home"
+        },
+        {
+          "number": 9,
+          "position": "FW",
+          "name": "田邉 いちご",
+          "team": "home"
+        },
+        {
+          "number": 25,
+          "position": "DF",
+          "name": "川本 心埜",
+          "team": "home"
+        },
+        {
+          "number": 12,
+          "position": "MF",
+          "name": "岡野 夏稀",
+          "team": "home"
+        },
+        {
+          "number": 34,
+          "position": "MF",
+          "name": "出口 桜子",
+          "team": "home"
+        },
+        {
+          "number": 13,
+          "position": "FW",
+          "name": "南平 夏里奈",
+          "team": "home"
+        }
+      ],
+      "stats": {
+        "attendance": "656人",
+        "weather": "曇",
+        "temperature": "23℃",
+        "pitch": "不良、水含み"
+      },
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341563",
       "posterUrl": null
     },
@@ -146,6 +563,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-74/",
       "venue": "東海大学付属福岡高校人工芝グランド",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341566",
       "posterUrl": null
     },
@@ -167,6 +587,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-9-2/",
       "venue": "東海大学付属福岡高校人工芝グランド",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341568",
       "posterUrl": null
     },
@@ -188,6 +611,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-39/",
       "venue": "百花台公園サッカー場",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341585",
       "posterUrl": null
     },
@@ -209,6 +635,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-16/",
       "venue": "新富町富田浜公園",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341584",
       "posterUrl": null
     },
@@ -230,6 +659,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-37/",
       "venue": "島原市営平成町多目的広場",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341569",
       "posterUrl": null
     },
@@ -251,6 +683,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-58/",
       "venue": "東風平運動公園サッカー場",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341571",
       "posterUrl": null
     },
@@ -272,6 +707,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-5/",
       "venue": "宮崎県串間陸上競技場",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341572",
       "posterUrl": null
     },
@@ -315,6 +753,208 @@
           "assist": "16PK"
         }
       ],
+      "starters": [
+        {
+          "number": 17,
+          "position": "GK",
+          "name": "釜坂 慧",
+          "team": "home"
+        },
+        {
+          "number": 3,
+          "position": "DF",
+          "name": "澁澤 光",
+          "team": "home"
+        },
+        {
+          "number": 5,
+          "position": "DF",
+          "name": "大河内 友貴",
+          "team": "home"
+        },
+        {
+          "number": 6,
+          "position": "DF",
+          "name": "森 和奏",
+          "team": "home"
+        },
+        {
+          "number": 10,
+          "position": "DF",
+          "name": "平坂 咲希",
+          "team": "home"
+        },
+        {
+          "number": 15,
+          "position": "MF",
+          "name": "田中 花奈",
+          "team": "home"
+        },
+        {
+          "number": 16,
+          "position": "MF",
+          "name": "端山 新",
+          "team": "home"
+        },
+        {
+          "number": 22,
+          "position": "MF",
+          "name": "野田 夏未",
+          "team": "home"
+        },
+        {
+          "number": 11,
+          "position": "FW",
+          "name": "嘉数 クレア姫麗",
+          "team": "home"
+        },
+        {
+          "number": 13,
+          "position": "FW",
+          "name": "原 日樺",
+          "team": "home"
+        },
+        {
+          "number": 18,
+          "position": "FW",
+          "name": "玉城 薪瀬",
+          "team": "home"
+        },
+        {
+          "number": 1,
+          "position": "GK",
+          "name": "田上 未希",
+          "team": "away"
+        },
+        {
+          "number": 2,
+          "position": "DF",
+          "name": "布田 雫",
+          "team": "away"
+        },
+        {
+          "number": 3,
+          "position": "DF",
+          "name": "平 望優",
+          "team": "away"
+        },
+        {
+          "number": 6,
+          "position": "DF",
+          "name": "岡﨑 亜美伽",
+          "team": "away"
+        },
+        {
+          "number": 14,
+          "position": "DF",
+          "name": "兼俵 夏葉",
+          "team": "away"
+        },
+        {
+          "number": 4,
+          "position": "MF",
+          "name": "宇土 來南",
+          "team": "away"
+        },
+        {
+          "number": 7,
+          "position": "MF",
+          "name": "鴨川 雛乃",
+          "team": "away"
+        },
+        {
+          "number": 8,
+          "position": "MF",
+          "name": "宮園 華",
+          "team": "away"
+        },
+        {
+          "number": 15,
+          "position": "MF",
+          "name": "須田 麻鈴",
+          "team": "away"
+        },
+        {
+          "number": 18,
+          "position": "MF",
+          "name": "桜井 みゆき",
+          "team": "away"
+        },
+        {
+          "number": 11,
+          "position": "FW",
+          "name": "菊地 彩花",
+          "team": "away"
+        }
+      ],
+      "subs": [
+        {
+          "number": 21,
+          "position": "GK",
+          "name": "進藤 真奈花",
+          "team": "home"
+        },
+        {
+          "number": 23,
+          "position": "DF",
+          "name": "北条 あゆみ",
+          "team": "home"
+        },
+        {
+          "number": 14,
+          "position": "MF",
+          "name": "宮脇 ゆりあ",
+          "team": "home"
+        },
+        {
+          "number": 20,
+          "position": "MF",
+          "name": "田川 葵",
+          "team": "home"
+        },
+        {
+          "number": 8,
+          "position": "FW",
+          "name": "野沢 真由",
+          "team": "home"
+        },
+        {
+          "number": 9,
+          "position": "FW",
+          "name": "田邉 いちご",
+          "team": "home"
+        },
+        {
+          "number": 5,
+          "position": "DF",
+          "name": "中村 朱里",
+          "team": "home"
+        },
+        {
+          "number": 9,
+          "position": "MF",
+          "name": "山下 夢生",
+          "team": "home"
+        },
+        {
+          "number": 10,
+          "position": "FW",
+          "name": "中村 怜愛",
+          "team": "home"
+        },
+        {
+          "number": 19,
+          "position": "FW",
+          "name": "牛嶋 空来",
+          "team": "home"
+        }
+      ],
+      "stats": {
+        "attendance": "214人",
+        "weather": "雨",
+        "temperature": "17℃",
+        "pitch": "不良、泥沼"
+      },
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341570",
       "posterUrl": null
     },
@@ -336,6 +976,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-11/",
       "venue": null,
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -357,6 +1000,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-6/",
       "venue": "新富町富田浜公園",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341574",
       "posterUrl": null
     },
@@ -378,6 +1024,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-25/",
       "venue": "いちご宮崎新富サッカー場",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341578",
       "posterUrl": null
     },
@@ -399,6 +1048,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-22/",
       "venue": "国見総合運動公園(遊学の館)",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341575",
       "posterUrl": null
     },
@@ -420,6 +1072,244 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-34/",
       "venue": "東海大学付属福岡高校人工芝グランド",
       "goals": [],
+      "starters": [
+        {
+          "number": 1,
+          "position": "GK",
+          "name": "須田 弥美樹",
+          "team": "home"
+        },
+        {
+          "number": 17,
+          "position": "GK",
+          "name": "松井 美空",
+          "team": "home"
+        },
+        {
+          "number": 3,
+          "position": "DF",
+          "name": "重信 捺",
+          "team": "home"
+        },
+        {
+          "number": 4,
+          "position": "DF",
+          "name": "山岡 可歩",
+          "team": "home"
+        },
+        {
+          "number": 5,
+          "position": "MF",
+          "name": "岡崎 愛未",
+          "team": "home"
+        },
+        {
+          "number": 6,
+          "position": "MF",
+          "name": "伊藤 翼",
+          "team": "home"
+        },
+        {
+          "number": 8,
+          "position": "MF",
+          "name": "内田 衣怜",
+          "team": "home"
+        },
+        {
+          "number": 9,
+          "position": "MF",
+          "name": "藤本 萌空",
+          "team": "home"
+        },
+        {
+          "number": 10,
+          "position": "MF",
+          "name": "宮口 莉乃",
+          "team": "home"
+        },
+        {
+          "number": 13,
+          "position": "MF",
+          "name": "福本 來実花",
+          "team": "home"
+        },
+        {
+          "number": 27,
+          "position": "FW",
+          "name": "木村 葵",
+          "team": "home"
+        },
+        {
+          "number": 17,
+          "position": "GK",
+          "name": "釜坂 慧",
+          "team": "away"
+        },
+        {
+          "number": 3,
+          "position": "DF",
+          "name": "澁澤 光",
+          "team": "away"
+        },
+        {
+          "number": 5,
+          "position": "DF",
+          "name": "大河内 友貴",
+          "team": "away"
+        },
+        {
+          "number": 6,
+          "position": "DF",
+          "name": "森 和奏",
+          "team": "away"
+        },
+        {
+          "number": 10,
+          "position": "DF",
+          "name": "平坂 咲希",
+          "team": "away"
+        },
+        {
+          "number": 15,
+          "position": "MF",
+          "name": "田中 花奈",
+          "team": "away"
+        },
+        {
+          "number": 16,
+          "position": "MF",
+          "name": "端山 新",
+          "team": "away"
+        },
+        {
+          "number": 22,
+          "position": "MF",
+          "name": "野田 夏未",
+          "team": "away"
+        },
+        {
+          "number": 11,
+          "position": "FW",
+          "name": "嘉数 クレア姫麗",
+          "team": "away"
+        },
+        {
+          "number": 13,
+          "position": "FW",
+          "name": "原 日樺",
+          "team": "away"
+        },
+        {
+          "number": 18,
+          "position": "FW",
+          "name": "玉城 薪瀬",
+          "team": "away"
+        },
+        {
+          "number": 14,
+          "position": "MF",
+          "name": "宮脇 ゆりあ",
+          "team": "away"
+        },
+        {
+          "number": 20,
+          "position": "MF",
+          "name": "田川 葵",
+          "team": "away"
+        },
+        {
+          "number": 25,
+          "position": "MF",
+          "name": "伊藤 なずな",
+          "team": "away"
+        },
+        {
+          "number": 8,
+          "position": "FW",
+          "name": "野沢 真由",
+          "team": "away"
+        },
+        {
+          "number": 9,
+          "position": "FW",
+          "name": "田邉 いちご",
+          "team": "away"
+        }
+      ],
+      "subs": [
+        {
+          "number": 23,
+          "position": "GK",
+          "name": "梶原 琉愛",
+          "team": "home"
+        },
+        {
+          "number": 19,
+          "position": "DF",
+          "name": "久本 紗菜",
+          "team": "home"
+        },
+        {
+          "number": 26,
+          "position": "DF",
+          "name": "中村 美心",
+          "team": "home"
+        },
+        {
+          "number": 30,
+          "position": "MF",
+          "name": "松瀬 きりく",
+          "team": "home"
+        },
+        {
+          "number": 11,
+          "position": "FW",
+          "name": "氷室 かんな",
+          "team": "home"
+        },
+        {
+          "number": 12,
+          "position": "FW",
+          "name": "森山 絆杏",
+          "team": "home"
+        },
+        {
+          "number": 14,
+          "position": "FW",
+          "name": "池田 咲良夢",
+          "team": "home"
+        },
+        {
+          "number": 15,
+          "position": "FW",
+          "name": "森川 楓花",
+          "team": "home"
+        },
+        {
+          "number": 18,
+          "position": "FW",
+          "name": "安村 海咲",
+          "team": "home"
+        },
+        {
+          "number": 21,
+          "position": "GK",
+          "name": "進藤 真奈花",
+          "team": "home"
+        },
+        {
+          "number": 23,
+          "position": "DF",
+          "name": "北条 あゆみ",
+          "team": "home"
+        }
+      ],
+      "stats": {
+        "attendance": "100人",
+        "weather": "晴れ",
+        "temperature": "33℃",
+        "pitch": "人工芝、乾燥"
+      },
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341576",
       "posterUrl": null
     },
@@ -441,6 +1331,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-7-3/",
       "venue": null,
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -462,6 +1355,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-19/",
       "venue": "西原町民陸上競技場",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341580",
       "posterUrl": null
     },
@@ -483,6 +1379,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-44/",
       "venue": "南島原多目的運動広場",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341582",
       "posterUrl": null
     },
@@ -519,6 +1418,244 @@
           "assist": "11PK"
         }
       ],
+      "starters": [
+        {
+          "number": 17,
+          "position": "GK",
+          "name": "釜坂 慧",
+          "team": "home"
+        },
+        {
+          "number": 3,
+          "position": "DF",
+          "name": "澁澤 光",
+          "team": "home"
+        },
+        {
+          "number": 6,
+          "position": "DF",
+          "name": "森 和奏",
+          "team": "home"
+        },
+        {
+          "number": 10,
+          "position": "DF",
+          "name": "平坂 咲希",
+          "team": "home"
+        },
+        {
+          "number": 15,
+          "position": "MF",
+          "name": "田中 花奈",
+          "team": "home"
+        },
+        {
+          "number": 16,
+          "position": "MF",
+          "name": "端山 新",
+          "team": "home"
+        },
+        {
+          "number": 22,
+          "position": "MF",
+          "name": "野田 夏未",
+          "team": "home"
+        },
+        {
+          "number": 8,
+          "position": "FW",
+          "name": "野沢 真由",
+          "team": "home"
+        },
+        {
+          "number": 11,
+          "position": "FW",
+          "name": "嘉数 クレア姫麗",
+          "team": "home"
+        },
+        {
+          "number": 13,
+          "position": "FW",
+          "name": "原 日樺",
+          "team": "home"
+        },
+        {
+          "number": 18,
+          "position": "FW",
+          "name": "玉城 薪瀬",
+          "team": "home"
+        },
+        {
+          "number": 12,
+          "position": "GK",
+          "name": "中川 響",
+          "team": "away"
+        },
+        {
+          "number": 3,
+          "position": "DF",
+          "name": "中溝 桃",
+          "team": "away"
+        },
+        {
+          "number": 4,
+          "position": "DF",
+          "name": "伊藤 白羽",
+          "team": "away"
+        },
+        {
+          "number": 5,
+          "position": "DF",
+          "name": "大下 紗也奈",
+          "team": "away"
+        },
+        {
+          "number": 6,
+          "position": "DF",
+          "name": "楠 彩由菜",
+          "team": "away"
+        },
+        {
+          "number": 8,
+          "position": "MF",
+          "name": "横山 愛葵",
+          "team": "away"
+        },
+        {
+          "number": 17,
+          "position": "MF",
+          "name": "門馬 有琉",
+          "team": "away"
+        },
+        {
+          "number": 22,
+          "position": "MF",
+          "name": "野田 朱花",
+          "team": "away"
+        },
+        {
+          "number": 25,
+          "position": "MF",
+          "name": "榮森 結菜",
+          "team": "away"
+        },
+        {
+          "number": 10,
+          "position": "FW",
+          "name": "上本 恭子",
+          "team": "away"
+        },
+        {
+          "number": 14,
+          "position": "FW",
+          "name": "村上 凜果",
+          "team": "away"
+        },
+        {
+          "number": 24,
+          "position": "DF",
+          "name": "羽多野 葵唯",
+          "team": "away"
+        },
+        {
+          "number": 7,
+          "position": "MF",
+          "name": "神田 菜那",
+          "team": "away"
+        },
+        {
+          "number": 13,
+          "position": "MF",
+          "name": "広瀬 涼羽",
+          "team": "away"
+        },
+        {
+          "number": 9,
+          "position": "FW",
+          "name": "堀 菜々美",
+          "team": "away"
+        },
+        {
+          "number": 20,
+          "position": "FW",
+          "name": "山田 結月",
+          "team": "away"
+        }
+      ],
+      "subs": [
+        {
+          "number": 21,
+          "position": "GK",
+          "name": "進藤 真奈花",
+          "team": "home"
+        },
+        {
+          "number": 5,
+          "position": "DF",
+          "name": "大河内 友貴",
+          "team": "home"
+        },
+        {
+          "number": 23,
+          "position": "DF",
+          "name": "北条 あゆみ",
+          "team": "home"
+        },
+        {
+          "number": 14,
+          "position": "MF",
+          "name": "宮脇 ゆりあ",
+          "team": "home"
+        },
+        {
+          "number": 20,
+          "position": "MF",
+          "name": "田川 葵",
+          "team": "home"
+        },
+        {
+          "number": 28,
+          "position": "MF",
+          "name": "金澤 優花",
+          "team": "home"
+        },
+        {
+          "number": 9,
+          "position": "FW",
+          "name": "田邉 いちご",
+          "team": "home"
+        },
+        {
+          "number": 1,
+          "position": "GK",
+          "name": "樽口 文音",
+          "team": "home"
+        },
+        {
+          "number": 2,
+          "position": "DF",
+          "name": "竹田 美佐也",
+          "team": "home"
+        },
+        {
+          "number": 18,
+          "position": "DF",
+          "name": "宝珠 咲羽",
+          "team": "home"
+        },
+        {
+          "number": 23,
+          "position": "DF",
+          "name": "平尾 心瑚",
+          "team": "home"
+        }
+      ],
+      "stats": {
+        "attendance": "433人",
+        "weather": "晴れ",
+        "temperature": "28℃",
+        "pitch": "良芝"
+      },
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341579",
       "posterUrl": null
     },
@@ -540,6 +1677,232 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-16-2/",
       "venue": "桷志田サッカー場人工芝A",
       "goals": [],
+      "starters": [
+        {
+          "number": 35,
+          "position": "GK",
+          "name": "宮村 一花",
+          "team": "home"
+        },
+        {
+          "number": 2,
+          "position": "DF",
+          "name": "清本 麗",
+          "team": "home"
+        },
+        {
+          "number": 7,
+          "position": "DF",
+          "name": "濵砂 安凜",
+          "team": "home"
+        },
+        {
+          "number": 9,
+          "position": "MF",
+          "name": "池脇 愛音",
+          "team": "home"
+        },
+        {
+          "number": 12,
+          "position": "MF",
+          "name": "木塚 美羽",
+          "team": "home"
+        },
+        {
+          "number": 14,
+          "position": "MF",
+          "name": "佐々木 由貴",
+          "team": "home"
+        },
+        {
+          "number": 23,
+          "position": "MF",
+          "name": "竹下 礼華",
+          "team": "home"
+        },
+        {
+          "number": 38,
+          "position": "MF",
+          "name": "山野 蒼空",
+          "team": "home"
+        },
+        {
+          "number": 42,
+          "position": "MF",
+          "name": "桑代 心彩",
+          "team": "home"
+        },
+        {
+          "number": 55,
+          "position": "MF",
+          "name": "中村 葵",
+          "team": "home"
+        },
+        {
+          "number": 45,
+          "position": "FW",
+          "name": "坂元 めい",
+          "team": "home"
+        },
+        {
+          "number": 17,
+          "position": "GK",
+          "name": "釜坂 慧",
+          "team": "away"
+        },
+        {
+          "number": 3,
+          "position": "DF",
+          "name": "澁澤 光",
+          "team": "away"
+        },
+        {
+          "number": 6,
+          "position": "DF",
+          "name": "森 和奏",
+          "team": "away"
+        },
+        {
+          "number": 10,
+          "position": "DF",
+          "name": "平坂 咲希",
+          "team": "away"
+        },
+        {
+          "number": 15,
+          "position": "MF",
+          "name": "田中 花奈",
+          "team": "away"
+        },
+        {
+          "number": 16,
+          "position": "MF",
+          "name": "端山 新",
+          "team": "away"
+        },
+        {
+          "number": 20,
+          "position": "MF",
+          "name": "田川 葵",
+          "team": "away"
+        },
+        {
+          "number": 22,
+          "position": "MF",
+          "name": "野田 夏未",
+          "team": "away"
+        },
+        {
+          "number": 8,
+          "position": "FW",
+          "name": "野沢 真由",
+          "team": "away"
+        },
+        {
+          "number": 13,
+          "position": "FW",
+          "name": "原 日樺",
+          "team": "away"
+        },
+        {
+          "number": 18,
+          "position": "FW",
+          "name": "玉城 薪瀬",
+          "team": "away"
+        },
+        {
+          "number": 14,
+          "position": "MF",
+          "name": "宮脇 ゆりあ",
+          "team": "away"
+        },
+        {
+          "number": 9,
+          "position": "FW",
+          "name": "田邉 いちご",
+          "team": "away"
+        },
+        {
+          "number": 11,
+          "position": "FW",
+          "name": "嘉数 クレア姫麗",
+          "team": "away"
+        }
+      ],
+      "subs": [
+        {
+          "number": 30,
+          "position": "GK",
+          "name": "濱田 桃奈",
+          "team": "home"
+        },
+        {
+          "number": 5,
+          "position": "DF",
+          "name": "園田 結凜",
+          "team": "home"
+        },
+        {
+          "number": 28,
+          "position": "DF",
+          "name": "松澤 唯空",
+          "team": "home"
+        },
+        {
+          "number": 33,
+          "position": "DF",
+          "name": "田中 愛子",
+          "team": "home"
+        },
+        {
+          "number": 39,
+          "position": "DF",
+          "name": "渡辺 稚菜",
+          "team": "home"
+        },
+        {
+          "number": 59,
+          "position": "DF",
+          "name": "橋 あんず",
+          "team": "home"
+        },
+        {
+          "number": 20,
+          "position": "MF",
+          "name": "池脇 梨音",
+          "team": "home"
+        },
+        {
+          "number": 17,
+          "position": "FW",
+          "name": "本田 優紅",
+          "team": "home"
+        },
+        {
+          "number": 21,
+          "position": "FW",
+          "name": "大藪 妃紗",
+          "team": "home"
+        },
+        {
+          "number": 21,
+          "position": "GK",
+          "name": "進藤 真奈花",
+          "team": "home"
+        },
+        {
+          "number": 23,
+          "position": "DF",
+          "name": "北条 あゆみ",
+          "team": "home"
+        }
+      ],
+      "stats": {
+        "attendance": "70人",
+        "weather": "曇り",
+        "temperature": "27℃",
+        "pitch": "人工芝、乾燥"
+      },
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341583",
       "posterUrl": null
     },
@@ -561,6 +1924,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-13/",
       "venue": null,
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -582,6 +1948,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-27/",
       "venue": "ビーラインフットボールセンター姶良(天然芝)",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341588",
       "posterUrl": null
     },
@@ -611,6 +1980,244 @@
           "assist": "×11S"
         }
       ],
+      "starters": [
+        {
+          "number": 17,
+          "position": "GK",
+          "name": "釜坂 慧",
+          "team": "home"
+        },
+        {
+          "number": 3,
+          "position": "DF",
+          "name": "澁澤 光",
+          "team": "home"
+        },
+        {
+          "number": 5,
+          "position": "DF",
+          "name": "大河内 友貴",
+          "team": "home"
+        },
+        {
+          "number": 6,
+          "position": "DF",
+          "name": "森 和奏",
+          "team": "home"
+        },
+        {
+          "number": 10,
+          "position": "DF",
+          "name": "平坂 咲希",
+          "team": "home"
+        },
+        {
+          "number": 15,
+          "position": "MF",
+          "name": "田中 花奈",
+          "team": "home"
+        },
+        {
+          "number": 16,
+          "position": "MF",
+          "name": "端山 新",
+          "team": "home"
+        },
+        {
+          "number": 22,
+          "position": "MF",
+          "name": "野田 夏未",
+          "team": "home"
+        },
+        {
+          "number": 8,
+          "position": "FW",
+          "name": "野沢 真由",
+          "team": "home"
+        },
+        {
+          "number": 13,
+          "position": "FW",
+          "name": "原 日樺",
+          "team": "home"
+        },
+        {
+          "number": 18,
+          "position": "FW",
+          "name": "玉城 薪瀬",
+          "team": "home"
+        },
+        {
+          "number": 41,
+          "position": "GK",
+          "name": "齋田 由貴",
+          "team": "away"
+        },
+        {
+          "number": 3,
+          "position": "DF",
+          "name": "橋本 祥子",
+          "team": "away"
+        },
+        {
+          "number": 4,
+          "position": "DF",
+          "name": "小林 みの里",
+          "team": "away"
+        },
+        {
+          "number": 18,
+          "position": "DF",
+          "name": "山里 ありす",
+          "team": "away"
+        },
+        {
+          "number": 19,
+          "position": "DF",
+          "name": "小川 優花",
+          "team": "away"
+        },
+        {
+          "number": 35,
+          "position": "DF",
+          "name": "三木 萌子",
+          "team": "away"
+        },
+        {
+          "number": 16,
+          "position": "MF",
+          "name": "仲松 叶実",
+          "team": "away"
+        },
+        {
+          "number": 28,
+          "position": "MF",
+          "name": "新城 舞",
+          "team": "away"
+        },
+        {
+          "number": 33,
+          "position": "MF",
+          "name": "川満 麗",
+          "team": "away"
+        },
+        {
+          "number": 36,
+          "position": "MF",
+          "name": "塩川 心琴",
+          "team": "away"
+        },
+        {
+          "number": 10,
+          "position": "FW",
+          "name": "伊藤 美菜子",
+          "team": "away"
+        },
+        {
+          "number": 22,
+          "position": "MF",
+          "name": "髙木 萌々香",
+          "team": "away"
+        },
+        {
+          "number": 37,
+          "position": "MF",
+          "name": "松尾 瑚々",
+          "team": "away"
+        },
+        {
+          "number": 11,
+          "position": "FW",
+          "name": "小島 千明",
+          "team": "away"
+        },
+        {
+          "number": 30,
+          "position": "FW",
+          "name": "宇津木 陽奈",
+          "team": "away"
+        },
+        {
+          "number": 58,
+          "position": "FW",
+          "name": "柳瀬 絵莉",
+          "team": "away"
+        }
+      ],
+      "subs": [
+        {
+          "number": 21,
+          "position": "GK",
+          "name": "進藤 真奈花",
+          "team": "home"
+        },
+        {
+          "number": 23,
+          "position": "DF",
+          "name": "北条 あゆみ",
+          "team": "home"
+        },
+        {
+          "number": 14,
+          "position": "MF",
+          "name": "宮脇 ゆりあ",
+          "team": "home"
+        },
+        {
+          "number": 20,
+          "position": "MF",
+          "name": "田川 葵",
+          "team": "home"
+        },
+        {
+          "number": 25,
+          "position": "MF",
+          "name": "伊藤 なずな",
+          "team": "home"
+        },
+        {
+          "number": 9,
+          "position": "FW",
+          "name": "田邉 いちご",
+          "team": "home"
+        },
+        {
+          "number": 11,
+          "position": "FW",
+          "name": "嘉数 クレア姫麗",
+          "team": "home"
+        },
+        {
+          "number": 6,
+          "position": "MF",
+          "name": "小池 雪月",
+          "team": "home"
+        },
+        {
+          "number": 8,
+          "position": "MF",
+          "name": "國吉 真梨子",
+          "team": "home"
+        },
+        {
+          "number": 13,
+          "position": "MF",
+          "name": "吉田 巳栞",
+          "team": "home"
+        },
+        {
+          "number": 14,
+          "position": "MF",
+          "name": "小原 蘭菜",
+          "team": "home"
+        }
+      ],
+      "stats": {
+        "attendance": "80人",
+        "weather": "晴れ",
+        "temperature": "27℃",
+        "pitch": "人工芝"
+      },
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341587",
       "posterUrl": null
     },
@@ -632,6 +2239,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-57/",
       "venue": null,
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -653,6 +2263,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-68/",
       "venue": "南島原多目的運動広場",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341592",
       "posterUrl": null
     },
@@ -671,6 +2284,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-24/",
       "venue": "東海大学付属福岡高校人工芝グランド",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341581",
       "posterUrl": null
     },
@@ -700,6 +2316,214 @@
           "assist": "13右S"
         }
       ],
+      "starters": [
+        {
+          "number": 27,
+          "position": "GK",
+          "name": "鈴木 寛那",
+          "team": "home"
+        },
+        {
+          "number": 2,
+          "position": "DF",
+          "name": "大森 日花里",
+          "team": "home"
+        },
+        {
+          "number": 25,
+          "position": "DF",
+          "name": "川本 心埜",
+          "team": "home"
+        },
+        {
+          "number": 32,
+          "position": "DF",
+          "name": "野口 佳音",
+          "team": "home"
+        },
+        {
+          "number": 28,
+          "position": "MF",
+          "name": "中尾 奈摘",
+          "team": "home"
+        },
+        {
+          "number": 40,
+          "position": "MF",
+          "name": "税田 琳花",
+          "team": "home"
+        },
+        {
+          "number": 44,
+          "position": "MF",
+          "name": "田中 娃李",
+          "team": "home"
+        },
+        {
+          "number": 13,
+          "position": "FW",
+          "name": "南平 夏里奈",
+          "team": "home"
+        },
+        {
+          "number": 29,
+          "position": "FW",
+          "name": "横山 真鈴",
+          "team": "home"
+        },
+        {
+          "number": 31,
+          "position": "FW",
+          "name": "上永 ひかり",
+          "team": "home"
+        },
+        {
+          "number": 36,
+          "position": "FW",
+          "name": "遠山 瑠菜",
+          "team": "home"
+        },
+        {
+          "number": 17,
+          "position": "GK",
+          "name": "釜坂 慧",
+          "team": "away"
+        },
+        {
+          "number": 3,
+          "position": "DF",
+          "name": "澁澤 光",
+          "team": "away"
+        },
+        {
+          "number": 10,
+          "position": "DF",
+          "name": "平坂 咲希",
+          "team": "away"
+        },
+        {
+          "number": 15,
+          "position": "MF",
+          "name": "田中 花奈",
+          "team": "away"
+        },
+        {
+          "number": 16,
+          "position": "MF",
+          "name": "端山 新",
+          "team": "away"
+        },
+        {
+          "number": 20,
+          "position": "MF",
+          "name": "田川 葵",
+          "team": "away"
+        },
+        {
+          "number": 22,
+          "position": "MF",
+          "name": "野田 夏未",
+          "team": "away"
+        },
+        {
+          "number": 8,
+          "position": "FW",
+          "name": "野沢 真由",
+          "team": "away"
+        },
+        {
+          "number": 11,
+          "position": "FW",
+          "name": "嘉数 クレア姫麗",
+          "team": "away"
+        },
+        {
+          "number": 13,
+          "position": "FW",
+          "name": "原 日樺",
+          "team": "away"
+        },
+        {
+          "number": 18,
+          "position": "FW",
+          "name": "玉城 薪瀬",
+          "team": "away"
+        }
+      ],
+      "subs": [
+        {
+          "number": 17,
+          "position": "DF",
+          "name": "堀田 花凛",
+          "team": "home"
+        },
+        {
+          "number": 5,
+          "position": "MF",
+          "name": "宮永 美海",
+          "team": "home"
+        },
+        {
+          "number": 12,
+          "position": "MF",
+          "name": "岡野 夏稀",
+          "team": "home"
+        },
+        {
+          "number": 34,
+          "position": "MF",
+          "name": "出口 桜子",
+          "team": "home"
+        },
+        {
+          "number": 37,
+          "position": "MF",
+          "name": "HE XIN-ROU",
+          "team": "home"
+        },
+        {
+          "number": 38,
+          "position": "MF",
+          "name": "猿楽 初音",
+          "team": "home"
+        },
+        {
+          "number": 21,
+          "position": "GK",
+          "name": "進藤 真奈花",
+          "team": "home"
+        },
+        {
+          "number": 6,
+          "position": "DF",
+          "name": "森 和奏",
+          "team": "home"
+        },
+        {
+          "number": 23,
+          "position": "DF",
+          "name": "北条 あゆみ",
+          "team": "home"
+        },
+        {
+          "number": 25,
+          "position": "MF",
+          "name": "伊藤 なずな",
+          "team": "home"
+        },
+        {
+          "number": 9,
+          "position": "FW",
+          "name": "田邉 いちご",
+          "team": "home"
+        }
+      ],
+      "stats": {
+        "attendance": "217人",
+        "weather": "雨",
+        "temperature": "22℃",
+        "pitch": "良芝、水含み"
+      },
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341591",
       "posterUrl": null
     },
@@ -718,6 +2542,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-15/",
       "venue": "福岡フットボールセンター",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341594",
       "posterUrl": null
     },
@@ -736,6 +2563,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-40/",
       "venue": null,
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -754,6 +2584,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-41/",
       "venue": null,
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -772,6 +2605,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-73/",
       "venue": null,
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -790,6 +2626,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-17/",
       "venue": null,
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -808,6 +2647,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-31/",
       "venue": "新富町富田浜公園",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -826,6 +2668,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-29/",
       "venue": "南島原多目的運動広場",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": "https://anclas.jp/wp-content/uploads/2026/04/0503kunimi-insta.webp"
     },
@@ -844,6 +2689,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-26/",
       "venue": "東海大学付属福岡高校人工芝グランド",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -862,6 +2710,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-17/",
       "venue": null,
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -880,6 +2731,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-7-2/",
       "venue": null,
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -898,6 +2752,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-3/",
       "venue": "東海大学付属福岡高校人工芝グランド",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -916,6 +2773,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-24/",
       "venue": null,
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -934,6 +2794,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-21/",
       "venue": null,
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -952,6 +2815,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-67/",
       "venue": "宇美町総合スポーツ公園",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -970,6 +2836,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-55/",
       "venue": "いぶすきフットボールパーク(人工芝)",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -988,6 +2857,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-35/",
       "venue": null,
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -1006,6 +2878,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-54/",
       "venue": "ビーラインフットボールセンター姶良(天然芝)",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -1024,6 +2899,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-41/",
       "venue": "新富町富田浜公園",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -1042,6 +2920,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-30/",
       "venue": null,
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -1060,6 +2941,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-32/",
       "venue": "石垣市サッカ-パークあかんま",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -1078,6 +2962,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-63/",
       "venue": "東風平運動公園サッカー場",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -1096,6 +2983,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-65/",
       "venue": "東海大学付属福岡高校人工芝グランド",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -1114,6 +3004,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-51/",
       "venue": "宇美町総合スポーツ公園",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -1132,6 +3025,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-2/",
       "venue": null,
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -1150,6 +3046,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-2-29/",
       "venue": null,
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -1168,6 +3067,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-60/",
       "venue": null,
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -1186,6 +3088,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-70/",
       "venue": "東風平運動公園サッカー場",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -1204,6 +3109,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-14/",
       "venue": "志布志しおかぜ公園",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     },
@@ -1222,6 +3130,9 @@
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-43/",
       "venue": "国見総合運動公園(遊学の館)",
       "goals": [],
+      "starters": [],
+      "subs": [],
+      "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null
     }

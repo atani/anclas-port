@@ -103,10 +103,18 @@ export function enrichMatchesWithSchedule(
 
 // --- game page パーサー ---
 
+export interface MatchStats {
+  attendance: string | null;
+  weather: string | null;
+  temperature: string | null;
+  pitch: string | null;
+}
+
 export interface GoalNoteGameData {
   goals: GoalEvent[];
   starters: GoalNotePlayer[];
   subs: GoalNotePlayer[];
+  stats: MatchStats;
 }
 
 export interface GoalNotePlayer {
@@ -221,11 +229,36 @@ function parseLineups(html: string, homeTeam: string): { starters: GoalNotePlaye
   return { starters, subs };
 }
 
+/** game page から試合情報（観客数・天候・気温・ピッチ状態）を抽出 */
+function parseStats(html: string): MatchStats {
+  const stats: MatchStats = { attendance: null, weather: null, temperature: null, pitch: null };
+  const trRe = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+  const tdRe = /<td[^>]*>([\s\S]*?)<\/td>/gi;
+  let tr: RegExpExecArray | null;
+  while ((tr = trRe.exec(html)) !== null) {
+    const cells: string[] = [];
+    tdRe.lastIndex = 0;
+    let td: RegExpExecArray | null;
+    while ((td = tdRe.exec(tr[1] ?? "")) !== null) {
+      cells.push(strip(td[1] ?? ""));
+    }
+    if (cells.length < 2) continue;
+    const label = cells[0] ?? "";
+    const value = cells[1] ?? "";
+    if (/^観客$/.test(label)) stats.attendance = value;
+    else if (/^天候$/.test(label)) stats.weather = value;
+    else if (/^気温$/.test(label)) stats.temperature = value;
+    else if (/^ピッチ状態$/.test(label)) stats.pitch = value;
+  }
+  return stats;
+}
+
 /** game page から試合詳細を抽出 */
 export function parseGoalNoteGame(html: string, homeTeam: string): GoalNoteGameData {
   return {
     goals: parseGoals(html),
     ...parseLineups(html, homeTeam),
+    stats: parseStats(html),
   };
 }
 
