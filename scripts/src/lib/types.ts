@@ -56,6 +56,8 @@ export interface Match {
   starters: MatchPlayer[];
   /** 控え選手（GoalNote game page 由来）。未取得なら空配列 */
   subs: MatchPlayer[];
+  /** 選手交代（GoalNote game page 由来）。未取得なら空配列 */
+  substitutions: Substitution[];
   /** 試合情報（観客数・天候など）。未取得なら null */
   stats: { attendance: string | null; weather: string | null; temperature: string | null; pitch: string | null } | null;
   /** GoalNote の試合詳細URL。未取得なら null */
@@ -71,6 +73,16 @@ export interface MatchPlayer {
   name: string;
   /** "home" = ホームチーム / "away" = アウェイチーム */
   team: "home" | "away";
+}
+
+/** 選手交代（GoalNote game page 由来） */
+export interface Substitution {
+  minute: string;
+  team: "home" | "away";
+  outNumber: number;
+  outName: string;
+  inNumber: number;
+  inName: string;
 }
 
 /** matches.json のルート */

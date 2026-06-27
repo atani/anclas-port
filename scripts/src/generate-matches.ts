@@ -85,6 +85,7 @@ async function main(): Promise<void> {
       m.goals = gameData.goals;
       m.starters = gameData.starters;
       m.subs = gameData.subs;
+      m.substitutions = gameData.substitutions;
       m.stats = gameData.stats;
       goalCount += gameData.goals.length;
     } catch (e) {
@@ -93,7 +94,8 @@ async function main(): Promise<void> {
   }
   logger.info(`GoalNote game: ${anclasFinished.length}試合から${goalCount}ゴール取得`);
 
-  // 4. 次の試合のポスター画像を anclas.jp から取得（失敗時は前回値を保持）
+  // 4. 次の試合のポスター画像を anclas.jp から取得
+  // 該当する告知投稿が無ければ null のまま（古いポスターは出さない）
   const nextMatch = pickNextMatch(matches, Date.now());
   if (nextMatch) {
     try {
@@ -104,19 +106,7 @@ async function main(): Promise<void> {
         logger.info(`ポスター取得: ${posterUrl.slice(-40)}`);
       }
     } catch {
-      // WP API 失敗時は前回生成した matches.json から posterUrl を引き継ぐ
-    }
-    if (!nextMatch.posterUrl) {
-      const prevUrl = new URL("matches.json", DATA_DIR);
-      if (existsSync(prevUrl)) {
-        try {
-          const prev = JSON.parse(readFileSync(prevUrl, "utf-8")) as MatchesData;
-          if (prev.anclas.nextMatch?.posterUrl && prev.anclas.nextMatch.id === nextMatch.id) {
-            nextMatch.posterUrl = prev.anclas.nextMatch.posterUrl;
-            logger.info(`ポスター: 前回値を引き継ぎ`);
-          }
-        } catch { /* ignore */ }
-      }
+      logger.warn("ポスター取得失敗（WP API エラー）");
     }
   }
 

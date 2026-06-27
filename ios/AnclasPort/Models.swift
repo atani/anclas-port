@@ -52,6 +52,7 @@ struct Match: Codable, Identifiable, Hashable {
     let goals: [GoalEvent]?
     let starters: [MatchPlayer]?
     let subs: [MatchPlayer]?
+    let substitutions: [SubstitutionEvent]?
     let stats: MatchStats?
     let goalnoteUrl: String?
     let posterUrl: String?
@@ -64,6 +65,17 @@ struct MatchPlayer: Codable, Hashable, Identifiable {
     let team: String
 
     var id: String { "\(team)-\(number)-\(name)" }
+}
+
+struct SubstitutionEvent: Codable, Hashable, Identifiable {
+    let minute: String
+    let team: String
+    let outNumber: Int
+    let outName: String
+    let inNumber: Int
+    let inName: String
+
+    var id: String { "\(minute)-\(outNumber)-\(inNumber)" }
 }
 
 struct MatchStats: Codable, Hashable {

@@ -24,6 +24,7 @@ function m(home: string, away: string, hs: number, as: number): Match {
     goals: [],
     starters: [],
     subs: [],
+    substitutions: [],
     stats: null,
     goalnoteUrl: null,
     posterUrl: null,

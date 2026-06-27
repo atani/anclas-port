@@ -8,7 +8,7 @@ struct MatchDetailView: View {
             VStack(spacing: 16) {
                 HeaderBar(title: "\(match.roundLabel) \(match.competition)")
 
-                // スコアカード
+                // スコアカード + 試合情報を統合
                 VStack(spacing: 12) {
                     HStack(spacing: 0) {
                         TeamColumn(name: match.homeTeam, isAnclas: match.homeTeam == Match.anclasName)
@@ -40,6 +40,26 @@ struct MatchDetailView: View {
                     if let venue = match.venue {
                         Label(venue, systemImage: "mappin.and.ellipse")
                             .font(.subheadline).foregroundStyle(.secondary)
+                    }
+
+                    // 試合情報をスコアカード内に統合
+                    if let stats = match.stats {
+                        Divider()
+                        HStack(spacing: 16) {
+                            if let att = stats.attendance {
+                                Label(att, systemImage: "person.2.fill").font(.caption)
+                            }
+                            if let w = stats.weather {
+                                Label(w, systemImage: "cloud.fill").font(.caption)
+                            }
+                            if let t = stats.temperature {
+                                Label(t, systemImage: "thermometer.medium").font(.caption)
+                            }
+                            if let p = stats.pitch {
+                                Label(p, systemImage: "sportscourt.fill").font(.caption)
+                            }
+                        }
+                        .foregroundStyle(.secondary)
                     }
                 }
                 .card()
@@ -78,9 +98,17 @@ struct MatchDetailView: View {
                     )
                 }
 
-                // 試合情報
-                if let stats = match.stats {
-                    StatsSection(stats: stats)
+                // 選手交代
+                if let subs = match.substitutions, !subs.isEmpty {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("選手交代")
+                            .font(.subheadline.weight(.bold))
+                            .foregroundStyle(Theme.orange)
+                        ForEach(subs) { sub in
+                            SubstitutionRow(sub: sub, homeTeam: match.homeTeam)
+                        }
+                    }
+                    .card()
                 }
             }
             .padding(.vertical, 8)
@@ -198,47 +226,47 @@ private struct PlayerRow: View {
     let isAnclas: Bool
 
     var body: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: 6) {
             Text(player.position)
-                .font(.caption2.weight(.bold))
+                .font(.caption.weight(.bold))
                 .foregroundStyle(.white)
-                .frame(width: 22)
-                .padding(.vertical, 1)
-                .background(isAnclas ? Theme.orange : Color.secondary, in: RoundedRectangle(cornerRadius: 3))
+                .frame(width: 26)
+                .padding(.vertical, 2)
+                .background(isAnclas ? Theme.orange : Color.secondary, in: RoundedRectangle(cornerRadius: 4))
             Text("#\(player.number)")
-                .font(.caption2.weight(.semibold).monospacedDigit())
+                .font(.caption.weight(.semibold).monospacedDigit())
             Text(player.name)
-                .font(.caption2)
+                .font(.callout)
                 .lineLimit(1)
         }
-        .padding(.vertical, 2)
+        .padding(.vertical, 3)
     }
 }
 
-// MARK: - Stats
+// MARK: - Substitutions
 
-private struct StatsSection: View {
-    let stats: MatchStats
+private struct SubstitutionRow: View {
+    let sub: SubstitutionEvent
+    let homeTeam: String
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("試合情報")
-                .font(.subheadline.weight(.bold))
-                .foregroundStyle(Theme.orange)
-            HStack(spacing: 16) {
-                if let att = stats.attendance { statItem("👥", att) }
-                if let w = stats.weather { statItem("🌤", w) }
-                if let t = stats.temperature { statItem("🌡", t) }
-                if let p = stats.pitch { statItem("🏟", p) }
+        HStack(spacing: 8) {
+            Text(sub.minute)
+                .font(.caption.weight(.bold).monospacedDigit())
+                .foregroundStyle(.secondary)
+                .frame(width: 70, alignment: .trailing)
+
+            VStack(alignment: .leading, spacing: 2) {
+                HStack(spacing: 4) {
+                    Image(systemName: "arrow.down.circle.fill").foregroundStyle(.red).font(.caption)
+                    Text("#\(sub.outNumber) \(sub.outName)").font(.caption)
+                }
+                HStack(spacing: 4) {
+                    Image(systemName: "arrow.up.circle.fill").foregroundStyle(.green).font(.caption)
+                    Text("#\(sub.inNumber) \(sub.inName)").font(.caption)
+                }
             }
         }
-        .card()
-    }
-
-    private func statItem(_ icon: String, _ value: String) -> some View {
-        VStack(spacing: 2) {
-            Text(icon).font(.title3)
-            Text(value).font(.caption2).foregroundStyle(.secondary)
-        }
+        .padding(.vertical, 2)
     }
 }
