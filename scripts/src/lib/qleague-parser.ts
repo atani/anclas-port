@@ -182,6 +182,9 @@ function collectAllMatches(html: string, competition: string): SectionedMatch[] 
         score: parsed.score,
         isAnclas,
         sourceUrl: href ?? "",
+        venue: null,
+        goals: [],
+        goalnoteUrl: null,
         section: currentSection,
       });
     }

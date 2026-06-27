@@ -52,6 +52,7 @@ test("sortPlayers: 背番号昇順、null は末尾", () => {
   const mk = (n: number | null, id: number): Player => ({
     id,
     number: n,
+    position: null,
     nameJa: "x",
     nameEn: null,
     nickname: null,

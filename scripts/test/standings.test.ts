@@ -20,6 +20,9 @@ function m(home: string, away: string, hs: number, as: number): Match {
     score: { home: hs, away: as },
     isAnclas: home === "福岡J・アンクラス" || away === "福岡J・アンクラス",
     sourceUrl: "",
+    venue: null,
+    goals: [],
+    goalnoteUrl: null,
   };
 }
 

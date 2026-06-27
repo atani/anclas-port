@@ -5,6 +5,23 @@ export const ANCLAS_TEAM_NAME = "福岡J・アンクラス";
 /** 試合の状態 */
 export type MatchStatus = "scheduled" | "finished";
 
+/** ポジション */
+export type Position = "GK" | "DF" | "MF" | "FW" | "FP";
+
+/** 得点イベント（GoalNote game page 由来） */
+export interface GoalEvent {
+  /** "30分" / "55分(後半15分)" */
+  minute: string;
+  /** 得点したチーム名 */
+  team: string;
+  /** 背番号。OG なら null */
+  playerNumber: number | null;
+  /** 選手名。OG なら "オウンゴール" */
+  playerName: string;
+  /** "22→11S" などのアシスト/経過情報。無ければ null */
+  assist: string | null;
+}
+
 /** 1試合 */
 export interface Match {
   /** q-league の su-post id 由来の安定ID（例: "su-post-9354"） */
@@ -31,6 +48,12 @@ export interface Match {
   isAnclas: boolean;
   /** q-league の試合詳細URL */
   sourceUrl: string;
+  /** 会場名（GoalNote 由来）。未取得なら null */
+  venue: string | null;
+  /** 得点経過（GoalNote game page 由来）。未取得なら空配列 */
+  goals: GoalEvent[];
+  /** GoalNote の試合詳細URL。未取得なら null */
+  goalnoteUrl: string | null;
 }
 
 /** matches.json のルート */
@@ -99,6 +122,8 @@ export interface Player {
   id: number;
   /** 背番号（タイトル #n 由来）。取れなければ null */
   number: number | null;
+  /** ポジション（GoalNote 由来）。取れなければ null */
+  position: Position | null;
   /** 漢字名 */
   nameJa: string;
   /** ローマ字名（大文字化）。取れなければ null */

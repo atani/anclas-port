@@ -137,6 +137,7 @@ export function parsePlayer(post: WPPost): Player {
   return {
     id: post.id,
     number,
+    position: null,
     nameJa,
     nameEn,
     nickname,
