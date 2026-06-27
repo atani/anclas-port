@@ -162,19 +162,25 @@ function parseGoals(html: string): GoalEvent[] {
 
 const VALID_POSITIONS = new Set<string>(["GK", "DF", "MF", "FW", "FP"]);
 
-/** game page からスタメン・交代メンバーを抽出（ホーム/アウェイ両チーム） */
+/**
+ * game page からスタメン・控えを抽出。
+ * GoalNote は score-team1（KICK OFF 側）→ score-team2 の順でメンバーを列挙する。
+ * team1 がホームとは限らないため、ヘッダーから team1 のチーム名を取得し、
+ * homeTeam と突き合わせてホーム/アウェイを判定する。
+ */
 function parseLineups(html: string, homeTeam: string): { starters: GoalNotePlayer[]; subs: GoalNotePlayer[] } {
   const starters: GoalNotePlayer[] = [];
   const subs: GoalNotePlayer[] = [];
 
-  // メンバー表は <tr> の [背番号, ポジション, 名前] 形式
+  // score-team1 のチーム名を取得して team1 がホームかを判定
+  const team1Match = html.match(/class="score-team1"[^>]*>\s*([\s\S]*?)<(?:div|\/th)/i);
+  const team1Name = team1Match ? strip(team1Match[1] ?? "") : "";
+  const team1IsHome = team1Name.includes(homeTeam.slice(0, 4));
+
   const trRe = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
   const tdRe = /<td[^>]*>([\s\S]*?)<\/td>/gi;
-
-  let inHome = true;
-  let isStarterSection = true;
-  let homeStarterCount = 0;
-  let awayStarterCount = 0;
+  let playerCount = 0;
+  let currentSubTeam: "team1" | "team2" = "team1";
 
   let tr: RegExpExecArray | null;
   while ((tr = trRe.exec(html)) !== null) {
@@ -192,40 +198,36 @@ function parseLineups(html: string, homeTeam: string): { starters: GoalNotePlaye
     if (!VALID_POSITIONS.has(posStr)) continue;
     if (!name) continue;
 
+    playerCount++;
+    const isStarter = playerCount <= 22;
+    // スタメン: 1-11 = team1, 12-22 = team2
+    // 控え: GK がチーム切り替わりの目印（各チームの控えは GK から始まることが多い）
+    let isTeam1: boolean;
+    if (isStarter) {
+      isTeam1 = playerCount <= 11;
+    } else {
+      // 控えの23人目以降: 最初は team1 の控え、途中で team2 に切り替わる
+      // team2 の控えは GK で始まるパターンを利用
+      if (playerCount === 23) {
+        currentSubTeam = "team1";
+      }
+      if (currentSubTeam === "team1" && posStr === "GK" && playerCount > 23) {
+        // 2番目の GK が出たら team2 に切り替え
+        currentSubTeam = "team2";
+      }
+      isTeam1 = currentSubTeam === "team1";
+    }
+    const team: "home" | "away" = (isTeam1 ? team1IsHome : !team1IsHome) ? "home" : "away";
+
     const player: GoalNotePlayer = {
       number: Number(numStr),
       position: posStr as Position,
       name: name.replace(/\s*\(Cap\.\)/i, ""),
-      team: "home",
+      team,
     };
 
-    // ホーム側のスタメンが11人揃ったら次はアウェイ側
-    if (inHome) {
-      homeStarterCount++;
-      player.team = "home";
-      if (isStarterSection) {
-        starters.push(player);
-      } else {
-        subs.push(player);
-      }
-      if (homeStarterCount === 11) {
-        inHome = false;
-        isStarterSection = true;
-      }
-    } else {
-      awayStarterCount++;
-      player.team = "away";
-      if (isStarterSection) {
-        starters.push(player);
-      } else {
-        subs.push(player);
-      }
-      if (awayStarterCount === 11) {
-        isStarterSection = false;
-        inHome = true;
-        homeStarterCount = 0;
-      }
-    }
+    if (isStarter) starters.push(player);
+    else subs.push(player);
   }
   return { starters, subs };
 }
