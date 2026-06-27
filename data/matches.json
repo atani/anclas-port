@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T21:55:44.303Z",
+  "generatedAt": "2026-06-27T22:01:57.295Z",
   "season": "2026",
   "anclas": {
     "nextMatch": {
@@ -225,31 +225,31 @@
           "number": 21,
           "position": "GK",
           "name": "進藤 真奈花",
-          "team": "home"
+          "team": "away"
         },
         {
           "number": 6,
           "position": "DF",
           "name": "森 和奏",
-          "team": "home"
+          "team": "away"
         },
         {
           "number": 23,
           "position": "DF",
           "name": "北条 あゆみ",
-          "team": "home"
+          "team": "away"
         },
         {
           "number": 25,
           "position": "MF",
           "name": "伊藤 なずな",
-          "team": "home"
+          "team": "away"
         },
         {
           "number": 9,
           "position": "FW",
           "name": "田邉 いちご",
-          "team": "home"
+          "team": "away"
         }
       ],
       "substitutions": [
@@ -305,7 +305,7 @@
     },
     "latestPodcast": {
       "title": "#13【インタビュー：田中花奈】またサッカーを頑張りたいと思えた。花からつながり広がる元気",
-      "thumbnailUrl": "https://image-cdn-fa.spotifycdn.com/image/ab67656300005f1f6f0f6ab1742b8da81b49e9d6",
+      "thumbnailUrl": "https://image-cdn-ak.spotifycdn.com/image/ab67656300005f1f6f0f6ab1742b8da81b49e9d6",
       "showUrl": "https://open.spotify.com/show/3RnkWRyIMYe9IdtMmK7KFK",
       "embedUrl": "https://open.spotify.com/embed/show/3RnkWRyIMYe9IdtMmK7KFK?utm_source=oembed",
       "publishedAt": "2026-06-25"
@@ -1343,36 +1343,6 @@
           "position": "FW",
           "name": "玉城 薪瀬",
           "team": "away"
-        },
-        {
-          "number": 14,
-          "position": "MF",
-          "name": "宮脇 ゆりあ",
-          "team": "away"
-        },
-        {
-          "number": 20,
-          "position": "MF",
-          "name": "田川 葵",
-          "team": "away"
-        },
-        {
-          "number": 25,
-          "position": "MF",
-          "name": "伊藤 なずな",
-          "team": "away"
-        },
-        {
-          "number": 8,
-          "position": "FW",
-          "name": "野沢 真由",
-          "team": "away"
-        },
-        {
-          "number": 9,
-          "position": "FW",
-          "name": "田邉 いちご",
-          "team": "away"
         }
       ],
       "subs": [
@@ -1434,13 +1404,43 @@
           "number": 21,
           "position": "GK",
           "name": "進藤 真奈花",
-          "team": "home"
+          "team": "away"
         },
         {
           "number": 23,
           "position": "DF",
           "name": "北条 あゆみ",
-          "team": "home"
+          "team": "away"
+        },
+        {
+          "number": 14,
+          "position": "MF",
+          "name": "宮脇 ゆりあ",
+          "team": "away"
+        },
+        {
+          "number": 20,
+          "position": "MF",
+          "name": "田川 葵",
+          "team": "away"
+        },
+        {
+          "number": 25,
+          "position": "MF",
+          "name": "伊藤 なずな",
+          "team": "away"
+        },
+        {
+          "number": 8,
+          "position": "FW",
+          "name": "野沢 真由",
+          "team": "away"
+        },
+        {
+          "number": 9,
+          "position": "FW",
+          "name": "田邉 いちご",
+          "team": "away"
         }
       ],
       "substitutions": [
@@ -1734,36 +1734,6 @@
           "position": "FW",
           "name": "村上 凜果",
           "team": "away"
-        },
-        {
-          "number": 24,
-          "position": "DF",
-          "name": "羽多野 葵唯",
-          "team": "away"
-        },
-        {
-          "number": 7,
-          "position": "MF",
-          "name": "神田 菜那",
-          "team": "away"
-        },
-        {
-          "number": 13,
-          "position": "MF",
-          "name": "広瀬 涼羽",
-          "team": "away"
-        },
-        {
-          "number": 9,
-          "position": "FW",
-          "name": "堀 菜々美",
-          "team": "away"
-        },
-        {
-          "number": 20,
-          "position": "FW",
-          "name": "山田 結月",
-          "team": "away"
         }
       ],
       "subs": [
@@ -1813,25 +1783,55 @@
           "number": 1,
           "position": "GK",
           "name": "樽口 文音",
-          "team": "home"
+          "team": "away"
         },
         {
           "number": 2,
           "position": "DF",
           "name": "竹田 美佐也",
-          "team": "home"
+          "team": "away"
         },
         {
           "number": 18,
           "position": "DF",
           "name": "宝珠 咲羽",
-          "team": "home"
+          "team": "away"
         },
         {
           "number": 23,
           "position": "DF",
           "name": "平尾 心瑚",
-          "team": "home"
+          "team": "away"
+        },
+        {
+          "number": 24,
+          "position": "DF",
+          "name": "羽多野 葵唯",
+          "team": "away"
+        },
+        {
+          "number": 7,
+          "position": "MF",
+          "name": "神田 菜那",
+          "team": "away"
+        },
+        {
+          "number": 13,
+          "position": "MF",
+          "name": "広瀬 涼羽",
+          "team": "away"
+        },
+        {
+          "number": 9,
+          "position": "FW",
+          "name": "堀 菜々美",
+          "team": "away"
+        },
+        {
+          "number": 20,
+          "position": "FW",
+          "name": "山田 結月",
+          "team": "away"
         }
       ],
       "substitutions": [
@@ -2027,24 +2027,6 @@
           "position": "FW",
           "name": "玉城 薪瀬",
           "team": "away"
-        },
-        {
-          "number": 14,
-          "position": "MF",
-          "name": "宮脇 ゆりあ",
-          "team": "away"
-        },
-        {
-          "number": 9,
-          "position": "FW",
-          "name": "田邉 いちご",
-          "team": "away"
-        },
-        {
-          "number": 11,
-          "position": "FW",
-          "name": "嘉数 クレア姫麗",
-          "team": "away"
         }
       ],
       "subs": [
@@ -2106,13 +2088,31 @@
           "number": 21,
           "position": "GK",
           "name": "進藤 真奈花",
-          "team": "home"
+          "team": "away"
         },
         {
           "number": 23,
           "position": "DF",
           "name": "北条 あゆみ",
-          "team": "home"
+          "team": "away"
+        },
+        {
+          "number": 14,
+          "position": "MF",
+          "name": "宮脇 ゆりあ",
+          "team": "away"
+        },
+        {
+          "number": 9,
+          "position": "FW",
+          "name": "田邉 いちご",
+          "team": "away"
+        },
+        {
+          "number": 11,
+          "position": "FW",
+          "name": "嘉数 クレア姫麗",
+          "team": "away"
         }
       ],
       "substitutions": [
@@ -2382,36 +2382,6 @@
           "position": "FW",
           "name": "伊藤 美菜子",
           "team": "away"
-        },
-        {
-          "number": 22,
-          "position": "MF",
-          "name": "髙木 萌々香",
-          "team": "away"
-        },
-        {
-          "number": 37,
-          "position": "MF",
-          "name": "松尾 瑚々",
-          "team": "away"
-        },
-        {
-          "number": 11,
-          "position": "FW",
-          "name": "小島 千明",
-          "team": "away"
-        },
-        {
-          "number": 30,
-          "position": "FW",
-          "name": "宇津木 陽奈",
-          "team": "away"
-        },
-        {
-          "number": 58,
-          "position": "FW",
-          "name": "柳瀬 絵莉",
-          "team": "away"
         }
       ],
       "subs": [
@@ -2479,6 +2449,36 @@
           "number": 14,
           "position": "MF",
           "name": "小原 蘭菜",
+          "team": "home"
+        },
+        {
+          "number": 22,
+          "position": "MF",
+          "name": "髙木 萌々香",
+          "team": "home"
+        },
+        {
+          "number": 37,
+          "position": "MF",
+          "name": "松尾 瑚々",
+          "team": "home"
+        },
+        {
+          "number": 11,
+          "position": "FW",
+          "name": "小島 千明",
+          "team": "home"
+        },
+        {
+          "number": 30,
+          "position": "FW",
+          "name": "宇津木 陽奈",
+          "team": "home"
+        },
+        {
+          "number": 58,
+          "position": "FW",
+          "name": "柳瀬 絵莉",
           "team": "home"
         }
       ],
@@ -2814,31 +2814,31 @@
           "number": 21,
           "position": "GK",
           "name": "進藤 真奈花",
-          "team": "home"
+          "team": "away"
         },
         {
           "number": 6,
           "position": "DF",
           "name": "森 和奏",
-          "team": "home"
+          "team": "away"
         },
         {
           "number": 23,
           "position": "DF",
           "name": "北条 あゆみ",
-          "team": "home"
+          "team": "away"
         },
         {
           "number": 25,
           "position": "MF",
           "name": "伊藤 なずな",
-          "team": "home"
+          "team": "away"
         },
         {
           "number": 9,
           "position": "FW",
           "name": "田邉 いちご",
-          "team": "home"
+          "team": "away"
         }
       ],
       "substitutions": [

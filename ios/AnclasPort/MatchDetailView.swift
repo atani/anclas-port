@@ -100,12 +100,13 @@ struct MatchDetailView: View {
 
                 // 選手交代
                 if let subs = match.substitutions, !subs.isEmpty {
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 12) {
                         Text("選手交代")
                             .font(.subheadline.weight(.bold))
                             .foregroundStyle(Theme.orange)
                         ForEach(subs) { sub in
-                            SubstitutionRow(sub: sub, homeTeam: match.homeTeam)
+                            SubstitutionRow(sub: sub, homeTeam: match.homeTeam, awayTeam: match.awayTeam)
+                            if sub.id != subs.last?.id { Divider() }
                         }
                     }
                     .card()
@@ -115,6 +116,9 @@ struct MatchDetailView: View {
         }
         .background(Color(.systemGroupedBackground))
         .navigationBarHidden(true)
+        .navigationDestination(for: Player.self) { player in
+            PlayerDetailView(player: player)
+        }
     }
 }
 
@@ -181,9 +185,15 @@ private struct LineupSection: View {
     let homeTeam: String
     let awayTeam: String
     let players: [MatchPlayer]
+    @Environment(DataStore.self) private var store
 
     private var homePlayers: [MatchPlayer] { players.filter { $0.team == "home" } }
     private var awayPlayers: [MatchPlayer] { players.filter { $0.team == "away" } }
+
+    private func findPlayer(_ mp: MatchPlayer, isAnclas: Bool) -> Player? {
+        guard isAnclas else { return nil }
+        return store.playersData?.players.first { $0.number == mp.number }
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -191,27 +201,29 @@ private struct LineupSection: View {
                 .font(.subheadline.weight(.bold))
                 .foregroundStyle(Theme.orange)
 
-            HStack(alignment: .top, spacing: 12) {
-                // ホーム
+            HStack(alignment: .top, spacing: 8) {
                 VStack(alignment: .leading, spacing: 0) {
                     Text(homeTeam)
-                        .font(.caption2.weight(.bold))
+                        .font(.caption.weight(.bold))
                         .foregroundStyle(homeTeam == Match.anclasName ? Theme.orange : .secondary)
+                        .lineLimit(2).fixedSize(horizontal: false, vertical: true)
                         .padding(.bottom, 4)
                     ForEach(homePlayers) { p in
-                        PlayerRow(player: p, isAnclas: homeTeam == Match.anclasName)
+                        let linked = findPlayer(p, isAnclas: homeTeam == Match.anclasName)
+                        PlayerRow(player: p, isAnclas: homeTeam == Match.anclasName, linkedPlayer: linked)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-                // アウェイ
                 VStack(alignment: .leading, spacing: 0) {
                     Text(awayTeam)
-                        .font(.caption2.weight(.bold))
+                        .font(.caption.weight(.bold))
                         .foregroundStyle(awayTeam == Match.anclasName ? Theme.orange : .secondary)
+                        .lineLimit(2).fixedSize(horizontal: false, vertical: true)
                         .padding(.bottom, 4)
                     ForEach(awayPlayers) { p in
-                        PlayerRow(player: p, isAnclas: awayTeam == Match.anclasName)
+                        let linked = findPlayer(p, isAnclas: awayTeam == Match.anclasName)
+                        PlayerRow(player: p, isAnclas: awayTeam == Match.anclasName, linkedPlayer: linked)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -224,20 +236,37 @@ private struct LineupSection: View {
 private struct PlayerRow: View {
     let player: MatchPlayer
     let isAnclas: Bool
+    var linkedPlayer: Player? = nil
 
     var body: some View {
-        HStack(spacing: 6) {
+        Group {
+            if let linked = linkedPlayer {
+                NavigationLink(value: linked) { content }
+            } else {
+                content
+            }
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var content: some View {
+        HStack(spacing: 4) {
             Text(player.position)
                 .font(.caption.weight(.bold))
                 .foregroundStyle(.white)
-                .frame(width: 26)
+                .frame(width: 24)
                 .padding(.vertical, 2)
                 .background(isAnclas ? Theme.orange : Color.secondary, in: RoundedRectangle(cornerRadius: 4))
             Text("#\(player.number)")
                 .font(.caption.weight(.semibold).monospacedDigit())
             Text(player.name)
-                .font(.callout)
+                .font(.subheadline)
                 .lineLimit(1)
+                .minimumScaleFactor(0.7)
+            if linkedPlayer != nil {
+                Image(systemName: "chevron.right")
+                    .font(.caption2).foregroundStyle(.tertiary)
+            }
         }
         .padding(.vertical, 3)
     }
@@ -248,25 +277,33 @@ private struct PlayerRow: View {
 private struct SubstitutionRow: View {
     let sub: SubstitutionEvent
     let homeTeam: String
+    let awayTeam: String
+
+    private var teamName: String { sub.team == "home" ? homeTeam : awayTeam }
+    private var isAnclas: Bool { teamName == Match.anclasName }
 
     var body: some View {
-        HStack(spacing: 8) {
-            Text(sub.minute)
-                .font(.caption.weight(.bold).monospacedDigit())
-                .foregroundStyle(.secondary)
-                .frame(width: 70, alignment: .trailing)
-
-            VStack(alignment: .leading, spacing: 2) {
-                HStack(spacing: 4) {
-                    Image(systemName: "arrow.down.circle.fill").foregroundStyle(.red).font(.caption)
-                    Text("#\(sub.outNumber) \(sub.outName)").font(.caption)
-                }
-                HStack(spacing: 4) {
-                    Image(systemName: "arrow.up.circle.fill").foregroundStyle(.green).font(.caption)
-                    Text("#\(sub.inNumber) \(sub.inName)").font(.caption)
-                }
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(spacing: 6) {
+                Text(sub.minute)
+                    .font(.subheadline.weight(.bold).monospacedDigit())
+                    .foregroundStyle(.secondary)
+                Text(teamName)
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(isAnclas ? Theme.orange : .secondary)
+                    .lineLimit(1)
+            }
+            HStack(spacing: 6) {
+                Image(systemName: "arrow.down.circle.fill").foregroundStyle(.red).font(.subheadline)
+                Text("OUT").font(.caption2.weight(.bold)).foregroundStyle(.red)
+                Text("#\(sub.outNumber) \(sub.outName)").font(.subheadline)
+            }
+            HStack(spacing: 6) {
+                Image(systemName: "arrow.up.circle.fill").foregroundStyle(.green).font(.subheadline)
+                Text("IN").font(.caption2.weight(.bold)).foregroundStyle(.green)
+                Text("#\(sub.inNumber) \(sub.inName)").font(.subheadline)
             }
         }
-        .padding(.vertical, 2)
+        .padding(.vertical, 4)
     }
 }
