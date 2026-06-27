@@ -4,8 +4,11 @@ struct StandingsView: View {
     @Environment(DataStore.self) private var store
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
+        ScrollView {
+            VStack(spacing: 0) {
+                HeaderBar(title: "順位表")
+                    .padding(.bottom, 8)
+
                 if let table = store.standingsData?.table {
                     VStack(spacing: 0) {
                         HeaderRow()
@@ -19,14 +22,9 @@ struct StandingsView: View {
                     ProgressView("読み込み中…").padding(.top, 60)
                 }
             }
-            .background(Color(.systemGroupedBackground))
-            .navigationTitle("順位表")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(Theme.navy, for: .navigationBar)
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
-            .refreshable { await store.refresh() }
         }
+        .background(Color(.systemGroupedBackground))
+        .refreshable { await store.refresh() }
     }
 }
 
@@ -58,13 +56,13 @@ private struct StandingRowView: View {
             Text("\(row.rank)")
                 .frame(width: 24, alignment: .center)
                 .font(.subheadline.weight(.bold))
-                .foregroundStyle(row.isAnclas ? Theme.blue : .primary)
+                .foregroundStyle(row.isAnclas ? Theme.orange : .primary)
 
             Text(row.team)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .font(.caption)
                 .lineLimit(1)
-                .foregroundStyle(row.isAnclas ? Theme.blue : .primary)
+                .foregroundStyle(row.isAnclas ? Theme.orange : .primary)
 
             Group {
                 Text("\(row.played)")
@@ -78,7 +76,7 @@ private struct StandingRowView: View {
         }
         .padding(.vertical, 8)
         .padding(.horizontal, 4)
-        .background(row.isAnclas ? Theme.blue.opacity(0.1) : .clear)
+        .background(row.isAnclas ? Theme.orange.opacity(0.12) : .clear)
         .clipShape(RoundedRectangle(cornerRadius: 6))
     }
 }

@@ -37,6 +37,7 @@ struct Match: Codable, Identifiable, Hashable {
     let sourceUrl: String
     let venue: String?
     let goalnoteUrl: String?
+    let posterUrl: String?
 }
 
 // MARK: - 表示用の派生ロジック（アンクラス視点）

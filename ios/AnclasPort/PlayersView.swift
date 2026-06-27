@@ -11,26 +11,27 @@ struct PlayersView: View {
     var body: some View {
         NavigationStack {
             ScrollView {
-                if let players = store.playersData?.players {
-                    LazyVGrid(columns: columns, spacing: 14) {
-                        ForEach(players) { player in
-                            NavigationLink(value: player) {
-                                PlayerCell(player: player)
+                VStack(spacing: 12) {
+                    HeaderBar(title: "選手名鑑")
+
+                    if let players = store.playersData?.players {
+                        LazyVGrid(columns: columns, spacing: 14) {
+                            ForEach(players) { player in
+                                NavigationLink(value: player) {
+                                    PlayerCell(player: player)
+                                }
+                                .buttonStyle(.plain)
                             }
-                            .buttonStyle(.plain)
                         }
+                        .padding(.horizontal, 14)
+                    } else {
+                        ProgressView("読み込み中…").padding(.top, 60)
                     }
-                    .padding(14)
-                } else {
-                    ProgressView("読み込み中…").padding(.top, 60)
                 }
+                .padding(.vertical, 8)
             }
             .background(Color(.systemGroupedBackground))
-            .navigationTitle("選手名鑑")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(Theme.navy, for: .navigationBar)
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
+            .navigationBarHidden(true)
             .navigationDestination(for: Player.self) { player in
                 PlayerDetailView(player: player)
             }
@@ -59,7 +60,7 @@ private struct PlayerCell: View {
 
             Text(player.displayNumber)
                 .font(.title2.weight(.heavy)).monospacedDigit()
-                .foregroundStyle(Theme.navy)
+                .foregroundStyle(Theme.orange)
             Text(player.nameJa)
                 .font(.subheadline.weight(.semibold))
             if let nick = player.nickname, !nick.isEmpty {
@@ -77,37 +78,81 @@ private struct PlayerCell: View {
 
 struct PlayerDetailView: View {
     let player: Player
+    @Environment(DataStore.self) private var store
+
+    private var allPlayers: [Player] { store.playersData?.players ?? [] }
+    private var currentIndex: Int? { allPlayers.firstIndex(where: { $0.id == player.id }) }
+    private var prevPlayer: Player? {
+        guard let i = currentIndex, i > 0 else { return nil }
+        return allPlayers[i - 1]
+    }
+    private var nextPlayer: Player? {
+        guard let i = currentIndex, i < allPlayers.count - 1 else { return nil }
+        return allPlayers[i + 1]
+    }
+
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 20) {
-                AsyncImage(url: URL(string: player.photo.large ?? player.photo.full ?? "")) { phase in
-                    switch phase {
-                    case .success(let image):
-                        image.resizable().aspectRatio(contentMode: .fit)
-                    default:
-                        Color(.tertiarySystemFill).frame(height: 300)
+            VStack(spacing: 16) {
+                // ヘッダー + 戻るボタン統合
+                ZStack(alignment: .topLeading) {
+                    HeaderBar(title: "\(player.displayNumber) \(player.nameJa)")
+                    Button { dismiss() } label: {
+                        Image(systemName: "chevron.left")
+                            .font(.body.weight(.semibold))
+                            .foregroundStyle(.white)
+                            .frame(width: 36, height: 36)
+                            .background(.black.opacity(0.3), in: Circle())
                     }
+                    .padding(.leading, 20)
+                    .padding(.top, 8)
                 }
-                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
 
-                VStack(spacing: 4) {
-                    Text(player.displayNumber)
-                        .font(.system(size: 40, weight: .heavy)).monospacedDigit()
-                        .foregroundStyle(Theme.navy)
-                    Text(player.nameJa)
-                        .font(.title2.weight(.bold))
-                    if let en = player.nameEn {
-                        Text(en).font(.subheadline).foregroundStyle(.secondary)
+                // 写真: fit で頭が切れないように
+                ZStack(alignment: .bottomLeading) {
+                    AsyncImage(url: URL(string: player.photo.large ?? player.photo.full ?? "")) { phase in
+                        switch phase {
+                        case .success(let image):
+                            image.resizable().aspectRatio(contentMode: .fit)
+                        default:
+                            Color(.tertiarySystemFill).frame(height: 300)
+                        }
                     }
-                    if let pos = player.position {
-                        Text(pos)
-                            .font(.caption.weight(.bold))
-                            .padding(.horizontal, 10).padding(.vertical, 3)
-                            .background(Theme.blue.opacity(0.15), in: Capsule())
-                            .foregroundStyle(Theme.blue)
+
+                    LinearGradient(
+                        colors: [.clear, Theme.navy.opacity(0.8), Theme.navy.opacity(0.95)],
+                        startPoint: .center,
+                        endPoint: .bottom
+                    )
+                    .frame(height: 120)
+
+                    HStack(alignment: .bottom, spacing: 12) {
+                        Text(player.displayNumber)
+                            .font(.system(size: 50, weight: .heavy)).monospacedDigit()
+                            .foregroundStyle(Theme.orange)
+                        VStack(alignment: .leading, spacing: 2) {
+                            if let pos = player.position {
+                                Text(pos)
+                                    .font(.caption.weight(.heavy))
+                                    .foregroundStyle(Theme.orange)
+                                    .padding(.horizontal, 8).padding(.vertical, 2)
+                                    .background(.white.opacity(0.2), in: Capsule())
+                            }
+                            Text(player.nameJa)
+                                .font(.title2.weight(.bold))
+                                .foregroundStyle(.white)
+                            if let en = player.nameEn {
+                                Text(en).font(.caption).foregroundStyle(.white.opacity(0.7))
+                            }
+                        }
+                        Spacer()
                     }
+                    .padding(16)
                 }
+                .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
+                .padding(.horizontal, 12)
 
                 if hasProfile {
                     ProfileSection(player: player)
@@ -116,16 +161,60 @@ struct PlayerDetailView: View {
                 if !player.personal.isEmpty {
                     PersonalSection(items: player.personal)
                 }
+
+                // 前後の選手への回遊ナビ
+                PlayerNavigation(prev: prevPlayer, next: nextPlayer)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 20)
             }
-            .padding(16)
+            .padding(.top, 8)
         }
         .background(Color(.systemGroupedBackground))
-        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarHidden(true)
     }
 
     private var hasProfile: Bool {
         [player.profile.birthdate, player.profile.hometown, player.profile.height, player.profile.career]
             .contains(where: { $0 != nil })
+    }
+}
+
+private struct PlayerNavigation: View {
+    let prev: Player?
+    let next: Player?
+
+    var body: some View {
+        HStack {
+            if let p = prev {
+                NavigationLink(value: p) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "chevron.left")
+                        VStack(alignment: .leading, spacing: 1) {
+                            Text(p.displayNumber).font(.caption2.weight(.bold))
+                            Text(p.nameJa).font(.caption).lineLimit(1)
+                        }
+                    }
+                    .foregroundStyle(Theme.orange)
+                }
+            }
+            Spacer()
+            if let n = next {
+                NavigationLink(value: n) {
+                    HStack(spacing: 6) {
+                        VStack(alignment: .trailing, spacing: 1) {
+                            Text(n.displayNumber).font(.caption2.weight(.bold))
+                            Text(n.nameJa).font(.caption).lineLimit(1)
+                        }
+                        Image(systemName: "chevron.right")
+                    }
+                    .foregroundStyle(Theme.orange)
+                }
+            }
+        }
+        .padding(.vertical, 12)
+        .padding(.horizontal, 16)
+        .background(Color(.secondarySystemGroupedBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
     }
 }
 
@@ -142,7 +231,9 @@ private struct ProfileSection: View {
             }
             if let career = player.profile.career {
                 Text("経歴").font(.caption.weight(.bold)).foregroundStyle(.secondary).padding(.top, 4)
-                Text(career).font(.subheadline)
+                Text(career.replacingOccurrences(of: " – ", with: "\n→ "))
+                    .font(.subheadline)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -163,18 +254,18 @@ private struct ProfileSection: View {
 private struct PersonalSection: View {
     let items: [PersonalItem]
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 10) {
             Text("PERSONAL").font(.caption.weight(.bold)).foregroundStyle(.secondary)
-            FlowLayout(spacing: 8) {
-                ForEach(items, id: \.label) { item in
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text(item.label).font(.caption2).foregroundStyle(.secondary)
-                        Text(item.value).font(.caption)
-                    }
-                    .padding(.horizontal, 10).padding(.vertical, 6)
-                    .background(Theme.blue.opacity(0.08))
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            ForEach(items, id: \.label) { item in
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(item.label).font(.caption2).foregroundStyle(Theme.orange)
+                    Text(item.value).font(.subheadline)
+                        .fixedSize(horizontal: false, vertical: true)
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 12).padding(.vertical, 8)
+                .background(Theme.orange.opacity(0.06))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)

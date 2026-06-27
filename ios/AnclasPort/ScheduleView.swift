@@ -12,30 +12,25 @@ struct ScheduleView: View {
     }
 
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                LazyVStack(spacing: 12) {
-                    Picker("表示", selection: $showAll) {
-                        Text("今後").tag(false)
-                        Text("全試合").tag(true)
-                    }
-                    .pickerStyle(.segmented)
-                    .padding(.horizontal, 16)
+        ScrollView {
+            VStack(spacing: 12) {
+                HeaderBar(title: "日程・結果")
 
-                    ForEach(anclasMatches) { match in
-                        ScheduleCard(match: match)
-                    }
+                Picker("表示", selection: $showAll) {
+                    Text("今後").tag(false)
+                    Text("全試合").tag(true)
                 }
-                .padding(.vertical, 12)
+                .pickerStyle(.segmented)
+                .padding(.horizontal, 16)
+
+                ForEach(anclasMatches) { match in
+                    ScheduleCard(match: match)
+                }
             }
-            .background(Color(.systemGroupedBackground))
-            .navigationTitle("日程・結果")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(Theme.navy, for: .navigationBar)
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
-            .refreshable { await store.refresh() }
+            .padding(.vertical, 8)
         }
+        .background(Color(.systemGroupedBackground))
+        .refreshable { await store.refresh() }
     }
 }
 
@@ -47,7 +42,7 @@ private struct ScheduleCard: View {
             HStack {
                 Text(match.roundLabel)
                     .font(.caption.weight(.semibold))
-                    .foregroundStyle(Theme.blue)
+                    .foregroundStyle(Theme.orange)
                 Spacer()
                 if match.isFinished {
                     Text("終了").font(.caption).foregroundStyle(.secondary)
@@ -57,7 +52,7 @@ private struct ScheduleCard: View {
             if match.isFinished, let line = match.anclasScoreLine {
                 HStack(spacing: 10) {
                     Text(match.anclasIsHome ? match.homeTeam : match.awayTeam)
-                        .font(.subheadline).foregroundStyle(Theme.blue)
+                        .font(.subheadline).foregroundStyle(Theme.orange)
                     Text("\(line.mine) - \(line.theirs)")
                         .font(.title2.weight(.heavy)).monospacedDigit()
                     Text(match.opponent).font(.subheadline)
@@ -73,11 +68,11 @@ private struct ScheduleCard: View {
                 HStack(spacing: 8) {
                     Text(match.homeTeam)
                         .font(.subheadline)
-                        .foregroundStyle(match.anclasIsHome ? Theme.blue : .primary)
+                        .foregroundStyle(match.anclasIsHome ? Theme.orange : .primary)
                     Text("vs").font(.caption).foregroundStyle(.secondary)
                     Text(match.awayTeam)
                         .font(.subheadline)
-                        .foregroundStyle(!match.anclasIsHome ? Theme.blue : .primary)
+                        .foregroundStyle(!match.anclasIsHome ? Theme.orange : .primary)
                 }
                 if let d = match.startDate {
                     Text(d.formattedJa())

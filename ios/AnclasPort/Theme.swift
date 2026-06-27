@@ -1,13 +1,16 @@
 import SwiftUI
 
-/// アンクラスのクラブカラー（エンブレム + anclas.jp から採取確定）
+/// アンクラスのクラブカラー（エンブレム・キャラクター・公式サイトから採取）
+/// ADR-001 に採取根拠を記録
 enum Theme {
+    /// クラブオレンジ #EF6C00（キャラクターのユニフォーム・サイトアクセント）
+    static let orange = Color(red: 0.937, green: 0.424, blue: 0.000)
     /// エンブレム内側のダークネイビー #162D66（錨・文字）
     static let navy = Color(red: 0.086, green: 0.176, blue: 0.400)
     /// エンブレム外輪のブルー #1970C1
     static let blue = Color(red: 0.098, green: 0.439, blue: 0.757)
-    /// anclas.jp アクセントのゴールド #DD9933
-    static let gold = Color(red: 0.867, green: 0.600, blue: 0.200)
+    /// キャラクターのイエロー #EDA016
+    static let yellow = Color(red: 0.929, green: 0.627, blue: 0.086)
 
     static let win = Color.green
     static let draw = Color.gray
@@ -31,7 +34,6 @@ enum Theme {
 }
 
 extension Date {
-    /// "6/27(金) 12:00" 形式
     func formattedJa(_ template: String = "M/d(E) HH:mm") -> String {
         let f = DateFormatter()
         f.locale = Locale(identifier: "ja_JP")
@@ -40,7 +42,6 @@ extension Date {
         return f.string(from: self)
     }
 
-    /// 今日からの残り日数（キックオフ当日は 0）
     func daysFromNow() -> Int {
         let cal = Calendar(identifier: .gregorian)
         let start = cal.startOfDay(for: Date())

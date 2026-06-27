@@ -8,6 +8,8 @@ import {
 } from "./lib/goalnote-parser.js";
 import { parseQLeagueMatches } from "./lib/qleague-parser.js";
 import { calculateStandings } from "./lib/standings.js";
+import { findMatchPoster } from "./lib/wordpress-client.js";
+import { logger } from "./lib/logger.js";
 import { ANCLAS_TEAM_NAME, type Match, type MatchesData, type StandingsData } from "./lib/types.js";
 
 const Q_LEAGUE_URL = "https://q-league.net/match/";
@@ -52,7 +54,7 @@ function pickLatestResult(matches: Match[]): Match | null {
 function writeJson(name: string, data: unknown): void {
   mkdirSync(DATA_DIR, { recursive: true });
   writeFileSync(new URL(name, DATA_DIR), `${JSON.stringify(data, null, 2)}\n`, "utf-8");
-  console.log(`wrote ${name}`);
+  logger.info(`wrote ${name}`);
 }
 
 async function main(): Promise<void> {
@@ -67,9 +69,9 @@ async function main(): Promise<void> {
     const gnHtml = await fetchGoalNoteSchedule();
     const gnRows = parseGoalNoteSchedule(gnHtml);
     enrichMatchesWithSchedule(matches, gnRows);
-    console.log(`GoalNote schedule: ${gnRows.length}行取得、会場を補完`);
+    logger.info(`GoalNote schedule: ${gnRows.length}行取得、会場を補完`);
   } catch (e) {
-    console.warn(`GoalNote schedule 取得失敗（会場なしで続行）: ${e}`);
+    logger.warn(`GoalNote schedule 取得失敗（会場なしで続行）: ${e}`);
   }
 
   // 3. GoalNote game → アンクラスの確定試合に得点経過を補完
@@ -82,10 +84,25 @@ async function main(): Promise<void> {
       m.goals = gameData.goals;
       goalCount += gameData.goals.length;
     } catch (e) {
-      console.warn(`GoalNote game 取得失敗 ${m.goalnoteUrl}: ${e}`);
+      logger.warn(`GoalNote game 取得失敗 ${m.goalnoteUrl}: ${e}`);
     }
   }
-  console.log(`GoalNote game: ${anclasFinished.length}試合から${goalCount}ゴール取得`);
+  logger.info(`GoalNote game: ${anclasFinished.length}試合から${goalCount}ゴール取得`);
+
+  // 4. 次の試合のポスター画像を anclas.jp から取得
+  const nextMatch = pickNextMatch(matches, Date.now());
+  if (nextMatch) {
+    try {
+      const opponent = nextMatch.homeTeam === ANCLAS_TEAM_NAME ? nextMatch.awayTeam : nextMatch.homeTeam;
+      const posterUrl = await findMatchPoster(opponent, nextMatch.date);
+      if (posterUrl) {
+        nextMatch.posterUrl = posterUrl;
+        logger.info(`ポスター取得: ${posterUrl.slice(-40)}`);
+      }
+    } catch (e) {
+      logger.warn(`ポスター取得失敗（無しで続行）: ${e}`);
+    }
+  }
 
   const generatedAt = new Date().toISOString();
   const season = inferSeason(matches);
@@ -94,7 +111,7 @@ async function main(): Promise<void> {
     generatedAt,
     season,
     anclas: {
-      nextMatch: pickNextMatch(matches, Date.now()),
+      nextMatch,
       latestResult: pickLatestResult(matches),
     },
     matches,
@@ -112,12 +129,12 @@ async function main(): Promise<void> {
 
   const anclas = matches.filter((m) => m.isAnclas);
   const venued = matches.filter((m) => m.venue).length;
-  console.log(
+  logger.info(
     `done: ${matches.length}試合 / アンクラス${anclas.length}試合 / 会場あり${venued} / 順位表${standingsData.table.length}チーム / season=${season}`,
   );
 }
 
 main().catch((err) => {
-  console.error("[generate-matches] 失敗:", err);
+  logger.error(`失敗: ${err instanceof Error ? err.message : err}`);
   process.exit(1);
 });
