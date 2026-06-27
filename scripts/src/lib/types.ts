@@ -70,6 +70,8 @@ export interface MatchesData {
     nextMatch: Match | null;
     /** 直近の確定アンクラス試合（最も新しい過去）。無ければ null */
     latestResult: Match | null;
+    /** ポッドキャスト最新エピソード。取得失敗時 null */
+    latestPodcast: PodcastEpisode | null;
   };
   /** アンクラスが所属する1部の全試合（節・日時順） */
   matches: Match[];
@@ -138,6 +140,14 @@ export interface Player {
   personal: { label: string; value: string }[];
   /** クラブ公式の選手ページURL */
   sourceUrl: string;
+}
+
+/** ポッドキャスト最新エピソード */
+export interface PodcastEpisode {
+  title: string;
+  thumbnailUrl: string;
+  showUrl: string;
+  embedUrl: string;
 }
 
 /** players.json のルート */

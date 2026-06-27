@@ -26,6 +26,10 @@ final class DataStore {
         async let s: Void = fetchAndStore("standings", into: \DataStore.standingsData)
         async let p: Void = fetchAndStore("players", into: \DataStore.playersData)
         _ = await (m, s, p)
+
+        if let matches = matchesData?.matches {
+            NotificationManager.scheduleMatchReminders(for: matches)
+        }
     }
 
     // MARK: - convenience

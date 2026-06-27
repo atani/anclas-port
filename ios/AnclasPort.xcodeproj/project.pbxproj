@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0591FE8788A77CCDB2C42665 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AD71C8CF810A6F5F7B9E75 /* NotificationManager.swift */; };
 		0B91D4834EFED303919BE50D /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F038957E896810999D0FA8C /* SplashView.swift */; };
 		28DAD895429F6AE066E709B9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3464DCEBB5E835F222A20E12 /* Assets.xcassets */; };
 		3D3E51F2F2FE05842E3A6BE0 /* players.json in Resources */ = {isa = PBXBuildFile; fileRef = F60A2F769C2E87B7C63CF906 /* players.json */; };
@@ -16,7 +17,9 @@
 		5872B1BB99BC8305AD6B7D72 /* HeaderBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77A4F1D3F5DC7A948EA20D /* HeaderBar.swift */; };
 		71599EC924A3BD5DCF1A7FA1 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A4AAC7CE1BF1F6F66EA834 /* DataStore.swift */; };
 		8EE0A32C44DF90A8C367DF41 /* matches.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CCA593D44C3330BAA2D1BB6 /* matches.json */; };
+		9A83AA599DA5D49E7EA12430 /* AnclasPortWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = EEBE892FA22E20183B93BC29 /* AnclasPortWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A66065A6D1E84F2AB537973F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF92157645B63B9B49772203 /* HomeView.swift */; };
+		C7308D4728C117794597AC04 /* AnclasPortWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42B5065AE7F79E8BA3B8580 /* AnclasPortWidget.swift */; };
 		CDF91766AA98E68BFD201FEB /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCD8E0E7ACDC1F57019BFBC2 /* Models.swift */; };
 		CF4AC7A99CDF3F44B098832D /* standings.json in Resources */ = {isa = PBXBuildFile; fileRef = 9279E5F800C7ACB899B4FA4F /* standings.json */; };
 		CFFFE58244231F6BC8C818AA /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5319AAC6FD7F2703FE50BF07 /* Theme.swift */; };
@@ -25,6 +28,30 @@
 		E1209C5DF7AF409715CC7871 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F812822F6F2E4CAAA3B52 /* MoreView.swift */; };
 		EDB43DA03E7756B8DAB21A8F /* AnclasPortApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047CC8DE224B6EC4A441C722 /* AnclasPortApp.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BDAA217730DBEFCA61BEAEE8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6F8754772CF8066AEDD640AD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4371024C3F6D95304CFB6866;
+			remoteInfo = AnclasPortWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		71CF6E3E3DF455F6A5DD21A7 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				9A83AA599DA5D49E7EA12430 /* AnclasPortWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		001F812822F6F2E4CAAA3B52 /* MoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreView.swift; sourceTree = "<group>"; };
@@ -39,11 +66,15 @@
 		9279E5F800C7ACB899B4FA4F /* standings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = standings.json; sourceTree = "<group>"; };
 		9CCA593D44C3330BAA2D1BB6 /* matches.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = matches.json; sourceTree = "<group>"; };
 		9F038957E896810999D0FA8C /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		B42B5065AE7F79E8BA3B8580 /* AnclasPortWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnclasPortWidget.swift; sourceTree = "<group>"; };
 		BE77A4F1D3F5DC7A948EA20D /* HeaderBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderBar.swift; sourceTree = "<group>"; };
+		C4AD71C8CF810A6F5F7B9E75 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		CCD8E0E7ACDC1F57019BFBC2 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		EEBE892FA22E20183B93BC29 /* AnclasPortWidgetExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = AnclasPortWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F38CD710B02E069D8F72F881 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		F60A2F769C2E87B7C63CF906 /* players.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = players.json; sourceTree = "<group>"; };
 		F6E0E6FC0B694E50065F7CA9 /* MatchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailView.swift; sourceTree = "<group>"; };
+		FD60417F4E7AC1827A117163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		FF92157645B63B9B49772203 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -52,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				CB788CD622FB61781D9664E9 /* AnclasPort */,
+				5BEBB9D41201739020B061DE /* AnclasPortWidget */,
 				4935723903BCA98DF1D279D8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,8 +102,18 @@
 			isa = PBXGroup;
 			children = (
 				2851D0C1A8EC647F06B0FEF4 /* AnclasPort.app */,
+				EEBE892FA22E20183B93BC29 /* AnclasPortWidgetExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		5BEBB9D41201739020B061DE /* AnclasPortWidget */ = {
+			isa = PBXGroup;
+			children = (
+				B42B5065AE7F79E8BA3B8580 /* AnclasPortWidget.swift */,
+				FD60417F4E7AC1827A117163 /* Info.plist */,
+			);
+			path = AnclasPortWidget;
 			sourceTree = "<group>";
 		};
 		CB788CD622FB61781D9664E9 /* AnclasPort */ = {
@@ -86,6 +128,7 @@
 				F6E0E6FC0B694E50065F7CA9 /* MatchDetailView.swift */,
 				CCD8E0E7ACDC1F57019BFBC2 /* Models.swift */,
 				001F812822F6F2E4CAAA3B52 /* MoreView.swift */,
+				C4AD71C8CF810A6F5F7B9E75 /* NotificationManager.swift */,
 				2853101ABF5A7E31C6B4C431 /* PlayersView.swift */,
 				F38CD710B02E069D8F72F881 /* ScheduleView.swift */,
 				9F038957E896810999D0FA8C /* SplashView.swift */,
@@ -99,16 +142,35 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4371024C3F6D95304CFB6866 /* AnclasPortWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 183F937960B5243CCDE84723 /* Build configuration list for PBXNativeTarget "AnclasPortWidgetExtension" */;
+			buildPhases = (
+				55CA0EFC648D1EB0A0EC8FCB /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AnclasPortWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = AnclasPortWidgetExtension;
+			productReference = EEBE892FA22E20183B93BC29 /* AnclasPortWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		DB38A653AF3237B9C07BD020 /* AnclasPort */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E52AC1DFF1987CA6EED34D16 /* Build configuration list for PBXNativeTarget "AnclasPort" */;
 			buildPhases = (
 				5455B19DFD6432AF80CA2A84 /* Sources */,
 				82CB7B85DECA42EBCD5C7219 /* Resources */,
+				71CF6E3E3DF455F6A5DD21A7 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				D878551262FAF36D071ABE89 /* PBXTargetDependency */,
 			);
 			name = AnclasPort;
 			packageProductDependencies = (
@@ -126,6 +188,9 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
+					4371024C3F6D95304CFB6866 = {
+						DevelopmentTeam = "";
+					};
 					DB38A653AF3237B9C07BD020 = {
 						DevelopmentTeam = "";
 					};
@@ -146,6 +211,7 @@
 			projectRoot = "";
 			targets = (
 				DB38A653AF3237B9C07BD020 /* AnclasPort */,
+				4371024C3F6D95304CFB6866 /* AnclasPortWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -177,6 +243,7 @@
 				DCE54EF346027C0FC6A3B161 /* MatchDetailView.swift in Sources */,
 				CDF91766AA98E68BFD201FEB /* Models.swift in Sources */,
 				E1209C5DF7AF409715CC7871 /* MoreView.swift in Sources */,
+				0591FE8788A77CCDB2C42665 /* NotificationManager.swift in Sources */,
 				5191773AA8562C67CED6D297 /* PlayersView.swift in Sources */,
 				43A3954B7AD475B4E9A24F66 /* ScheduleView.swift in Sources */,
 				0B91D4834EFED303919BE50D /* SplashView.swift in Sources */,
@@ -185,7 +252,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55CA0EFC648D1EB0A0EC8FCB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C7308D4728C117794597AC04 /* AnclasPortWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D878551262FAF36D071ABE89 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4371024C3F6D95304CFB6866 /* AnclasPortWidgetExtension */;
+			targetProxy = BDAA217730DBEFCA61BEAEE8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		10A39B9A1E9217531E4604B3 /* Debug */ = {
@@ -251,6 +334,21 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		384C875F8BA3A9247564F794 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = AnclasPortWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.atani.AnclasPort.Widget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -353,6 +451,21 @@
 			};
 			name = Debug;
 		};
+		C4EFCF77FEFA2593CB30F295 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = AnclasPortWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.atani.AnclasPort.Widget;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -361,6 +474,15 @@
 			buildConfigurations = (
 				10A39B9A1E9217531E4604B3 /* Debug */,
 				7E34EF43F26E3DD780F1CF38 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		183F937960B5243CCDE84723 /* Build configuration list for PBXNativeTarget "AnclasPortWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				384C875F8BA3A9247564F794 /* Debug */,
+				C4EFCF77FEFA2593CB30F295 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

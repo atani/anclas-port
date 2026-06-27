@@ -7,6 +7,7 @@ import {
   parseGoalNoteSchedule,
 } from "./lib/goalnote-parser.js";
 import { parseQLeagueMatches } from "./lib/qleague-parser.js";
+import { fetchLatestPodcast } from "./lib/spotify.js";
 import { calculateStandings } from "./lib/standings.js";
 import { findMatchPoster } from "./lib/wordpress-client.js";
 import { logger } from "./lib/logger.js";
@@ -116,6 +117,14 @@ async function main(): Promise<void> {
     }
   }
 
+  // 5. ポッドキャスト最新エピソード（oembed, 認証不要）
+  let latestPodcast = await fetchLatestPodcast();
+  if (latestPodcast) {
+    logger.info(`ポッドキャスト: ${latestPodcast.title.slice(0, 40)}`);
+  } else {
+    logger.warn("ポッドキャスト取得失敗");
+  }
+
   const generatedAt = new Date().toISOString();
   const season = inferSeason(matches);
 
@@ -125,6 +134,7 @@ async function main(): Promise<void> {
     anclas: {
       nextMatch,
       latestResult: pickLatestResult(matches),
+      latestPodcast,
     },
     matches,
   };

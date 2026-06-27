@@ -66,6 +66,11 @@ struct HomeView: View {
                             .buttonStyle(.plain)
                         }
 
+                        if let podcast = store.data?.anclas.latestPodcast {
+                            SectionLabel("PODCAST")
+                            PodcastCard(episode: podcast)
+                        }
+
                         if let err = store.errorText {
                             Text(err)
                                 .font(.caption)
@@ -217,6 +222,44 @@ private struct LatestResultCard: View {
             }
         }
         .card()
+    }
+}
+
+private struct PodcastCard: View {
+    let episode: PodcastEpisode
+    var body: some View {
+        if let url = URL(string: episode.showUrl) {
+            Link(destination: url) {
+                HStack(spacing: 14) {
+                    AsyncImage(url: URL(string: episode.thumbnailUrl)) { phase in
+                        switch phase {
+                        case .success(let image):
+                            image.resizable().aspectRatio(contentMode: .fill)
+                        default:
+                            Color(.tertiarySystemFill)
+                        }
+                    }
+                    .frame(width: 60, height: 60)
+                    .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        Label("アンクラスのロッカールーム", systemImage: "headphones")
+                            .font(.caption2.weight(.semibold))
+                            .foregroundStyle(Theme.orange)
+                        Text(episode.title)
+                            .font(.subheadline.weight(.medium))
+                            .lineLimit(2)
+                            .multilineTextAlignment(.leading)
+                        Text("Spotify で聴く →")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    }
+                    Spacer()
+                }
+                .card()
+            }
+            .buttonStyle(.plain)
+        }
     }
 }
 

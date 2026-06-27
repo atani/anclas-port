@@ -8,7 +8,10 @@ struct AnclasPortApp: App {
         WindowGroup {
             SplashView()
                 .environment(store)
-                .task { await store.load() }
+                .task {
+                    NotificationManager.requestPermission()
+                    await store.load()
+                }
         }
     }
 }
