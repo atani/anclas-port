@@ -21,6 +21,13 @@ struct PodcastEpisode: Codable, Hashable {
     let thumbnailUrl: String
     let showUrl: String
     let embedUrl: String
+    let publishedAt: String?
+
+    var isNew: Bool {
+        guard let pubDate = publishedAt else { return false }
+        guard let date = ISO8601DateFormatter().date(from: pubDate + "T00:00:00+09:00") else { return false }
+        return date.timeIntervalSinceNow > -7 * 24 * 60 * 60
+    }
 }
 
 struct Score: Codable, Hashable {

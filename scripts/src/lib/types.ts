@@ -148,6 +148,8 @@ export interface PodcastEpisode {
   thumbnailUrl: string;
   showUrl: string;
   embedUrl: string;
+  /** エピソード公開日 YYYY-MM-DD。取得できなければ null */
+  publishedAt: string | null;
 }
 
 /** players.json のルート */
