@@ -64,8 +64,19 @@ export interface Match {
   goalnoteUrl: string | null;
   /** 試合告知ポスター画像URL（anclas.jp featured_media 由来）。無ければ null */
   posterUrl: string | null;
+  /** 警告・退場（GoalNote game page 由来）。未取得なら空配列 */
+  cards: CardEvent[];
   /** マッチレポート（anclas.jp 由来）。未取得なら null */
   matchReport: MatchReport | null;
+}
+
+/** 警告・退場（GoalNote game page 由来） */
+export interface CardEvent {
+  number: number;
+  name: string;
+  team: "home" | "away";
+  /** "yellow" = 警告/ラフプレー / "red" = 退場 */
+  type: "yellow" | "red";
 }
 
 /** 試合出場選手（GoalNote game page 由来） */

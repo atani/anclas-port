@@ -170,12 +170,20 @@ function htmlToPlainText(html: string): string {
 function parseMatchReportContent(html: string, postUrl: string): MatchReport {
   const text = htmlToPlainText(html);
 
-  // 「マッチレポート」以降のテキストを取得
-  const reportStart = text.search(/マッチレポート\s*\n/);
-  const reportText = reportStart >= 0 ? text.slice(reportStart) : text;
+  // 記事冒頭は INDEX（目次リンク）と試合メタ情報。「公式記録」以降を本文領域とし、
+  // 目次内の「マッチレポート」「#N…コメント」を誤って拾わないようにする。
+  const officialIdx = text.indexOf("公式記録");
+  const afterOfficial = officialIdx >= 0 ? text.slice(officialIdx) : text;
+
+  // 本文の「マッチレポート」見出し以降（公式記録の登録メンバー・得点/交代は除外）
+  const repStart = afterOfficial.search(/(?:^|\n)\s*マッチレポート\s*\n/);
+  let reportText = repStart >= 0 ? afterOfficial.slice(repStart) : afterOfficial;
+
+  // 終端「フォトギャラリー」以降を切り捨てる
+  reportText = reportText.split(/\n\s*フォトギャラリー/)[0] ?? reportText;
 
   // コメントセクションを分割: 「監督 XXX コメント」「#N選手名 コメント」
-  const commentPattern = /(?:監督\s+.+?\s*コメント|#\d+.+?\s*コメント)/g;
+  const commentPattern = /(?:監督\s+.+?\s*コメント|#\d+\s*.+?\s*コメント)/g;
   const commentHeaders: { index: number; header: string }[] = [];
   let m: RegExpExecArray | null;
   while ((m = commentPattern.exec(reportText)) !== null) {
@@ -186,7 +194,8 @@ function parseMatchReportContent(html: string, postUrl: string): MatchReport {
   const summaryEnd = commentHeaders.length > 0 ? commentHeaders[0]!.index : reportText.length;
   const summaryRaw = reportText.slice(0, summaryEnd);
   const summary = summaryRaw
-    .replace(/^マッチレポート\s*\n/, "")
+    .replace(/^\s*マッチレポート\s*\n/, "")
+    .replace(/\n{3,}/g, "\n\n")
     .trim();
 
   // 監督コメント

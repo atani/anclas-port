@@ -29,7 +29,8 @@ struct MatchDetailView: View {
                         homePlayers: starters.filter { $0.team == "home" },
                         awayPlayers: starters.filter { $0.team == "away" },
                         substitutions: match.substitutions ?? [],
-                        store: store
+                        store: store,
+                        cards: match.cards ?? []
                     )
                 }
 
@@ -41,7 +42,9 @@ struct MatchDetailView: View {
                         homePlayers: subs.filter { $0.team == "home" },
                         awayPlayers: subs.filter { $0.team == "away" },
                         substitutions: match.substitutions ?? [],
-                        store: store
+                        store: store,
+                        cards: match.cards ?? [],
+                        isSubs: true
                     )
                 }
 
@@ -297,6 +300,8 @@ private struct MemberTable: View {
     let awayPlayers: [MatchPlayer]
     let substitutions: [SubstitutionEvent]
     let store: DataStore
+    var cards: [CardEvent] = []
+    var isSubs: Bool = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -329,9 +334,14 @@ private struct MemberTable: View {
                 HStack(spacing: 0) {
                     if i < homePlayers.count {
                         let p = homePlayers[i]
-                        let subMin = findSubMinute(number: p.number, team: "home")
-                        let linked = findLinkedPlayer(p, isAnclas: homeTeam == Match.anclasName)
-                        MemberCell(player: p, isAnclas: homeTeam == Match.anclasName, subMinute: subMin, linkedPlayer: linked)
+                        MemberCell(
+                            player: p,
+                            isAnclas: homeTeam == Match.anclasName,
+                            subMinute: findSubMinute(number: p.number, team: "home"),
+                            isSubIn: isSubs,
+                            cardType: findCard(number: p.number, team: "home"),
+                            linkedPlayer: findLinkedPlayer(p, isAnclas: homeTeam == Match.anclasName)
+                        )
                     } else {
                         Spacer().frame(maxWidth: .infinity)
                     }
@@ -340,9 +350,14 @@ private struct MemberTable: View {
 
                     if i < awayPlayers.count {
                         let p = awayPlayers[i]
-                        let subMin = findSubMinute(number: p.number, team: "away")
-                        let linked = findLinkedPlayer(p, isAnclas: awayTeam == Match.anclasName)
-                        MemberCell(player: p, isAnclas: awayTeam == Match.anclasName, subMinute: subMin, linkedPlayer: linked)
+                        MemberCell(
+                            player: p,
+                            isAnclas: awayTeam == Match.anclasName,
+                            subMinute: findSubMinute(number: p.number, team: "away"),
+                            isSubIn: isSubs,
+                            cardType: findCard(number: p.number, team: "away"),
+                            linkedPlayer: findLinkedPlayer(p, isAnclas: awayTeam == Match.anclasName)
+                        )
                     } else {
                         Spacer().frame(maxWidth: .infinity)
                     }
@@ -377,12 +392,21 @@ private struct MemberTable: View {
         guard isAnclas else { return nil }
         return store.playersData?.players.first { $0.number == mp.number }
     }
+
+    /// 該当選手のカード種別（赤優先）。無ければ nil
+    private func findCard(number: Int, team: String) -> String? {
+        let matched = cards.filter { $0.team == team && $0.number == number }
+        if matched.contains(where: { $0.type == "red" }) { return "red" }
+        return matched.first?.type
+    }
 }
 
 private struct MemberCell: View {
     let player: MatchPlayer
     let isAnclas: Bool
     var subMinute: String? = nil
+    var isSubIn: Bool = false
+    var cardType: String? = nil
     var linkedPlayer: Player? = nil
 
     var body: some View {
@@ -416,6 +440,13 @@ private struct MemberCell: View {
                 .lineLimit(1)
                 .minimumScaleFactor(0.6)
 
+            // カード（警告=黄 / 退場=赤）
+            if let cardType {
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(cardType == "red" ? Color.red : Color.yellow)
+                    .frame(width: 9, height: 13)
+            }
+
             Spacer(minLength: 2)
 
             if let min = subMinute {
@@ -423,9 +454,10 @@ private struct MemberCell: View {
                     Text(min)
                         .font(.caption2.monospacedDigit())
                         .foregroundStyle(.secondary)
-                    Image(systemName: "arrow.down.right")
+                    // 控えからIN = 右斜め上（緑）、先発のOUT = 右斜め下（赤）
+                    Image(systemName: isSubIn ? "arrow.up.right" : "arrow.down.right")
                         .font(.caption2)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(isSubIn ? .green : .red)
                 }
             }
 

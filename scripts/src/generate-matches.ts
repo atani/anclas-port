@@ -86,6 +86,7 @@ async function main(): Promise<void> {
       m.starters = gameData.starters;
       m.subs = gameData.subs;
       m.substitutions = gameData.substitutions;
+      m.cards = gameData.cards;
       m.stats = gameData.stats;
       goalCount += gameData.goals.length;
     } catch (e) {
@@ -128,6 +129,7 @@ async function main(): Promise<void> {
         if (m.starters.length === 0 && p.starters.length > 0) m.starters = p.starters;
         if (m.subs.length === 0 && p.subs.length > 0) m.subs = p.subs;
         if (m.substitutions.length === 0 && p.substitutions.length > 0) m.substitutions = p.substitutions;
+        if (m.cards.length === 0 && p.cards.length > 0) m.cards = p.cards;
         if (!m.stats && p.stats) m.stats = p.stats;
         if (!m.matchReport && p.matchReport) {
           m.matchReport = p.matchReport;

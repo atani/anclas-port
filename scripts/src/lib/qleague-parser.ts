@@ -190,6 +190,7 @@ function collectAllMatches(html: string, competition: string): SectionedMatch[] 
         stats: null,
         goalnoteUrl: null,
         posterUrl: null,
+        cards: [],
         matchReport: null,
         section: currentSection,
       });
