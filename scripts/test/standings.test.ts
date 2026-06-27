@@ -22,6 +22,9 @@ function m(home: string, away: string, hs: number, as: number): Match {
     sourceUrl: "",
     venue: null,
     goals: [],
+    starters: [],
+    subs: [],
+    stats: null,
     goalnoteUrl: null,
     posterUrl: null,
   };

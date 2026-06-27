@@ -57,6 +57,31 @@ struct MatchDetailView: View {
                     }
                     .card()
                 }
+
+                // 先発メンバー
+                if let starters = match.starters, !starters.isEmpty {
+                    LineupSection(
+                        title: "先発メンバー",
+                        homeTeam: match.homeTeam,
+                        awayTeam: match.awayTeam,
+                        players: starters
+                    )
+                }
+
+                // 控え
+                if let subs = match.subs, !subs.isEmpty {
+                    LineupSection(
+                        title: "控え",
+                        homeTeam: match.homeTeam,
+                        awayTeam: match.awayTeam,
+                        players: subs
+                    )
+                }
+
+                // 試合情報
+                if let stats = match.stats {
+                    StatsSection(stats: stats)
+                }
             }
             .padding(.vertical, 8)
         }
@@ -117,6 +142,103 @@ private struct GoalRow: View {
                     Text(assist).font(.caption2).foregroundStyle(.secondary)
                 }
             }
+        }
+    }
+}
+
+// MARK: - Lineup
+
+private struct LineupSection: View {
+    let title: String
+    let homeTeam: String
+    let awayTeam: String
+    let players: [MatchPlayer]
+
+    private var homePlayers: [MatchPlayer] { players.filter { $0.team == "home" } }
+    private var awayPlayers: [MatchPlayer] { players.filter { $0.team == "away" } }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(title)
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(Theme.orange)
+
+            HStack(alignment: .top, spacing: 12) {
+                // ホーム
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(homeTeam)
+                        .font(.caption2.weight(.bold))
+                        .foregroundStyle(homeTeam == Match.anclasName ? Theme.orange : .secondary)
+                        .padding(.bottom, 4)
+                    ForEach(homePlayers) { p in
+                        PlayerRow(player: p, isAnclas: homeTeam == Match.anclasName)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+                // アウェイ
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(awayTeam)
+                        .font(.caption2.weight(.bold))
+                        .foregroundStyle(awayTeam == Match.anclasName ? Theme.orange : .secondary)
+                        .padding(.bottom, 4)
+                    ForEach(awayPlayers) { p in
+                        PlayerRow(player: p, isAnclas: awayTeam == Match.anclasName)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .card()
+    }
+}
+
+private struct PlayerRow: View {
+    let player: MatchPlayer
+    let isAnclas: Bool
+
+    var body: some View {
+        HStack(spacing: 4) {
+            Text(player.position)
+                .font(.caption2.weight(.bold))
+                .foregroundStyle(.white)
+                .frame(width: 22)
+                .padding(.vertical, 1)
+                .background(isAnclas ? Theme.orange : Color.secondary, in: RoundedRectangle(cornerRadius: 3))
+            Text("#\(player.number)")
+                .font(.caption2.weight(.semibold).monospacedDigit())
+            Text(player.name)
+                .font(.caption2)
+                .lineLimit(1)
+        }
+        .padding(.vertical, 2)
+    }
+}
+
+// MARK: - Stats
+
+private struct StatsSection: View {
+    let stats: MatchStats
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("試合情報")
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(Theme.orange)
+            HStack(spacing: 16) {
+                if let att = stats.attendance { statItem("👥", att) }
+                if let w = stats.weather { statItem("🌤", w) }
+                if let t = stats.temperature { statItem("🌡", t) }
+                if let p = stats.pitch { statItem("🏟", p) }
+            }
+        }
+        .card()
+    }
+
+    private func statItem(_ icon: String, _ value: String) -> some View {
+        VStack(spacing: 2) {
+            Text(icon).font(.title3)
+            Text(value).font(.caption2).foregroundStyle(.secondary)
         }
     }
 }

@@ -52,10 +52,25 @@ export interface Match {
   venue: string | null;
   /** 得点経過（GoalNote game page 由来）。未取得なら空配列 */
   goals: GoalEvent[];
+  /** スタメン（GoalNote game page 由来）。未取得なら空配列 */
+  starters: MatchPlayer[];
+  /** 控え選手（GoalNote game page 由来）。未取得なら空配列 */
+  subs: MatchPlayer[];
+  /** 試合情報（観客数・天候など）。未取得なら null */
+  stats: { attendance: string | null; weather: string | null; temperature: string | null; pitch: string | null } | null;
   /** GoalNote の試合詳細URL。未取得なら null */
   goalnoteUrl: string | null;
   /** 試合告知ポスター画像URL（anclas.jp featured_media 由来）。無ければ null */
   posterUrl: string | null;
+}
+
+/** 試合出場選手（GoalNote game page 由来） */
+export interface MatchPlayer {
+  number: number;
+  position: Position;
+  name: string;
+  /** "home" = ホームチーム / "away" = アウェイチーム */
+  team: "home" | "away";
 }
 
 /** matches.json のルート */
