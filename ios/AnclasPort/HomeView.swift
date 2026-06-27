@@ -96,6 +96,12 @@ private struct NextMatchCard: View {
                     .monospacedDigit()
                 CountdownBadge(days: d.daysFromNow())
             }
+
+            if let venue = match.venue {
+                Label(venue, systemImage: "mappin.and.ellipse")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
         }
         .card()
     }
@@ -147,6 +153,10 @@ private struct LatestResultCard: View {
                         .font(.caption.weight(.heavy)).foregroundStyle(.white)
                         .padding(.horizontal, 10).padding(.vertical, 4)
                         .background(Theme.outcomeColor(o), in: Capsule())
+                }
+                if let venue = match.venue {
+                    Label(venue, systemImage: "mappin.and.ellipse")
+                        .font(.caption).foregroundStyle(.secondary)
                 }
                 Spacer()
                 if let d = match.startDate {

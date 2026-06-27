@@ -35,6 +35,8 @@ struct Match: Codable, Identifiable, Hashable {
     let score: Score?
     let isAnclas: Bool
     let sourceUrl: String
+    let venue: String?
+    let goalnoteUrl: String?
 }
 
 // MARK: - 表示用の派生ロジック（アンクラス視点）
