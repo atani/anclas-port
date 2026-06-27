@@ -3,108 +3,107 @@ import SwiftUI
 struct MoreView: View {
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
+            VStack(spacing: 18) {
                 HeaderBar(title: "もっと")
 
-                // ニュース
-                LinkSection(title: "ニュース", items: [
-                    LinkItem(icon: "newspaper.fill", label: "クラブニュース", url: "https://anclas.jp/category/news/"),
-                    LinkItem(icon: "sportscourt.fill", label: "マッチレポート", url: "https://anclas.jp/category/match/"),
-                    LinkItem(icon: "pencil.line", label: "選手ブログ", url: "https://anclas.jp/category/blog/"),
+                linkGroup("ニュース・レポート", items: [
+                    .init("クラブニュース", "newspaper.fill", "https://anclas.jp/category/news/"),
+                    .init("マッチレポート", "sportscourt.fill", "https://anclas.jp/category/match/"),
+                    .init("選手ブログ", "pencil.line", "https://anclas.jp/category/blog/"),
                 ])
 
-                // ポッドキャスト
-                LinkSection(title: "ポッドキャスト", items: [
-                    LinkItem(icon: "headphones", label: "アンクラスのロッカールーム", subtitle: "Spotify で聴く", url: "https://open.spotify.com/show/3RnkWRyIMYe9IdtMmK7KFK"),
+                linkGroup("ポッドキャスト", items: [
+                    .init("アンクラスのロッカールーム", "headphones", "https://open.spotify.com/show/3RnkWRyIMYe9IdtMmK7KFK", "Spotify で聴く"),
                 ])
 
-                // クラブ情報
-                LinkSection(title: "クラブ情報", items: [
-                    LinkItem(icon: "globe", label: "公式サイト", url: "https://anclas.jp/"),
-                    LinkItem(icon: "camera.fill", label: "Instagram", url: "https://www.instagram.com/anclas_fukuoka/"),
-                    LinkItem(icon: "xmark.square.fill", label: "X (Twitter)", url: "https://x.com/anclas_fukuoka"),
+                linkGroup("公式SNS・サイト", items: [
+                    .init("公式サイト", "globe", "https://anclas.jp/"),
+                    .init("Instagram", "camera.fill", "https://www.instagram.com/anclas_fukuoka_official"),
+                    .init("X（旧Twitter）", "bird.fill", "https://x.com/anclas_fukuoka"),
                 ])
 
-                // GoalNote
-                LinkSection(title: "リーグ情報", items: [
-                    LinkItem(icon: "chart.bar.doc.horizontal.fill", label: "GoalNote（全試合詳細）", url: "https://www.goalnote.net/detail-schedule.php?tid=18626"),
-                    LinkItem(icon: "sportscourt", label: "九州女子サッカーリーグ", url: "https://q-league.net/"),
+                linkGroup("リーグ情報", items: [
+                    .init("GoalNote（全試合詳細）", "chart.bar.doc.horizontal.fill", "https://www.goalnote.net/detail-schedule.php?tid=18626"),
+                    .init("九州女子サッカーリーグ", "trophy.fill", "https://q-league.net/"),
                 ])
 
-                // アプリ情報
-                VStack(alignment: .center, spacing: 6) {
-                    Image("Emblem")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 40)
-                        .opacity(0.5)
-                    Text("アンクラス Port v0.1.0")
-                        .font(.caption).foregroundStyle(.secondary)
-                    Text("非公式アプリ")
-                        .font(.caption2).foregroundStyle(.quaternary)
-                }
-                .padding(.top, 20)
-                .padding(.bottom, 40)
+                appInfo
             }
             .padding(.vertical, 8)
         }
         .background(Color(.systemGroupedBackground))
     }
+
+    private func linkGroup(_ title: String, items: [LinkItem]) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            SectionLabel(title)
+            VStack(spacing: 0) {
+                ForEach(Array(items.enumerated()), id: \.element.id) { idx, item in
+                    LinkRow(item: item)
+                    if idx < items.count - 1 {
+                        Divider().padding(.leading, 60)
+                    }
+                }
+            }
+            .anclasCard(padding: 0)
+            .padding(.horizontal, 16)
+        }
+    }
+
+    private var appInfo: some View {
+        VStack(spacing: 8) {
+            Image("Emblem")
+                .resizable().aspectRatio(contentMode: .fit)
+                .frame(height: 44)
+                .opacity(0.6)
+            Text("アンクラス Port")
+                .font(.subheadline.weight(.semibold))
+            Text("v0.1.0　非公式ファンアプリ")
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.top, 24)
+        .padding(.bottom, 40)
+    }
 }
 
 private struct LinkItem: Identifiable {
     let id = UUID()
-    let icon: String
     let label: String
-    var subtitle: String? = nil
+    let icon: String
     let url: String
+    let subtitle: String?
+    init(_ label: String, _ icon: String, _ url: String, _ subtitle: String? = nil) {
+        self.label = label; self.icon = icon; self.url = url; self.subtitle = subtitle
+    }
 }
 
-private struct LinkSection: View {
-    let title: String
-    let items: [LinkItem]
-
+private struct LinkRow: View {
+    let item: LinkItem
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            Text(title)
-                .font(.caption.weight(.bold))
-                .foregroundStyle(Theme.orange)
-                .padding(.horizontal, 20)
-                .padding(.bottom, 6)
-
-            VStack(spacing: 0) {
-                ForEach(items) { item in
-                    if let url = URL(string: item.url) {
-                        Link(destination: url) {
-                            HStack(spacing: 12) {
-                                Image(systemName: item.icon)
-                                    .font(.body)
-                                    .foregroundStyle(Theme.orange)
-                                    .frame(width: 28)
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(item.label).font(.subheadline)
-                                    if let sub = item.subtitle {
-                                        Text(sub).font(.caption2).foregroundStyle(.secondary)
-                                    }
-                                }
-                                Spacer()
-                                Image(systemName: "arrow.up.right")
-                                    .font(.caption).foregroundStyle(.tertiary)
-                            }
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 12)
-                        }
-                        .buttonStyle(.plain)
-
-                        if item.id != items.last?.id {
-                            Divider().padding(.leading, 56)
+        if let url = URL(string: item.url) {
+            Link(destination: url) {
+                HStack(spacing: 14) {
+                    Image(systemName: item.icon)
+                        .font(.subheadline)
+                        .foregroundStyle(.white)
+                        .frame(width: 32, height: 32)
+                        .background(Theme.orange, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(item.label).font(.subheadline.weight(.medium)).foregroundStyle(.primary)
+                        if let sub = item.subtitle {
+                            Text(sub).font(.caption2).foregroundStyle(.secondary)
                         }
                     }
+                    Spacer()
+                    Image(systemName: "arrow.up.right")
+                        .font(.caption).foregroundStyle(.tertiary)
                 }
+                .padding(.horizontal, 14)
+                .padding(.vertical, 12)
             }
-            .background(Color(.secondarySystemGroupedBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-            .padding(.horizontal, 16)
+            .buttonStyle(.plain)
         }
     }
 }

@@ -76,8 +76,7 @@ struct HomeView: View {
                         }
 
                         if store.data == nil {
-                            ProgressView("読み込み中…")
-                                .padding(.top, 60)
+                            LoadingState()
                         }
                     }
                     .padding(.top, 20)
@@ -91,18 +90,6 @@ struct HomeView: View {
             }
             .refreshable { await store.refresh() }
         }
-    }
-}
-
-private struct SectionLabel: View {
-    let text: String
-    init(_ text: String) { self.text = text }
-    var body: some View {
-        Text(text)
-            .font(.subheadline.weight(.bold))
-            .foregroundStyle(Theme.orange)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 20)
     }
 }
 
