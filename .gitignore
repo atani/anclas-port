@@ -23,5 +23,5 @@ xcuserdata/
 .swiftpm/
 .build/
 
-# Generated data (build artifacts, fetched at runtime)
-data/*.json
+# data/*.json は GitHub Actions が生成・commit して GitHub Pages で配信する
+# （git diff による差分検知が中継アーキの肝）ため、あえて追跡対象にする。
