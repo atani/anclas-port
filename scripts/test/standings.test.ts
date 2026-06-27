@@ -28,6 +28,7 @@ function m(home: string, away: string, hs: number, as: number): Match {
     stats: null,
     goalnoteUrl: null,
     posterUrl: null,
+    cards: [],
     matchReport: null,
   };
 }

@@ -60,3 +60,12 @@ test("parseGoalNoteGame: スタメン（ポジション付き）を抽出", () =
   const fw = homeStarters.filter((p) => p.position === "FW");
   assert.ok(fw.length >= 2, "FW が2人以上");
 });
+
+test("parseGoalNoteGame: 警告（イエローカード）を抽出", () => {
+  const data = parseGoalNoteGame(gameFix, "福岡J・アンクラス");
+  // fixture には田中花奈・森和奏のラフ（警告）が含まれる
+  assert.ok(data.cards.length >= 2, `カード数 ${data.cards.length}`);
+  const tanaka = data.cards.find((c) => c.name.includes("田中"));
+  assert.ok(tanaka, "田中のカードがある");
+  assert.equal(tanaka?.type, "yellow");
+});

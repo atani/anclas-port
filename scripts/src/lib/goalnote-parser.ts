@@ -1,4 +1,10 @@
-import { ANCLAS_TEAM_NAME, type GoalEvent, type Position, type Substitution } from "./types.js";
+import {
+  ANCLAS_TEAM_NAME,
+  type CardEvent,
+  type GoalEvent,
+  type Position,
+  type Substitution,
+} from "./types.js";
 
 /**
  * GoalNote (goalnote.net) パーサー。
@@ -115,6 +121,7 @@ export interface GoalNoteGameData {
   starters: GoalNotePlayer[];
   subs: GoalNotePlayer[];
   substitutions: Substitution[];
+  cards: CardEvent[];
   stats: MatchStats;
 }
 
@@ -314,12 +321,63 @@ function parseStats(html: string): MatchStats {
   return stats;
 }
 
+/**
+ * game page から警告・退場を抽出する。
+ * カード行は [背番号, 名前, "", カード種別(ラフ/警告/退場 等)] の形式。
+ * 所属チームは選手の背番号をメンバー表と突き合わせて判定する。
+ */
+function parseCards(html: string, lineup: GoalNotePlayer[]): CardEvent[] {
+  // 番号は両チームで重複するため、番号+名前で所属を引く
+  const norm = (s: string) => s.replace(/[\s　]/g, "");
+  const teamByKey = new Map<string, "home" | "away">();
+  for (const p of lineup) teamByKey.set(`${p.number}-${norm(p.name)}`, p.team);
+
+  const cards: CardEvent[] = [];
+  const seen = new Set<string>();
+  const trRe = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
+  const tdRe = /<td[^>]*>([\s\S]*?)<\/td>/gi;
+  let tr: RegExpExecArray | null;
+  while ((tr = trRe.exec(html)) !== null) {
+    const cells: string[] = [];
+    tdRe.lastIndex = 0;
+    let td: RegExpExecArray | null;
+    while ((td = tdRe.exec(tr[1] ?? "")) !== null) cells.push(strip(td[1] ?? ""));
+    if (cells.length < 4) continue;
+    const numStr = cells[0] ?? "";
+    const name = cells[1] ?? "";
+    const third = cells[2] ?? "";
+    const kind = cells[3] ?? "";
+    // カード行: [番号, 名前, 空, 種別]。種別がカード系キーワードのみ採用
+    if (!/^\d+$/.test(numStr)) continue;
+    if (third !== "") continue;
+    if (!/ラフ|警告|遅延|退場|レッド|イエロー|２枚|2枚/.test(kind)) continue;
+    if (!name || /^\d+$/.test(name)) continue;
+
+    const number = Number(numStr);
+    const type: "yellow" | "red" = /退場|レッド|２枚|2枚/.test(kind) ? "red" : "yellow";
+    const key = `${number}-${name}-${type}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const cleanName = name.replace(/\s*\(Cap\.\)/i, "");
+    cards.push({
+      number,
+      name: cleanName,
+      team: teamByKey.get(`${number}-${norm(cleanName)}`) ?? "home",
+      type,
+    });
+  }
+  return cards;
+}
+
 /** game page から試合詳細を抽出 */
 export function parseGoalNoteGame(html: string, homeTeam: string): GoalNoteGameData {
+  const lineups = parseLineups(html, homeTeam);
+  const allPlayers = [...lineups.starters, ...lineups.subs];
   return {
     goals: parseGoals(html),
-    ...parseLineups(html, homeTeam),
+    ...lineups,
     substitutions: parseSubstitutions(html, homeTeam),
+    cards: parseCards(html, allPlayers),
     stats: parseStats(html),
   };
 }
