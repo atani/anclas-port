@@ -64,6 +64,8 @@ export interface Match {
   goalnoteUrl: string | null;
   /** 試合告知ポスター画像URL（anclas.jp featured_media 由来）。無ければ null */
   posterUrl: string | null;
+  /** マッチレポート（anclas.jp 由来）。未取得なら null */
+  matchReport: MatchReport | null;
 }
 
 /** 試合出場選手（GoalNote game page 由来） */
@@ -83,6 +85,14 @@ export interface Substitution {
   outName: string;
   inNumber: number;
   inName: string;
+}
+
+/** マッチレポート（anclas.jp 由来） */
+export interface MatchReport {
+  summary: string;
+  coachComment: { name: string; comment: string } | null;
+  playerComments: { name: string; number: number | null; comment: string }[];
+  sourceUrl: string;
 }
 
 /** matches.json のルート */

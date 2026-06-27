@@ -2,117 +2,56 @@ import SwiftUI
 
 struct MatchDetailView: View {
     let match: Match
+    @Environment(DataStore.self) private var store
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 16) {
+            VStack(spacing: 0) {
                 HeaderBar(title: "\(match.roundLabel) \(match.competition)")
 
-                // スコアカード + 試合情報を統合
-                VStack(spacing: 12) {
-                    HStack(spacing: 0) {
-                        TeamColumn(name: match.homeTeam, isAnclas: match.homeTeam == Match.anclasName)
-                        if let score = match.score {
-                            Text("\(score.home) - \(score.away)")
-                                .font(.system(size: 40, weight: .heavy)).monospacedDigit()
-                                .frame(width: 120)
-                        } else {
-                            Text("VS")
-                                .font(.title.weight(.heavy))
-                                .foregroundStyle(Theme.orange)
-                                .frame(width: 120)
-                        }
-                        TeamColumn(name: match.awayTeam, isAnclas: match.awayTeam == Match.anclasName)
-                    }
+                // --- スコアボード ---
+                ScoreBoard(match: match)
 
-                    if let o = match.anclasOutcome {
-                        Text(Theme.outcomeLabel(o))
-                            .font(.subheadline.weight(.heavy)).foregroundStyle(.white)
-                            .padding(.horizontal, 16).padding(.vertical, 6)
-                            .background(Theme.outcomeColor(o), in: Capsule())
-                    }
-
-                    if let d = match.startDate {
-                        Text(d.formattedJa())
-                            .font(.subheadline).foregroundStyle(.secondary).monospacedDigit()
-                    }
-
-                    if let venue = match.venue {
-                        Label(venue, systemImage: "mappin.and.ellipse")
-                            .font(.subheadline).foregroundStyle(.secondary)
-                    }
-
-                    // 試合情報をスコアカード内に統合
-                    if let stats = match.stats {
-                        Divider()
-                        HStack(spacing: 16) {
-                            if let att = stats.attendance {
-                                Label(att, systemImage: "person.2.fill").font(.caption)
-                            }
-                            if let w = stats.weather {
-                                Label(w, systemImage: "cloud.fill").font(.caption)
-                            }
-                            if let t = stats.temperature {
-                                Label(t, systemImage: "thermometer.medium").font(.caption)
-                            }
-                            if let p = stats.pitch {
-                                Label(p, systemImage: "sportscourt.fill").font(.caption)
-                            }
-                        }
-                        .foregroundStyle(.secondary)
-                    }
-                }
-                .card()
-
-                // 得点経過
+                // --- 得点経過（左右チーム分け）---
                 if let goals = match.goals, !goals.isEmpty {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text("得点経過")
-                            .font(.subheadline.weight(.bold))
-                            .foregroundStyle(Theme.orange)
-
-                        ForEach(goals) { goal in
-                            GoalRow(goal: goal, homeTeam: match.homeTeam)
-                        }
-                    }
-                    .card()
+                    GoalTimeline(goals: goals, homeTeam: match.homeTeam, awayTeam: match.awayTeam)
                 }
 
-                // 先発メンバー
+                // --- 試合情報テーブル ---
+                MatchInfoTable(match: match)
+
+                // --- メンバー ---
                 if let starters = match.starters, !starters.isEmpty {
-                    LineupSection(
-                        title: "先発メンバー",
+                    MemberTable(
+                        title: "スターティングメンバー",
                         homeTeam: match.homeTeam,
                         awayTeam: match.awayTeam,
-                        players: starters
+                        homePlayers: starters.filter { $0.team == "home" },
+                        awayPlayers: starters.filter { $0.team == "away" },
+                        substitutions: match.substitutions ?? [],
+                        store: store
                     )
                 }
 
-                // 控え
                 if let subs = match.subs, !subs.isEmpty {
-                    LineupSection(
-                        title: "控え",
+                    MemberTable(
+                        title: "控えメンバー",
                         homeTeam: match.homeTeam,
                         awayTeam: match.awayTeam,
-                        players: subs
+                        homePlayers: subs.filter { $0.team == "home" },
+                        awayPlayers: subs.filter { $0.team == "away" },
+                        substitutions: match.substitutions ?? [],
+                        store: store
                     )
                 }
 
-                // 選手交代
-                if let subs = match.substitutions, !subs.isEmpty {
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("選手交代")
-                            .font(.subheadline.weight(.bold))
-                            .foregroundStyle(Theme.orange)
-                        ForEach(subs) { sub in
-                            SubstitutionRow(sub: sub, homeTeam: match.homeTeam, awayTeam: match.awayTeam)
-                            if sub.id != subs.last?.id { Divider() }
-                        }
-                    }
-                    .card()
+                // マッチレポート
+                if let report = match.matchReport {
+                    MatchReportSection(report: report)
                 }
+
+                Spacer(minLength: 40)
             }
-            .padding(.vertical, 8)
         }
         .background(Color(.systemGroupedBackground))
         .navigationBarHidden(true)
@@ -122,188 +61,433 @@ struct MatchDetailView: View {
     }
 }
 
-private struct TeamColumn: View {
-    let name: String
-    let isAnclas: Bool
+// MARK: - Score Board
+
+private struct ScoreBoard: View {
+    let match: Match
 
     var body: some View {
-        Text(name)
-            .font(.subheadline.weight(.semibold))
-            .multilineTextAlignment(.center)
-            .foregroundStyle(isAnclas ? Theme.orange : .primary)
-            .frame(maxWidth: .infinity)
+        VStack(spacing: 12) {
+            // 試合終了 / 未消化
+            if match.isFinished {
+                Text("試合終了")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 12).padding(.vertical, 4)
+                    .background(Color.secondary, in: RoundedRectangle(cornerRadius: 4))
+            }
+
+            // チーム名 + スコア
+            HStack(spacing: 0) {
+                // ホーム
+                VStack(spacing: 4) {
+                    Text(match.homeTeam)
+                        .font(.subheadline.weight(.bold))
+                        .foregroundStyle(match.homeTeam == Match.anclasName ? Theme.orange : .primary)
+                        .multilineTextAlignment(.center)
+                }
+                .frame(maxWidth: .infinity)
+
+                // スコア中央
+                if let score = match.score {
+                    VStack(spacing: 2) {
+                        Text("\(score.home) - \(score.away)")
+                            .font(.system(size: 44, weight: .heavy)).monospacedDigit()
+                    }
+                    .frame(width: 130)
+                } else {
+                    Text("VS")
+                        .font(.title.weight(.heavy))
+                        .foregroundStyle(Theme.orange)
+                        .frame(width: 130)
+                }
+
+                // アウェイ
+                VStack(spacing: 4) {
+                    Text(match.awayTeam)
+                        .font(.subheadline.weight(.bold))
+                        .foregroundStyle(match.awayTeam == Match.anclasName ? Theme.orange : .primary)
+                        .multilineTextAlignment(.center)
+                }
+                .frame(maxWidth: .infinity)
+            }
+
+            // 勝敗バッジ
+            if let o = match.anclasOutcome {
+                Text(Theme.outcomeLabel(o))
+                    .font(.subheadline.weight(.heavy)).foregroundStyle(.white)
+                    .padding(.horizontal, 20).padding(.vertical, 6)
+                    .background(Theme.outcomeColor(o), in: Capsule())
+            }
+
+            // 日時
+            if let d = match.startDate {
+                Text(d.formattedJa("yyyy/M/d(E) HH:mm") + " KO")
+                    .font(.subheadline).foregroundStyle(.secondary).monospacedDigit()
+            }
+
+            // 会場
+            if let venue = match.venue {
+                Text(venue)
+                    .font(.subheadline).foregroundStyle(.secondary)
+            }
+        }
+        .padding(20)
+        .frame(maxWidth: .infinity)
+        .background(Color(.secondarySystemGroupedBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .padding(.horizontal, 16)
+        .padding(.top, 12)
     }
 }
 
-private struct GoalRow: View {
-    let goal: GoalEvent
+// MARK: - Goal Timeline (左右チーム分け)
+
+private struct GoalTimeline: View {
+    let goals: [GoalEvent]
     let homeTeam: String
+    let awayTeam: String
 
     var body: some View {
-        let isHome = goal.team == homeTeam
-        HStack(spacing: 8) {
-            Text(goal.minute)
-                .font(.caption.weight(.bold).monospacedDigit())
-                .foregroundStyle(.secondary)
-                .frame(width: 60, alignment: .trailing)
+        VStack(spacing: 0) {
+            // ヘッダー
+            HStack {
+                Text(homeTeam)
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(homeTeam == Match.anclasName ? Theme.orange : .secondary)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                Text("得点")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(Theme.orange)
+                Text(awayTeam)
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(awayTeam == Match.anclasName ? Theme.orange : .secondary)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+            .padding(.horizontal, 16).padding(.vertical, 8)
+            .background(Theme.navy.opacity(0.3))
 
-            if isHome {
-                goalContent
-                Spacer()
-            } else {
-                Spacer()
-                goalContent
+            ForEach(goals) { goal in
+                let isHome = goal.team == homeTeam
+                HStack(spacing: 0) {
+                    // ホーム側ゴール
+                    if isHome {
+                        homeGoalContent(goal)
+                    } else {
+                        Spacer().frame(maxWidth: .infinity)
+                    }
+
+                    // 中央: 時間
+                    Text(shortMinute(goal.minute))
+                        .font(.caption.weight(.bold).monospacedDigit())
+                        .foregroundStyle(Theme.orange)
+                        .frame(width: 40)
+
+                    // アウェイ側ゴール
+                    if !isHome {
+                        awayGoalContent(goal)
+                    } else {
+                        Spacer().frame(maxWidth: .infinity)
+                    }
+                }
+                .padding(.horizontal, 12).padding(.vertical, 6)
+                Divider().padding(.horizontal, 12)
             }
         }
-        .padding(.vertical, 4)
+        .background(Color(.secondarySystemGroupedBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .padding(.horizontal, 16)
+        .padding(.top, 12)
     }
 
-    private var goalContent: some View {
-        HStack(spacing: 6) {
-            Image(systemName: "soccerball")
-                .font(.caption)
-                .foregroundStyle(Theme.orange)
-            VStack(alignment: .leading, spacing: 1) {
-                HStack(spacing: 4) {
-                    if let num = goal.playerNumber {
-                        Text("#\(num)").font(.caption2.weight(.bold))
-                    }
-                    Text(goal.playerName).font(.caption.weight(.semibold))
-                }
+    private func homeGoalContent(_ goal: GoalEvent) -> some View {
+        HStack(spacing: 4) {
+            Spacer()
+            VStack(alignment: .trailing, spacing: 1) {
+                Text(goal.playerName).font(.subheadline.weight(.semibold))
                 if let assist = goal.assist, !assist.isEmpty {
                     Text(assist).font(.caption2).foregroundStyle(.secondary)
                 }
             }
+            Image(systemName: "soccerball").font(.caption).foregroundStyle(Theme.orange)
         }
+        .frame(maxWidth: .infinity)
+    }
+
+    private func awayGoalContent(_ goal: GoalEvent) -> some View {
+        HStack(spacing: 4) {
+            Image(systemName: "soccerball").font(.caption).foregroundStyle(Theme.orange)
+            VStack(alignment: .leading, spacing: 1) {
+                Text(goal.playerName).font(.subheadline.weight(.semibold))
+                if let assist = goal.assist, !assist.isEmpty {
+                    Text(assist).font(.caption2).foregroundStyle(.secondary)
+                }
+            }
+            Spacer()
+        }
+        .frame(maxWidth: .infinity)
+    }
+
+    private func shortMinute(_ m: String) -> String {
+        if let match = m.range(of: #"^\d+"#, options: .regularExpression) {
+            return m[match] + "'"
+        }
+        return m
     }
 }
 
-// MARK: - Lineup
+// MARK: - Match Info Table
 
-private struct LineupSection: View {
+private struct MatchInfoTable: View {
+    let match: Match
+
+    var body: some View {
+        let rows = buildRows()
+        if !rows.isEmpty {
+            VStack(spacing: 0) {
+                ForEach(rows, id: \.label) { row in
+                    HStack {
+                        Text(row.label)
+                            .font(.caption.weight(.semibold))
+                            .foregroundStyle(.secondary)
+                            .frame(width: 100, alignment: .leading)
+                        Text(row.value)
+                            .font(.subheadline)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .padding(.horizontal, 16).padding(.vertical, 10)
+                    Divider().padding(.leading, 16)
+                }
+            }
+            .background(Color(.secondarySystemGroupedBackground))
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .padding(.horizontal, 16)
+            .padding(.top, 12)
+        }
+    }
+
+    private struct InfoRow {
+        let label: String
+        let value: String
+    }
+
+    private func buildRows() -> [InfoRow] {
+        var rows: [InfoRow] = []
+        if let v = match.venue { rows.append(InfoRow(label: "スタジアム", value: v)) }
+        if let s = match.stats {
+            if let a = s.attendance { rows.append(InfoRow(label: "入場者数", value: a)) }
+            if let w = s.weather, let t = s.temperature {
+                rows.append(InfoRow(label: "天候/気温", value: "\(w) / \(t)"))
+            } else if let w = s.weather {
+                rows.append(InfoRow(label: "天候", value: w))
+            }
+            if let p = s.pitch { rows.append(InfoRow(label: "ピッチ", value: p)) }
+        }
+        return rows
+    }
+}
+
+// MARK: - Member Table (J-League style)
+
+private struct MemberTable: View {
     let title: String
     let homeTeam: String
     let awayTeam: String
-    let players: [MatchPlayer]
-    @Environment(DataStore.self) private var store
+    let homePlayers: [MatchPlayer]
+    let awayPlayers: [MatchPlayer]
+    let substitutions: [SubstitutionEvent]
+    let store: DataStore
 
-    private var homePlayers: [MatchPlayer] { players.filter { $0.team == "home" } }
-    private var awayPlayers: [MatchPlayer] { players.filter { $0.team == "away" } }
+    var body: some View {
+        VStack(spacing: 0) {
+            // セクションタイトル
+            Text(title)
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 8)
+                .background(Theme.navy)
 
-    private func findPlayer(_ mp: MatchPlayer, isAnclas: Bool) -> Player? {
+            // チーム名ヘッダー
+            HStack(spacing: 0) {
+                Text(homeTeam)
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(homeTeam == Match.anclasName ? Theme.orange : .primary)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 6)
+                Text(awayTeam)
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(awayTeam == Match.anclasName ? Theme.orange : .primary)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 6)
+            }
+            .background(Color(.tertiarySystemGroupedBackground))
+
+            // 選手行
+            let maxCount = max(homePlayers.count, awayPlayers.count)
+            ForEach(0..<maxCount, id: \.self) { i in
+                HStack(spacing: 0) {
+                    if i < homePlayers.count {
+                        let p = homePlayers[i]
+                        let subMin = findSubMinute(number: p.number, team: "home")
+                        let linked = findLinkedPlayer(p, isAnclas: homeTeam == Match.anclasName)
+                        MemberCell(player: p, isAnclas: homeTeam == Match.anclasName, subMinute: subMin, linkedPlayer: linked)
+                    } else {
+                        Spacer().frame(maxWidth: .infinity)
+                    }
+
+                    Divider()
+
+                    if i < awayPlayers.count {
+                        let p = awayPlayers[i]
+                        let subMin = findSubMinute(number: p.number, team: "away")
+                        let linked = findLinkedPlayer(p, isAnclas: awayTeam == Match.anclasName)
+                        MemberCell(player: p, isAnclas: awayTeam == Match.anclasName, subMinute: subMin, linkedPlayer: linked)
+                    } else {
+                        Spacer().frame(maxWidth: .infinity)
+                    }
+                }
+                Divider()
+            }
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .padding(.horizontal, 16)
+        .padding(.top, 12)
+    }
+
+    private func findSubMinute(number: Int, team: String) -> String? {
+        if let sub = substitutions.first(where: { $0.team == team && $0.outNumber == number }) {
+            let m = sub.minute
+            if let range = m.range(of: #"\d+"#, options: .regularExpression) {
+                return String(m[range]) + "'"
+            }
+            return m
+        }
+        if let sub = substitutions.first(where: { $0.team == team && $0.inNumber == number }) {
+            let m = sub.minute
+            if let range = m.range(of: #"\d+"#, options: .regularExpression) {
+                return String(m[range]) + "'"
+            }
+            return m
+        }
+        return nil
+    }
+
+    private func findLinkedPlayer(_ mp: MatchPlayer, isAnclas: Bool) -> Player? {
         guard isAnclas else { return nil }
         return store.playersData?.players.first { $0.number == mp.number }
     }
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(title)
-                .font(.subheadline.weight(.bold))
-                .foregroundStyle(Theme.orange)
-
-            HStack(alignment: .top, spacing: 8) {
-                VStack(alignment: .leading, spacing: 0) {
-                    Text(homeTeam)
-                        .font(.caption.weight(.bold))
-                        .foregroundStyle(homeTeam == Match.anclasName ? Theme.orange : .secondary)
-                        .lineLimit(2).fixedSize(horizontal: false, vertical: true)
-                        .padding(.bottom, 4)
-                    ForEach(homePlayers) { p in
-                        let linked = findPlayer(p, isAnclas: homeTeam == Match.anclasName)
-                        PlayerRow(player: p, isAnclas: homeTeam == Match.anclasName, linkedPlayer: linked)
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-
-                VStack(alignment: .leading, spacing: 0) {
-                    Text(awayTeam)
-                        .font(.caption.weight(.bold))
-                        .foregroundStyle(awayTeam == Match.anclasName ? Theme.orange : .secondary)
-                        .lineLimit(2).fixedSize(horizontal: false, vertical: true)
-                        .padding(.bottom, 4)
-                    ForEach(awayPlayers) { p in
-                        let linked = findPlayer(p, isAnclas: awayTeam == Match.anclasName)
-                        PlayerRow(player: p, isAnclas: awayTeam == Match.anclasName, linkedPlayer: linked)
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-            }
-        }
-        .card()
-    }
 }
 
-private struct PlayerRow: View {
+private struct MemberCell: View {
     let player: MatchPlayer
     let isAnclas: Bool
+    var subMinute: String? = nil
     var linkedPlayer: Player? = nil
 
     var body: some View {
         Group {
             if let linked = linkedPlayer {
-                NavigationLink(value: linked) { content }
+                NavigationLink(value: linked) { cellContent }
             } else {
-                content
+                cellContent
             }
         }
         .buttonStyle(.plain)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 8).padding(.vertical, 6)
+        .background(Color(.secondarySystemGroupedBackground))
     }
 
-    private var content: some View {
+    private var cellContent: some View {
         HStack(spacing: 4) {
             Text(player.position)
-                .font(.caption.weight(.bold))
+                .font(.caption2.weight(.heavy))
                 .foregroundStyle(.white)
-                .frame(width: 24)
-                .padding(.vertical, 2)
-                .background(isAnclas ? Theme.orange : Color.secondary, in: RoundedRectangle(cornerRadius: 4))
-            Text("#\(player.number)")
-                .font(.caption.weight(.semibold).monospacedDigit())
+                .frame(width: 22, height: 18)
+                .background(isAnclas ? Theme.orange : Color.gray, in: RoundedRectangle(cornerRadius: 3))
+
+            Text("\(player.number)")
+                .font(.subheadline.weight(.semibold).monospacedDigit())
+                .frame(width: 24, alignment: .trailing)
+
             Text(player.name)
                 .font(.subheadline)
                 .lineLimit(1)
-                .minimumScaleFactor(0.7)
+                .minimumScaleFactor(0.6)
+
+            Spacer(minLength: 2)
+
+            if let min = subMinute {
+                HStack(spacing: 2) {
+                    Text(min)
+                        .font(.caption2.monospacedDigit())
+                        .foregroundStyle(.secondary)
+                    Image(systemName: "arrow.down.right")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
+            }
+
             if linkedPlayer != nil {
                 Image(systemName: "chevron.right")
-                    .font(.caption2).foregroundStyle(.tertiary)
+                    .font(.caption2).foregroundStyle(.quaternary)
             }
         }
-        .padding(.vertical, 3)
     }
 }
 
-// MARK: - Substitutions
+// MARK: - Match Report
 
-private struct SubstitutionRow: View {
-    let sub: SubstitutionEvent
-    let homeTeam: String
-    let awayTeam: String
-
-    private var teamName: String { sub.team == "home" ? homeTeam : awayTeam }
-    private var isAnclas: Bool { teamName == Match.anclasName }
+private struct MatchReportSection: View {
+    let report: MatchReport
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack(spacing: 6) {
-                Text(sub.minute)
-                    .font(.subheadline.weight(.bold).monospacedDigit())
-                    .foregroundStyle(.secondary)
-                Text(teamName)
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(isAnclas ? Theme.orange : .secondary)
-                    .lineLimit(1)
+        VStack(alignment: .leading, spacing: 16) {
+            Text("マッチレポート")
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(Theme.orange)
+
+            Text(report.summary)
+                .font(.subheadline)
+                .fixedSize(horizontal: false, vertical: true)
+
+            if let coach = report.coachComment {
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack(spacing: 6) {
+                        Image(systemName: "person.fill")
+                            .foregroundStyle(Theme.orange)
+                        Text("監督 \(coach.name)")
+                            .font(.subheadline.weight(.bold))
+                    }
+                    Text(coach.comment)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(12)
+                .background(Theme.orange.opacity(0.06))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
             }
-            HStack(spacing: 6) {
-                Image(systemName: "arrow.down.circle.fill").foregroundStyle(.red).font(.subheadline)
-                Text("OUT").font(.caption2.weight(.bold)).foregroundStyle(.red)
-                Text("#\(sub.outNumber) \(sub.outName)").font(.subheadline)
-            }
-            HStack(spacing: 6) {
-                Image(systemName: "arrow.up.circle.fill").foregroundStyle(.green).font(.subheadline)
-                Text("IN").font(.caption2.weight(.bold)).foregroundStyle(.green)
-                Text("#\(sub.inNumber) \(sub.inName)").font(.subheadline)
+
+            ForEach(report.playerComments) { pc in
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack(spacing: 6) {
+                        if let num = pc.number {
+                            Text("#\(num)").font(.caption.weight(.bold)).foregroundStyle(Theme.orange)
+                        }
+                        Text(pc.name).font(.subheadline.weight(.bold))
+                    }
+                    Text(pc.comment)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(12)
+                .background(Color(.tertiarySystemGroupedBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
             }
         }
-        .padding(.vertical, 4)
+        .card()
     }
 }

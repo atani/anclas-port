@@ -54,8 +54,28 @@ struct Match: Codable, Identifiable, Hashable {
     let subs: [MatchPlayer]?
     let substitutions: [SubstitutionEvent]?
     let stats: MatchStats?
+    let matchReport: MatchReport?
     let goalnoteUrl: String?
     let posterUrl: String?
+}
+
+struct MatchReport: Codable, Hashable {
+    let summary: String
+    let coachComment: CoachComment?
+    let playerComments: [PlayerComment]
+    let sourceUrl: String
+}
+
+struct CoachComment: Codable, Hashable {
+    let name: String
+    let comment: String
+}
+
+struct PlayerComment: Codable, Hashable, Identifiable {
+    let name: String
+    let number: Int?
+    let comment: String
+    var id: String { "\(name)-\(number ?? 0)" }
 }
 
 struct MatchPlayer: Codable, Hashable, Identifiable {
