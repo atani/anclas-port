@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T17:09:20.745Z",
+  "generatedAt": "2026-06-27T17:13:40.651Z",
   "season": "2026",
   "anclas": {
     "nextMatch": {
@@ -18,7 +18,7 @@
       "venue": "南島原多目的運動広場",
       "goals": [],
       "goalnoteUrl": null,
-      "posterUrl": "https://anclas.jp/wp-content/uploads/2026/04/0503kunimi-insta.webp"
+      "posterUrl": null
     },
     "latestResult": {
       "id": "su-post-9519",
@@ -821,7 +821,7 @@
       "venue": "南島原多目的運動広場",
       "goals": [],
       "goalnoteUrl": null,
-      "posterUrl": "https://anclas.jp/wp-content/uploads/2026/04/0503kunimi-insta.webp"
+      "posterUrl": null
     },
     {
       "id": "su-post-9405",
