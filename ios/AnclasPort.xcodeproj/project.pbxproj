@@ -21,10 +21,13 @@
 		CF4AC7A99CDF3F44B098832D /* standings.json in Resources */ = {isa = PBXBuildFile; fileRef = 9279E5F800C7ACB899B4FA4F /* standings.json */; };
 		CFFFE58244231F6BC8C818AA /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5319AAC6FD7F2703FE50BF07 /* Theme.swift */; };
 		D29F00A8CDF3CE4C3185D9C9 /* StandingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64216B77292BA4D691813DE8 /* StandingsView.swift */; };
+		DCE54EF346027C0FC6A3B161 /* MatchDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6E0E6FC0B694E50065F7CA9 /* MatchDetailView.swift */; };
+		E1209C5DF7AF409715CC7871 /* MoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001F812822F6F2E4CAAA3B52 /* MoreView.swift */; };
 		EDB43DA03E7756B8DAB21A8F /* AnclasPortApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047CC8DE224B6EC4A441C722 /* AnclasPortApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		001F812822F6F2E4CAAA3B52 /* MoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreView.swift; sourceTree = "<group>"; };
 		047CC8DE224B6EC4A441C722 /* AnclasPortApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnclasPortApp.swift; sourceTree = "<group>"; };
 		271B435B7A407225CE450DC8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2851D0C1A8EC647F06B0FEF4 /* AnclasPort.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = AnclasPort.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,6 +43,7 @@
 		CCD8E0E7ACDC1F57019BFBC2 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		F38CD710B02E069D8F72F881 /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		F60A2F769C2E87B7C63CF906 /* players.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = players.json; sourceTree = "<group>"; };
+		F6E0E6FC0B694E50065F7CA9 /* MatchDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchDetailView.swift; sourceTree = "<group>"; };
 		FF92157645B63B9B49772203 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,7 +83,9 @@
 				81A4AAC7CE1BF1F6F66EA834 /* DataStore.swift */,
 				BE77A4F1D3F5DC7A948EA20D /* HeaderBar.swift */,
 				FF92157645B63B9B49772203 /* HomeView.swift */,
+				F6E0E6FC0B694E50065F7CA9 /* MatchDetailView.swift */,
 				CCD8E0E7ACDC1F57019BFBC2 /* Models.swift */,
+				001F812822F6F2E4CAAA3B52 /* MoreView.swift */,
 				2853101ABF5A7E31C6B4C431 /* PlayersView.swift */,
 				F38CD710B02E069D8F72F881 /* ScheduleView.swift */,
 				9F038957E896810999D0FA8C /* SplashView.swift */,
@@ -168,7 +174,9 @@
 				71599EC924A3BD5DCF1A7FA1 /* DataStore.swift in Sources */,
 				5872B1BB99BC8305AD6B7D72 /* HeaderBar.swift in Sources */,
 				A66065A6D1E84F2AB537973F /* HomeView.swift in Sources */,
+				DCE54EF346027C0FC6A3B161 /* MatchDetailView.swift in Sources */,
 				CDF91766AA98E68BFD201FEB /* Models.swift in Sources */,
+				E1209C5DF7AF409715CC7871 /* MoreView.swift in Sources */,
 				5191773AA8562C67CED6D297 /* PlayersView.swift in Sources */,
 				43A3954B7AD475B4E9A24F66 /* ScheduleView.swift in Sources */,
 				0B91D4834EFED303919BE50D /* SplashView.swift in Sources */,

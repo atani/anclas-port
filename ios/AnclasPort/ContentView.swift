@@ -13,6 +13,8 @@ struct ContentView: View {
                 .tabItem { Label("順位", systemImage: "chart.bar.fill") }
             PlayersView()
                 .tabItem { Label("選手", systemImage: "person.2.fill") }
+            MoreView()
+                .tabItem { Label("もっと", systemImage: "ellipsis") }
         }
         .tint(Theme.orange)
     }

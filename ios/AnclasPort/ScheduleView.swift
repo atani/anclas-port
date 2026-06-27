@@ -12,25 +12,34 @@ struct ScheduleView: View {
     }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 12) {
-                HeaderBar(title: "日程・結果")
+        NavigationStack {
+            ScrollView {
+                VStack(spacing: 12) {
+                    HeaderBar(title: "日程・結果")
 
-                Picker("表示", selection: $showAll) {
-                    Text("今後").tag(false)
-                    Text("全試合").tag(true)
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal, 16)
+                    Picker("表示", selection: $showAll) {
+                        Text("今後").tag(false)
+                        Text("全試合").tag(true)
+                    }
+                    .pickerStyle(.segmented)
+                    .padding(.horizontal, 16)
 
-                ForEach(anclasMatches) { match in
-                    ScheduleCard(match: match)
+                    ForEach(anclasMatches) { match in
+                        NavigationLink(value: match) {
+                            ScheduleCard(match: match)
+                        }
+                        .buttonStyle(.plain)
+                    }
                 }
+                .padding(.vertical, 8)
             }
-            .padding(.vertical, 8)
+            .background(Color(.systemGroupedBackground))
+            .navigationBarHidden(true)
+            .navigationDestination(for: Match.self) { match in
+                MatchDetailView(match: match)
+            }
+            .refreshable { await store.refresh() }
         }
-        .background(Color(.systemGroupedBackground))
-        .refreshable { await store.refresh() }
     }
 }
 
