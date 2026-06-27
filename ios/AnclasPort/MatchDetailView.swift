@@ -100,12 +100,13 @@ struct MatchDetailView: View {
 
                 // 選手交代
                 if let subs = match.substitutions, !subs.isEmpty {
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 12) {
                         Text("選手交代")
                             .font(.subheadline.weight(.bold))
                             .foregroundStyle(Theme.orange)
                         ForEach(subs) { sub in
-                            SubstitutionRow(sub: sub, homeTeam: match.homeTeam)
+                            SubstitutionRow(sub: sub, homeTeam: match.homeTeam, awayTeam: match.awayTeam)
+                            if sub.id != subs.last?.id { Divider() }
                         }
                     }
                     .card()
@@ -276,25 +277,33 @@ private struct PlayerRow: View {
 private struct SubstitutionRow: View {
     let sub: SubstitutionEvent
     let homeTeam: String
+    let awayTeam: String
+
+    private var teamName: String { sub.team == "home" ? homeTeam : awayTeam }
+    private var isAnclas: Bool { teamName == Match.anclasName }
 
     var body: some View {
-        HStack(spacing: 8) {
-            Text(sub.minute)
-                .font(.caption.weight(.bold).monospacedDigit())
-                .foregroundStyle(.secondary)
-                .frame(width: 70, alignment: .trailing)
-
-            VStack(alignment: .leading, spacing: 2) {
-                HStack(spacing: 4) {
-                    Image(systemName: "arrow.down.circle.fill").foregroundStyle(.red).font(.caption)
-                    Text("#\(sub.outNumber) \(sub.outName)").font(.caption)
-                }
-                HStack(spacing: 4) {
-                    Image(systemName: "arrow.up.circle.fill").foregroundStyle(.green).font(.caption)
-                    Text("#\(sub.inNumber) \(sub.inName)").font(.caption)
-                }
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(spacing: 6) {
+                Text(sub.minute)
+                    .font(.subheadline.weight(.bold).monospacedDigit())
+                    .foregroundStyle(.secondary)
+                Text(teamName)
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(isAnclas ? Theme.orange : .secondary)
+                    .lineLimit(1)
+            }
+            HStack(spacing: 6) {
+                Image(systemName: "arrow.down.circle.fill").foregroundStyle(.red).font(.subheadline)
+                Text("OUT").font(.caption2.weight(.bold)).foregroundStyle(.red)
+                Text("#\(sub.outNumber) \(sub.outName)").font(.subheadline)
+            }
+            HStack(spacing: 6) {
+                Image(systemName: "arrow.up.circle.fill").foregroundStyle(.green).font(.subheadline)
+                Text("IN").font(.caption2.weight(.bold)).foregroundStyle(.green)
+                Text("#\(sub.inNumber) \(sub.inName)").font(.subheadline)
             }
         }
-        .padding(.vertical, 2)
+        .padding(.vertical, 4)
     }
 }
