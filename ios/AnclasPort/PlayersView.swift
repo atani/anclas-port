@@ -25,7 +25,7 @@ struct PlayersView: View {
                         }
                         .padding(.horizontal, 14)
                     } else {
-                        ProgressView("読み込み中…").padding(.top, 60)
+                        LoadingState(message: "選手名鑑を読み込み中…")
                     }
                 }
                 .padding(.vertical, 8)

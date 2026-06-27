@@ -162,28 +162,13 @@ function parseGoals(html: string): GoalEvent[] {
 
 const VALID_POSITIONS = new Set<string>(["GK", "DF", "MF", "FW", "FP"]);
 
-/**
- * game page からスタメン・控えを抽出。
- * GoalNote は score-team1（KICK OFF 側）→ score-team2 の順でメンバーを列挙する。
- * team1 がホームとは限らないため、ヘッダーから team1 のチーム名を取得し、
- * homeTeam と突き合わせてホーム/アウェイを判定する。
- */
-function parseLineups(html: string, homeTeam: string): { starters: GoalNotePlayer[]; subs: GoalNotePlayer[] } {
-  const starters: GoalNotePlayer[] = [];
-  const subs: GoalNotePlayer[] = [];
-
-  // score-team1 のチーム名を取得して team1 がホームかを判定
-  const team1Match = html.match(/class="score-team1"[^>]*>\s*([\s\S]*?)<(?:div|\/th)/i);
-  const team1Name = team1Match ? strip(team1Match[1] ?? "") : "";
-  const team1IsHome = team1Name.includes(homeTeam.slice(0, 4));
-
+/** 1つの <table> から選手行（背番号+ポジション+名前）を抽出する */
+function parsePlayerTable(tableHtml: string, team: "home" | "away"): GoalNotePlayer[] {
+  const players: GoalNotePlayer[] = [];
   const trRe = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
   const tdRe = /<td[^>]*>([\s\S]*?)<\/td>/gi;
-  let playerCount = 0;
-  let currentSubTeam: "team1" | "team2" = "team1";
-
   let tr: RegExpExecArray | null;
-  while ((tr = trRe.exec(html)) !== null) {
+  while ((tr = trRe.exec(tableHtml)) !== null) {
     const cells: string[] = [];
     tdRe.lastIndex = 0;
     let td: RegExpExecArray | null;
@@ -197,38 +182,51 @@ function parseLineups(html: string, homeTeam: string): { starters: GoalNotePlaye
     if (!/^\d+$/.test(numStr)) continue;
     if (!VALID_POSITIONS.has(posStr)) continue;
     if (!name) continue;
-
-    playerCount++;
-    const isStarter = playerCount <= 22;
-    // スタメン: 1-11 = team1, 12-22 = team2
-    // 控え: GK がチーム切り替わりの目印（各チームの控えは GK から始まることが多い）
-    let isTeam1: boolean;
-    if (isStarter) {
-      isTeam1 = playerCount <= 11;
-    } else {
-      // 控えの23人目以降: 最初は team1 の控え、途中で team2 に切り替わる
-      // team2 の控えは GK で始まるパターンを利用
-      if (playerCount === 23) {
-        currentSubTeam = "team1";
-      }
-      if (currentSubTeam === "team1" && posStr === "GK" && playerCount > 23) {
-        // 2番目の GK が出たら team2 に切り替え
-        currentSubTeam = "team2";
-      }
-      isTeam1 = currentSubTeam === "team1";
-    }
-    const team: "home" | "away" = (isTeam1 ? team1IsHome : !team1IsHome) ? "home" : "away";
-
-    const player: GoalNotePlayer = {
+    players.push({
       number: Number(numStr),
       position: posStr as Position,
       name: name.replace(/\s*\(Cap\.\)/i, ""),
       team,
-    };
-
-    if (isStarter) starters.push(player);
-    else subs.push(player);
+    });
   }
+  return players;
+}
+
+/**
+ * game page からスタメン・控えを抽出。
+ *
+ * GoalNote のメンバー表は <table> 単位で分かれている（実測）:
+ *   選手行を含む table を順に並べると
+ *   [0]=team1先発, [1]=team2先発, [2]=team1控え, [3]=team2控え
+ * team1 は score-team1（KICK OFF 側）。homeTeam と照合して home/away を割り当てる。
+ */
+function parseLineups(html: string, homeTeam: string): { starters: GoalNotePlayer[]; subs: GoalNotePlayer[] } {
+  // team1 がホームかを判定
+  const team1Match = html.match(/class="score-team1"[^>]*>\s*([\s\S]*?)<(?:div|\/th)/i);
+  const team1Name = team1Match ? strip(team1Match[1] ?? "") : "";
+  const team1IsHome = team1Name.includes(homeTeam.slice(0, 4));
+
+  // 選手行（ポジション略号を含む td）を持つ table だけを文書順に集める
+  const tableRe = /<table[^>]*>([\s\S]*?)<\/table>/gi;
+  const playerTables: string[] = [];
+  let tbl: RegExpExecArray | null;
+  while ((tbl = tableRe.exec(html)) !== null) {
+    const body = tbl[1] ?? "";
+    if (/<td[^>]*>\s*(?:GK|DF|MF|FW|FP)\s*<\/td>/i.test(body)) {
+      playerTables.push(body);
+    }
+  }
+
+  const team1Side: "home" | "away" = team1IsHome ? "home" : "away";
+  const team2Side: "home" | "away" = team1IsHome ? "away" : "home";
+
+  const starters: GoalNotePlayer[] = [];
+  const subs: GoalNotePlayer[] = [];
+  if (playerTables[0]) starters.push(...parsePlayerTable(playerTables[0], team1Side));
+  if (playerTables[1]) starters.push(...parsePlayerTable(playerTables[1], team2Side));
+  if (playerTables[2]) subs.push(...parsePlayerTable(playerTables[2], team1Side));
+  if (playerTables[3]) subs.push(...parsePlayerTable(playerTables[3], team2Side));
+
   return { starters, subs };
 }
 

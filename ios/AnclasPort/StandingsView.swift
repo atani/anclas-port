@@ -5,78 +5,118 @@ struct StandingsView: View {
 
     var body: some View {
         ScrollView {
-            VStack(spacing: 0) {
+            VStack(spacing: 16) {
                 HeaderBar(title: "順位表")
-                    .padding(.bottom, 8)
 
-                if let table = store.standingsData?.table {
+                if let data = store.standingsData {
                     VStack(spacing: 0) {
-                        HeaderRow()
-                        ForEach(table) { row in
-                            StandingRowView(row: row)
+                        ColumnHeader()
+                        ForEach(Array(data.table.enumerated()), id: \.element.id) { idx, row in
+                            StandingRowView(row: row, isLast: idx == data.table.count - 1)
                         }
                     }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 8)
+                    .anclasCard(padding: 0)
+                    .padding(.horizontal, 16)
+
+                    Text("\(data.competition)　\(data.season)シーズン")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity)
                 } else {
-                    ProgressView("読み込み中…").padding(.top, 60)
+                    LoadingState(message: "順位表を読み込み中…")
                 }
             }
+            .padding(.vertical, 8)
         }
         .background(Color(.systemGroupedBackground))
         .refreshable { await store.refresh() }
     }
 }
 
-private struct HeaderRow: View {
+private struct ColumnHeader: View {
     var body: some View {
         HStack(spacing: 0) {
-            Text("#").frame(width: 24, alignment: .center)
+            Text("順").frame(width: 36)
             Text("チーム").frame(maxWidth: .infinity, alignment: .leading)
             Group {
-                Text("試")
-                Text("勝")
-                Text("分")
-                Text("敗")
-                Text("点")
+                Text("試"); Text("勝"); Text("分"); Text("敗")
             }
-            .frame(width: 28, alignment: .center)
+            .frame(width: 26)
+            Text("勝点").frame(width: 40)
         }
         .font(.caption2.weight(.bold))
         .foregroundStyle(.secondary)
-        .padding(.vertical, 6)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 10)
+        .background(Theme.navy.opacity(0.06))
     }
 }
 
 private struct StandingRowView: View {
     let row: StandingRow
+    let isLast: Bool
 
     var body: some View {
-        HStack(spacing: 0) {
-            Text("\(row.rank)")
-                .frame(width: 24, alignment: .center)
-                .font(.subheadline.weight(.bold))
-                .foregroundStyle(row.isAnclas ? Theme.orange : .primary)
+        VStack(spacing: 0) {
+            HStack(spacing: 0) {
+                RankBadge(rank: row.rank, isAnclas: row.isAnclas)
+                    .frame(width: 36)
 
-            Text(row.team)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .font(.caption)
-                .lineLimit(1)
-                .foregroundStyle(row.isAnclas ? Theme.orange : .primary)
+                Text(row.team)
+                    .font(.callout.weight(row.isAnclas ? .bold : .regular))
+                    .foregroundStyle(row.isAnclas ? Theme.orange : .primary)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
-            Group {
-                Text("\(row.played)")
-                Text("\(row.win)")
-                Text("\(row.draw)")
-                Text("\(row.loss)")
-                Text("\(row.points)").fontWeight(.bold)
+                Group {
+                    Text("\(row.played)").foregroundStyle(.secondary)
+                    Text("\(row.win)")
+                    Text("\(row.draw)")
+                    Text("\(row.loss)")
+                }
+                .font(.callout.monospacedDigit())
+                .frame(width: 26)
+
+                Text("\(row.points)")
+                    .font(.body.weight(.heavy).monospacedDigit())
+                    .foregroundStyle(row.isAnclas ? Theme.orange : .primary)
+                    .frame(width: 40)
             }
-            .frame(width: 28, alignment: .center)
-            .font(.subheadline.monospacedDigit())
+            .padding(.horizontal, 14)
+            .padding(.vertical, 11)
+            .background(row.isAnclas ? Theme.orange.opacity(0.10) : Color.clear)
+            .overlay(alignment: .leading) {
+                if row.isAnclas {
+                    Rectangle().fill(Theme.orange).frame(width: 4)
+                }
+            }
+
+            if !isLast {
+                Divider().padding(.leading, 14)
+            }
         }
-        .padding(.vertical, 8)
-        .padding(.horizontal, 4)
-        .background(row.isAnclas ? Theme.orange.opacity(0.12) : .clear)
-        .clipShape(RoundedRectangle(cornerRadius: 6))
+    }
+}
+
+private struct RankBadge: View {
+    let rank: Int
+    let isAnclas: Bool
+
+    private var color: Color {
+        switch rank {
+        case 1: return Theme.orange
+        case 2: return Color(.systemGray)
+        case 3: return Theme.yellow
+        default: return Color(.systemGray3)
+        }
+    }
+
+    var body: some View {
+        Text("\(rank)")
+            .font(.subheadline.weight(.heavy).monospacedDigit())
+            .foregroundStyle(rank <= 3 ? .white : .secondary)
+            .frame(width: 26, height: 26)
+            .background(rank <= 3 ? color : Color.clear, in: Circle())
     }
 }

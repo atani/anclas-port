@@ -24,11 +24,20 @@ struct ScheduleView: View {
                     .pickerStyle(.segmented)
                     .padding(.horizontal, 16)
 
-                    ForEach(anclasMatches) { match in
-                        NavigationLink(value: match) {
-                            ScheduleCard(match: match)
+                    if store.data == nil {
+                        LoadingState(message: "日程を読み込み中…")
+                    } else if anclasMatches.isEmpty {
+                        EmptyState(
+                            title: showAll ? "試合データがありません" : "今後の試合はありません",
+                            subtitle: showAll ? nil : "「全試合」で過去の結果を見られます"
+                        )
+                    } else {
+                        ForEach(anclasMatches) { match in
+                            NavigationLink(value: match) {
+                                ScheduleCard(match: match)
+                            }
+                            .buttonStyle(.plain)
                         }
-                        .buttonStyle(.plain)
                     }
                 }
                 .padding(.vertical, 8)
