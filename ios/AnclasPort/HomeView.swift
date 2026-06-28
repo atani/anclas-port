@@ -97,7 +97,7 @@ private struct NextMatchCard: View {
     let match: Match
 
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 16) {
             // ポスターがあればカード上部に表示
             if let posterUrl = match.posterUrl, let url = URL(string: posterUrl) {
                 AsyncImage(url: url) { phase in
@@ -109,44 +109,36 @@ private struct NextMatchCard: View {
                     }
                 }
                 .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
-                .padding(.horizontal, 16)
-                .padding(.top, 16)
             }
 
-            VStack(spacing: 16) {
-                if !match.roundLabel.isEmpty {
-                    Text("\(match.competition) \(match.roundLabel)")
-                        .font(.headline.weight(.bold))
-                        .foregroundStyle(.white)
-                        .padding(.horizontal, 14).padding(.vertical, 6)
-                        .background(Theme.orange, in: Capsule())
-                }
-
-                HStack(spacing: 12) {
-                    TeamName(name: match.homeTeam, isAnclas: match.anclasIsHome)
-                    Text("VS").font(.title3.weight(.heavy)).foregroundStyle(Theme.orange)
-                    TeamName(name: match.awayTeam, isAnclas: !match.anclasIsHome)
-                }
-
-                if let d = match.startDate {
-                    Text(d.formattedJa() + " KO")
-                        .font(.title3.weight(.semibold))
-                        .monospacedDigit()
-                    CountdownBadge(days: d.daysFromNow())
-                }
-
-                if let venue = match.venue {
-                    Label(venue, systemImage: "mappin.and.ellipse")
-                        .font(.subheadline)
-                        .foregroundStyle(.secondary)
-                }
+            if !match.roundLabel.isEmpty {
+                Text("\(match.competition) \(match.roundLabel)")
+                    .font(.headline.weight(.bold))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 14).padding(.vertical, 6)
+                    .background(Theme.orange, in: Capsule())
             }
-            .padding(20)
+
+            HStack(spacing: 12) {
+                TeamName(name: match.homeTeam, isAnclas: match.anclasIsHome)
+                Text("VS").font(.title3.weight(.heavy)).foregroundStyle(Theme.orange)
+                TeamName(name: match.awayTeam, isAnclas: !match.anclasIsHome)
+            }
+
+            if let d = match.startDate {
+                Text(d.formattedJa() + " KO")
+                    .font(.title3.weight(.semibold))
+                    .monospacedDigit()
+                CountdownBadge(days: d.daysFromNow())
+            }
+
+            if let venue = match.venue {
+                Label(venue, systemImage: "mappin.and.ellipse")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
         }
-        .frame(maxWidth: .infinity)
-        .background(Color(.secondarySystemGroupedBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .padding(.horizontal, 16)
+        .card()
     }
 }
 
