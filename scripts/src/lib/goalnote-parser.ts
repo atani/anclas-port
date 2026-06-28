@@ -445,11 +445,24 @@ export function parseScorerRanking(
     if (!Number.isFinite(rank) || !Number.isFinite(goals)) continue;
     if (team !== ANCLAS_TEAM_NAME) continue;
     scorers.push({
-      rank,
+      rank: 0, // 後でチーム内順位を振り直す
+      leagueRank: rank,
       name,
       number: playerNumberByName.get(norm(name)) ?? null,
       goals,
     });
+  }
+  // チーム内順位を得点数の降順で振り直す（同点同位）
+  scorers.sort((a, b) => b.goals - a.goals);
+  let prevGoals = -1;
+  let prevRank = 0;
+  for (let i = 0; i < scorers.length; i++) {
+    const cur = scorers[i]!;
+    if (cur.goals !== prevGoals) {
+      prevRank = i + 1;
+      prevGoals = cur.goals;
+    }
+    cur.rank = prevRank;
   }
   return scorers;
 }
