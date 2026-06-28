@@ -258,6 +258,14 @@ struct PersonalItem: Codable, Hashable {
     let value: String
 }
 
+struct BlogPost: Codable, Hashable, Identifiable {
+    let title: String
+    let url: String
+    let date: String
+
+    var id: String { url }
+}
+
 struct Player: Codable, Identifiable, Hashable {
     let id: Int
     let number: Int?
@@ -269,6 +277,7 @@ struct Player: Codable, Identifiable, Hashable {
     let profile: PlayerProfile
     let personal: [PersonalItem]
     let sourceUrl: String
+    let blogPosts: [BlogPost]?
 
     var displayNumber: String { number.map { "#\($0)" } ?? "" }
 }

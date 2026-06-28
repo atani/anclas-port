@@ -215,6 +215,15 @@ export interface Player {
   personal: { label: string; value: string }[];
   /** クラブ公式の選手ページURL */
   sourceUrl: string;
+  /** 選手ブログ記事（anclas.jp 由来、新しい順） */
+  blogPosts: BlogPost[];
+}
+
+/** 選手ブログ記事 */
+export interface BlogPost {
+  title: string;
+  url: string;
+  date: string;
 }
 
 /** オンラインショップの商品 */

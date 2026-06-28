@@ -172,6 +172,10 @@ struct PlayerDetailView: View {
                     PersonalSection(items: player.personal)
                 }
 
+                if let blogs = player.blogPosts, !blogs.isEmpty {
+                    BlogSection(posts: blogs)
+                }
+
                 // 前後の選手への回遊ナビ
                 PlayerNavigation(prev: prevPlayer, next: nextPlayer)
                     .padding(.horizontal, 16)
@@ -276,6 +280,66 @@ private struct PersonalSection: View {
                 .padding(.horizontal, 12).padding(.vertical, 8)
                 .background(Theme.orange.opacity(0.06))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .card()
+    }
+}
+
+// MARK: - Blog Section
+
+private struct BlogSection: View {
+    let posts: [BlogPost]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 6) {
+                Image(systemName: "pencil.line")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(Theme.orange)
+                Text("選手ブログ")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(.secondary)
+                Text("\(posts.count)件")
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+            }
+
+            ForEach(Array(posts.prefix(5).enumerated()), id: \.element.id) { idx, post in
+                if let url = URL(string: post.url) {
+                    Link(destination: url) {
+                        HStack(spacing: 10) {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(post.title)
+                                    .font(.subheadline.weight(.medium))
+                                    .lineLimit(2)
+                                    .multilineTextAlignment(.leading)
+                                Text(post.date)
+                                    .font(.caption2)
+                                    .foregroundStyle(.secondary)
+                            }
+                            Spacer(minLength: 0)
+                            Image(systemName: "arrow.up.right")
+                                .font(.caption2)
+                                .foregroundStyle(.tertiary)
+                        }
+                        .padding(.horizontal, 12).padding(.vertical, 10)
+                        .background(Color(.tertiarySystemGroupedBackground))
+                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+
+            if posts.count > 5 {
+                Link(destination: URL(string: "https://anclas.jp/category/blog/")!) {
+                    Text("すべてのブログを見る →")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(Theme.orange)
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.plain)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
