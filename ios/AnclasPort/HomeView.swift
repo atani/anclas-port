@@ -67,6 +67,11 @@ struct HomeView: View {
                             PodcastCard(episode: podcast)
                         }
 
+                        if let video = store.data?.anclas.latestYouTube {
+                            SectionLabel(video.isNew ? "📺 NEW VIDEO" : "YOUTUBE")
+                            YouTubeCard(video: video)
+                        }
+
                         if let items = store.data?.anclas.shopItems, !items.isEmpty {
                             SectionLabel("🛒 公式オンラインショップ")
                             ShopCarouselCard(items: items)
@@ -307,6 +312,67 @@ private struct EmptyCard: View {
     let text: String
     var body: some View {
         Text(text).font(.headline).foregroundStyle(.secondary).card()
+    }
+}
+
+// MARK: - YouTube
+
+private struct YouTubeCard: View {
+    let video: YouTubeVideo
+    var body: some View {
+        if let url = URL(string: video.url) {
+            Link(destination: url) {
+                VStack(spacing: 0) {
+                    ZStack(alignment: .center) {
+                        AsyncImage(url: URL(string: video.thumbnailUrl)) { phase in
+                            switch phase {
+                            case .success(let image):
+                                image.resizable().aspectRatio(contentMode: .fill)
+                            default:
+                                Color(.tertiarySystemFill)
+                            }
+                        }
+                        .frame(height: 180)
+                        .clipped()
+
+                        Image(systemName: "play.circle.fill")
+                            .font(.system(size: 56))
+                            .foregroundStyle(.white)
+                            .shadow(color: .black.opacity(0.4), radius: 6)
+                    }
+                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .padding(.horizontal, 16).padding(.top, 16)
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack(spacing: 6) {
+                            Label("公式チャンネル", systemImage: "play.rectangle.fill")
+                                .font(.caption2.weight(.semibold))
+                                .foregroundStyle(Theme.orange)
+                            if video.isNew {
+                                Text("NEW")
+                                    .font(.caption2.weight(.heavy))
+                                    .foregroundStyle(.white)
+                                    .padding(.horizontal, 6).padding(.vertical, 2)
+                                    .background(Theme.orange, in: Capsule())
+                            }
+                        }
+                        Text(video.title)
+                            .font(.subheadline.weight(.medium))
+                            .lineLimit(2)
+                            .multilineTextAlignment(.leading)
+                        Text("YouTube で見る →")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(16)
+                }
+                .background(Color(.secondarySystemGroupedBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .padding(.horizontal, 16)
+            }
+            .buttonStyle(.plain)
+        }
     }
 }
 

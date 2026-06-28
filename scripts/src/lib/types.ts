@@ -137,6 +137,8 @@ export interface MatchesData {
     latestResult: Match | null;
     /** ポッドキャスト最新エピソード。取得失敗時 null */
     latestPodcast: PodcastEpisode | null;
+    /** YouTube 最新動画。取得失敗時 null */
+    latestYouTube: YouTubeVideo | null;
     /** 公式オンラインショップの商品（取得失敗時は空配列） */
     shopItems: ShopItem[];
   };
@@ -218,6 +220,15 @@ export interface ShopItem {
   price: string;
   imageUrl: string;
   url: string;
+}
+
+/** YouTube 最新動画 */
+export interface YouTubeVideo {
+  videoId: string;
+  title: string;
+  thumbnailUrl: string;
+  url: string;
+  publishedAt: string;
 }
 
 /** ポッドキャスト最新エピソード */
