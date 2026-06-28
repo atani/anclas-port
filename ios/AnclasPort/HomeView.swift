@@ -307,51 +307,51 @@ private struct HeroHeader: View {
                 .padding(.top, 4)
                 .padding(.trailing, 4)
 
-            VStack(spacing: 14) {
-                // 上段: エンブレム + アプリ名（中央寄せ）
-                HStack(spacing: 14) {
+            VStack(spacing: 10) {
+                // 上段: エンブレム + アプリ名
+                HStack(spacing: 12) {
                     Image("Emblem")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(height: 56)
-                        .shadow(color: .black.opacity(0.3), radius: 5)
-                    VStack(alignment: .leading, spacing: 2) {
+                        .frame(height: 48)
+                        .shadow(color: .black.opacity(0.3), radius: 4)
+                    VStack(alignment: .leading, spacing: 1) {
                         Text("アンクラス Port")
-                            .font(.title2.weight(.heavy))
+                            .font(.title3.weight(.heavy))
                             .foregroundStyle(.white)
                         Text("福岡J・アンクラス")
-                            .font(.caption.weight(.semibold))
+                            .font(.caption2.weight(.semibold))
                             .foregroundStyle(.white.opacity(0.85))
                     }
                     Spacer(minLength: 0)
                 }
 
-                // 区切り
                 Rectangle()
                     .fill(.white.opacity(0.25))
                     .frame(height: 1)
 
                 // 下段: シーズンスローガン
-                VStack(spacing: 2) {
+                VStack(spacing: 1) {
                     Text("2026 SEASON SLOGAN")
                         .font(.caption2.weight(.heavy))
                         .tracking(2)
                         .foregroundStyle(.white.opacity(0.85))
                     Text("RISE again")
-                        .font(.system(size: 30, weight: .heavy, design: .serif))
+                        .font(.system(size: 26, weight: .heavy, design: .serif))
                         .italic()
                         .foregroundStyle(.white)
                         .shadow(color: .black.opacity(0.3), radius: 4, y: 2)
                     Text("もう一度、ともに。")
-                        .font(.footnote.weight(.semibold))
+                        .font(.caption.weight(.semibold))
                         .foregroundStyle(.white.opacity(0.95))
                 }
                 .frame(maxWidth: .infinity)
             }
-            .padding(20)
+            .padding(.horizontal, 18)
+            .padding(.vertical, 14)
         }
-        .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
-        .shadow(color: Theme.orange.opacity(0.3), radius: 10, y: 4)
+        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .shadow(color: Theme.orange.opacity(0.25), radius: 8, y: 3)
     }
 }
 
