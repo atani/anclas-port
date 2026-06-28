@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-28T05:58:12.014Z",
+  "generatedAt": "2026-06-28T08:54:53.835Z",
   "season": "2026",
   "competition": "Qリーグ",
   "table": [
@@ -62,10 +62,10 @@
       "win": 2,
       "draw": 1,
       "loss": 5,
-      "gf": 5,
+      "gf": 8,
       "ga": 11,
       "points": 7,
-      "gd": -6,
+      "gd": -3,
       "isAnclas": false
     },
     {
@@ -102,9 +102,9 @@
       "draw": 1,
       "loss": 6,
       "gf": 2,
-      "ga": 19,
+      "ga": 22,
       "points": 1,
-      "gd": -17,
+      "gd": -20,
       "isAnclas": false
     }
   ],
