@@ -5,6 +5,7 @@ struct HomeView: View {
 
     var body: some View {
         NavigationStack {
+            GeometryReader { geo in
             ScrollView {
                 VStack(spacing: 0) {
                     HeroHeader()
@@ -13,15 +14,15 @@ struct HomeView: View {
 
                     VStack(alignment: .leading, spacing: 20) {
                         if let next = store.data?.anclas.nextMatch {
-                            SectionLabel("NEXT MATCH")
+                            SectionLabel("NEXT MATCH", icon: "sportscourt.fill")
                             NextMatchCard(match: next)
                         } else if store.data != nil {
-                            SectionLabel("NEXT MATCH")
+                            SectionLabel("NEXT MATCH", icon: "sportscourt.fill")
                             EmptyCard(text: "次節調整中")
                         }
 
                         if let latest = store.data?.anclas.latestResult {
-                            SectionLabel("LATEST RESULT")
+                            SectionLabel("LATEST RESULT", icon: "flag.checkered")
                             NavigationLink(value: latest) {
                                 LatestResultCard(match: latest)
                             }
@@ -29,22 +30,22 @@ struct HomeView: View {
                         }
 
                         if let podcast = store.data?.anclas.latestPodcast {
-                            SectionLabel(podcast.isNew ? "🎙 NEW EPISODE" : "PODCAST")
+                            SectionLabel(podcast.isNew ? "NEW EPISODE" : "PODCAST", icon: "headphones")
                             PodcastCard(episode: podcast)
                         }
 
                         if let video = store.data?.anclas.latestYouTube {
-                            SectionLabel(video.isNew ? "📺 NEW VIDEO" : "YOUTUBE")
+                            SectionLabel(video.isNew ? "NEW VIDEO" : "YOUTUBE", icon: "play.rectangle.fill")
                             YouTubeCard(video: video, isShort: false)
                         }
 
                         if let short = store.data?.anclas.latestYouTubeShort {
-                            SectionLabel(short.isNew ? "⚡️ NEW SHORT" : "SHORTS")
+                            SectionLabel(short.isNew ? "NEW SHORT" : "SHORTS", icon: "bolt.fill")
                             YouTubeCard(video: short, isShort: true)
                         }
 
                         if let items = store.data?.anclas.shopItems, !items.isEmpty {
-                            SectionLabel("🛒 公式オンラインショップ")
+                            SectionLabel("公式オンラインショップ", icon: "bag.fill")
                             ShopCarouselCard(items: items)
                         }
 
@@ -60,11 +61,12 @@ struct HomeView: View {
                             LoadingState()
                         }
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(maxWidth: geo.size.width, alignment: .leading)
                     .padding(.top, 20)
                     .padding(.bottom, 12)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(width: geo.size.width, alignment: .leading)
+            }
             }
             .background(Color(.systemGroupedBackground))
             .navigationBarHidden(true)
@@ -436,44 +438,56 @@ private struct ShopCarouselCard: View {
     var body: some View {
         let item = items[index % items.count]
         Link(destination: URL(string: item.url)!) {
-            HStack(spacing: 14) {
+            VStack(spacing: 0) {
+                // 大きな商品画像
                 AsyncImage(url: URL(string: item.imageUrl)) { phase in
                     switch phase {
                     case .success(let image):
-                        image.resizable().aspectRatio(contentMode: .fill)
+                        image.resizable().aspectRatio(contentMode: .fit)
                     default:
                         Color(.tertiarySystemFill)
                     }
                 }
-                .frame(width: 88, height: 88)
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .frame(maxWidth: .infinity)
+                .frame(height: 200)
+                .background(Color.white)
+                .clipped()
 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(item.name)
-                        .font(.subheadline.weight(.semibold))
-                        .lineLimit(2)
-                        .multilineTextAlignment(.leading)
-                    Text(item.price)
-                        .font(.callout.weight(.bold))
-                        .foregroundStyle(Theme.orange)
-                    HStack(spacing: 4) {
-                        Text("BASE で購入 →")
-                            .font(.caption2)
-                            .foregroundStyle(.secondary)
-                        Spacer()
+                // 商品名・価格・リンク
+                HStack(spacing: 12) {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(item.name)
+                            .font(.subheadline.weight(.bold))
+                            .lineLimit(2)
+                            .multilineTextAlignment(.leading)
+                        HStack(alignment: .firstTextBaseline, spacing: 8) {
+                            Text(item.price)
+                                .font(.title3.weight(.heavy))
+                                .foregroundStyle(Theme.orange)
+                            Text("税込")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
+                    Spacer(minLength: 0)
+                    VStack(spacing: 4) {
+                        Text("BASE で購入")
+                            .font(.caption.weight(.bold))
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 12).padding(.vertical, 6)
+                            .background(Theme.orange, in: Capsule())
                         Text("\(index % items.count + 1) / \(items.count)")
                             .font(.caption2.monospacedDigit())
                             .foregroundStyle(.tertiary)
                     }
                 }
-                Spacer(minLength: 0)
+                .padding(16)
             }
-            .padding(16)
             .frame(maxWidth: .infinity)
             .background(Color(.secondarySystemGroupedBackground))
             .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
             .padding(.horizontal, 16)
-            .id(item.id) // フェード再生用
+            .id(item.id)
             .transition(.opacity)
         }
         .buttonStyle(.plain)
