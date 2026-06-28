@@ -298,15 +298,6 @@ private struct HeroHeader: View {
                 endPoint: .bottomTrailing
             )
 
-            // 装飾: マスコット透かし
-            Image("Character")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(height: 110)
-                .opacity(0.15)
-                .padding(.top, 4)
-                .padding(.trailing, 4)
-
             VStack(spacing: 10) {
                 // 上段: エンブレム + アプリ名
                 HStack(spacing: 12) {
@@ -353,6 +344,16 @@ private struct HeroHeader: View {
         }
         .frame(maxWidth: .infinity)
         .fixedSize(horizontal: false, vertical: true)
+        .overlay(alignment: .topTrailing) {
+            // 装飾: マスコット透かし（オーバーレイで配置し ZStack 幅に影響させない）
+            Image("Character")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 90, height: 90)
+                .opacity(0.18)
+                .padding(.top, 4)
+                .padding(.trailing, 4)
+        }
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .shadow(color: Theme.orange.opacity(0.25), radius: 8, y: 3)
     }
