@@ -18,6 +18,7 @@ struct MoreView: View {
 
                 linkGroup("公式SNS・サイト", items: [
                     .init("公式サイト", "globe", "https://anclas.jp/"),
+                    .init("オンラインショップ", "bag.fill", "https://anclas.base.shop/"),
                     .init("Instagram", "camera.fill", "https://www.instagram.com/anclas_fukuoka_official"),
                     .init("X（旧Twitter）", "bird.fill", "https://x.com/anclas_fukuoka"),
                 ])

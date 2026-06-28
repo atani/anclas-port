@@ -30,6 +30,7 @@ function m(home: string, away: string, hs: number, as: number): Match {
     posterUrl: null,
     cards: [],
     matchReport: null,
+    photoGallery: [],
   };
 }
 

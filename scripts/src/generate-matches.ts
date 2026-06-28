@@ -2,16 +2,24 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import {
   enrichMatchesWithSchedule,
   fetchGoalNoteGame,
+  fetchGoalNoteRanking,
   fetchGoalNoteSchedule,
   parseGoalNoteGame,
   parseGoalNoteSchedule,
+  parseScorerRanking,
 } from "./lib/goalnote-parser.js";
 import { parseQLeagueMatches } from "./lib/qleague-parser.js";
 import { fetchLatestPodcast } from "./lib/spotify.js";
 import { calculateStandings } from "./lib/standings.js";
 import { findMatchPoster, findMatchReport } from "./lib/wordpress-client.js";
 import { logger } from "./lib/logger.js";
-import { ANCLAS_TEAM_NAME, type Match, type MatchesData, type StandingsData } from "./lib/types.js";
+import {
+  ANCLAS_TEAM_NAME,
+  type Match,
+  type MatchesData,
+  type ScorerRank,
+  type StandingsData,
+} from "./lib/types.js";
 
 const Q_LEAGUE_URL = "https://q-league.net/match/";
 const COMPETITION = "Qリーグ";
@@ -24,6 +32,24 @@ async function fetchHtml(url: string): Promise<string> {
   });
   if (!res.ok) throw new Error(`fetch failed: ${res.status} ${res.statusText} ${url}`);
   return res.text();
+}
+
+/** players.json から「名前(空白除去) → 背番号」マップを作る（得点ランキングの番号補完用） */
+function loadPlayerNumberByName(): Map<string, number> {
+  const map = new Map<string, number>();
+  const url = new URL("players.json", DATA_DIR);
+  if (!existsSync(url)) return map;
+  try {
+    const data = JSON.parse(readFileSync(url, "utf-8")) as {
+      players: { number: number | null; nameJa: string }[];
+    };
+    for (const p of data.players) {
+      if (p.number !== null) map.set(p.nameJa.replace(/[\s　]/g, ""), p.number);
+    }
+  } catch {
+    /* ignore */
+  }
+  return map;
 }
 
 function inferSeason(matches: Match[]): string {
@@ -101,9 +127,10 @@ async function main(): Promise<void> {
   for (const m of allAnclasFinished) {
     try {
       const opponent = m.homeTeam === ANCLAS_TEAM_NAME ? m.awayTeam : m.homeTeam;
-      const report = await findMatchReport(opponent, m.date);
-      if (report) {
-        m.matchReport = report;
+      const result = await findMatchReport(opponent, m.date);
+      if (result) {
+        m.matchReport = result.report;
+        if (result.photoGallery.length > 0) m.photoGallery = result.photoGallery;
         reportCount++;
       }
     } catch {
@@ -134,6 +161,9 @@ async function main(): Promise<void> {
         if (!m.matchReport && p.matchReport) {
           m.matchReport = p.matchReport;
           restoredReports++;
+        }
+        if (m.photoGallery.length === 0 && p.photoGallery && p.photoGallery.length > 0) {
+          m.photoGallery = p.photoGallery;
         }
       }
       if (restoredReports > 0) logger.info(`前回値から${restoredReports}件のマッチレポートを引き継ぎ`);
@@ -180,11 +210,38 @@ async function main(): Promise<void> {
     matches,
   };
 
+  // 6. 得点ランキング（GoalNote）→ アンクラス選手のみ
+  let scorers: ScorerRank[] = [];
+  try {
+    const numberByName = loadPlayerNumberByName();
+    const rankHtml = await fetchGoalNoteRanking();
+    scorers = parseScorerRanking(rankHtml, numberByName);
+    if (scorers.length > 0) logger.info(`得点ランキング: アンクラス${scorers.length}人`);
+  } catch {
+    logger.warn("得点ランキング取得失敗");
+  }
+  // 取得失敗時は前回 standings.json の scorers を引き継ぐ
+  if (scorers.length === 0) {
+    const prevStandings = new URL("standings.json", DATA_DIR);
+    if (existsSync(prevStandings)) {
+      try {
+        const prev = JSON.parse(readFileSync(prevStandings, "utf-8")) as StandingsData;
+        if (prev.scorers?.length) {
+          scorers = prev.scorers;
+          logger.info(`得点ランキング: 前回値${scorers.length}人を引き継ぎ`);
+        }
+      } catch {
+        /* ignore */
+      }
+    }
+  }
+
   const standingsData: StandingsData = {
     generatedAt,
     season,
     competition: COMPETITION,
     table: calculateStandings(matches),
+    scorers,
   };
 
   writeJson("matches.json", matchesData);

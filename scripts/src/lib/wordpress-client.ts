@@ -228,10 +228,42 @@ function parseMatchReportContent(html: string, postUrl: string): MatchReport {
 }
 
 /**
- * マッチレポート投稿を探してコメントを抽出する。
+ * マッチレポート投稿の content からフォトギャラリー画像URLを抽出する。
+ * 末尾の「フォトギャラリー」見出し以降の uploads 画像を集め、サイズ違い・
+ * プロフィール写真・ロゴを除いて重複排除する。
+ */
+function parseGalleryImages(html: string): string[] {
+  const galleryIdxs = [...html.matchAll(/フォトギャラリー/g)].map((m) => m.index ?? 0);
+  const region = galleryIdxs.length > 0 ? html.slice(galleryIdxs[galleryIdxs.length - 1]) : html;
+  const urls = [...region.matchAll(/<img[^>]+src="([^"]+)"/gi)].map((m) => m[1] ?? "");
+
+  const seen = new Set<string>();
+  const result: string[] = [];
+  for (const raw of urls) {
+    if (!/wp-content\/uploads\//.test(raw)) continue;
+    if (/笑顔|監督|ロゴ|logo|icon|アイコン|banner|バナー/i.test(raw)) continue;
+    // サイズ違い（-300x200 等）を除いた base で重複排除
+    const base = raw.replace(/-\d+x\d+(?=\.[a-z]+$)/i, "");
+    if (seen.has(base)) continue;
+    seen.add(base);
+    result.push(base);
+  }
+  return result;
+}
+
+export interface MatchReportResult {
+  report: MatchReport;
+  photoGallery: string[];
+}
+
+/**
+ * マッチレポート投稿を探してコメントとフォトギャラリーを抽出する。
  * 投稿日が試合日の前後7日以内の「マッチレポート」投稿を対象にする。
  */
-export async function findMatchReport(opponentName: string, matchDate: string): Promise<MatchReport | null> {
+export async function findMatchReport(
+  opponentName: string,
+  matchDate: string,
+): Promise<MatchReportResult | null> {
   try {
     const posts = await getPosts({ search: "マッチレポート " + opponentName.slice(0, 6), perPage: 5, order: "desc" });
     const matchMs = new Date(matchDate).getTime();
@@ -242,7 +274,10 @@ export async function findMatchReport(opponentName: string, matchDate: string): 
       if (!/マッチレポート/.test(title)) continue;
       const postMs = new Date(p.date).getTime();
       if (Math.abs(postMs - matchMs) > sevenDaysMs) continue;
-      return parseMatchReportContent(p.content.rendered, p.link);
+      return {
+        report: parseMatchReportContent(p.content.rendered, p.link),
+        photoGallery: parseGalleryImages(p.content.rendered),
+      };
     }
   } catch {
     // WP API 失敗は無視
