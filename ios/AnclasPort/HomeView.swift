@@ -284,69 +284,64 @@ private struct EmptyCard: View {
 
 private struct HeroHeader: View {
     var body: some View {
-        ZStack(alignment: .topTrailing) {
-            // 背景: オレンジ→ネイビーの斜めグラデ
+        VStack(spacing: 10) {
+            // 上段: エンブレム + アプリ名
+            HStack(spacing: 12) {
+                Image("Emblem")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 48, height: 48)
+                    .shadow(color: .black.opacity(0.3), radius: 4)
+                VStack(alignment: .leading, spacing: 1) {
+                    Text("アンクラス Port")
+                        .font(.title3.weight(.heavy))
+                        .foregroundStyle(.white)
+                    Text("福岡J・アンクラス")
+                        .font(.caption2.weight(.semibold))
+                        .foregroundStyle(.white.opacity(0.85))
+                }
+                Spacer(minLength: 0)
+            }
+
+            Rectangle()
+                .fill(.white.opacity(0.25))
+                .frame(height: 1)
+
+            // 下段: シーズンスローガン
+            VStack(spacing: 1) {
+                Text("2026 SEASON SLOGAN")
+                    .font(.caption2.weight(.heavy))
+                    .tracking(2)
+                    .foregroundStyle(.white.opacity(0.85))
+                Text("RISE again")
+                    .font(.system(size: 26, weight: .heavy, design: .serif))
+                    .italic()
+                    .foregroundStyle(.white)
+                    .shadow(color: .black.opacity(0.3), radius: 4, y: 2)
+                Text("もう一度、ともに。")
+                    .font(.caption.weight(.semibold))
+                    .foregroundStyle(.white.opacity(0.95))
+            }
+            .frame(maxWidth: .infinity)
+        }
+        .padding(.horizontal, 18)
+        .padding(.vertical, 16)
+        .frame(maxWidth: .infinity)
+        // 背景はコンテンツのサイズに従うため幅を広げない（ZStack だと幅が壊れる）
+        .background(
             LinearGradient(
                 colors: [Theme.orange, Theme.orange.opacity(0.95), Theme.navy.opacity(0.95), Theme.navy],
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
-
-            VStack(spacing: 10) {
-                // 上段: エンブレム + アプリ名
-                HStack(spacing: 12) {
-                    Image("Emblem")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 48)
-                        .shadow(color: .black.opacity(0.3), radius: 4)
-                    VStack(alignment: .leading, spacing: 1) {
-                        Text("アンクラス Port")
-                            .font(.title3.weight(.heavy))
-                            .foregroundStyle(.white)
-                        Text("福岡J・アンクラス")
-                            .font(.caption2.weight(.semibold))
-                            .foregroundStyle(.white.opacity(0.85))
-                    }
-                    Spacer(minLength: 0)
-                }
-
-                Rectangle()
-                    .fill(.white.opacity(0.25))
-                    .frame(height: 1)
-
-                // 下段: シーズンスローガン
-                VStack(spacing: 1) {
-                    Text("2026 SEASON SLOGAN")
-                        .font(.caption2.weight(.heavy))
-                        .tracking(2)
-                        .foregroundStyle(.white.opacity(0.85))
-                    Text("RISE again")
-                        .font(.system(size: 26, weight: .heavy, design: .serif))
-                        .italic()
-                        .foregroundStyle(.white)
-                        .shadow(color: .black.opacity(0.3), radius: 4, y: 2)
-                    Text("もう一度、ともに。")
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(.white.opacity(0.95))
-                }
-                .frame(maxWidth: .infinity)
-            }
-            .padding(.horizontal, 18)
-            .padding(.vertical, 14)
-            .frame(maxWidth: .infinity)
-        }
-        .frame(maxWidth: .infinity)
-        .fixedSize(horizontal: false, vertical: true)
+        )
         .overlay(alignment: .topTrailing) {
-            // 装飾: マスコット透かし（オーバーレイで配置し ZStack 幅に影響させない）
             Image("Character")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 90, height: 90)
+                .frame(width: 84, height: 84)
                 .opacity(0.18)
-                .padding(.top, 4)
-                .padding(.trailing, 4)
+                .padding(8)
         }
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .shadow(color: Theme.orange.opacity(0.25), radius: 8, y: 3)
