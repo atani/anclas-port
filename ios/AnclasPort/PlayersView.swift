@@ -91,6 +91,13 @@ struct PlayerDetailView: View {
         return allPlayers[i + 1]
     }
 
+    /// 該当選手の得点ランキング情報。背番号で照合（無ければ名前で）
+    private var scorerRank: ScorerRank? {
+        guard let list = store.standingsData?.scorers else { return nil }
+        if let n = player.number, let r = list.first(where: { $0.number == n }) { return r }
+        return list.first(where: { $0.name.replacingOccurrences(of: " ", with: "") == player.nameJa.replacingOccurrences(of: " ", with: "") })
+    }
+
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
@@ -148,6 +155,9 @@ struct PlayerDetailView: View {
                             }
                         }
                         Spacer()
+                        if let rank = scorerRank {
+                            GoalBadge(scorer: rank)
+                        }
                     }
                     .padding(16)
                 }
@@ -307,5 +317,40 @@ struct FlowLayout: Layout {
             maxX = max(maxX, x - spacing)
         }
         return (CGSize(width: maxX, height: y + rowHeight), positions)
+    }
+}
+
+// MARK: - Goal Badge（ヒーロー右下）
+
+private struct GoalBadge: View {
+    let scorer: ScorerRank
+
+    var body: some View {
+        VStack(spacing: 2) {
+            HStack(alignment: .firstTextBaseline, spacing: 4) {
+                Image(systemName: "soccerball")
+                    .font(.subheadline)
+                    .foregroundStyle(Theme.orange)
+                Text("\(scorer.goals)")
+                    .font(.system(size: 36, weight: .heavy)).monospacedDigit()
+                    .foregroundStyle(.white)
+            }
+            Text("GOALS")
+                .font(.caption2.weight(.heavy))
+                .tracking(1)
+                .foregroundStyle(.white.opacity(0.8))
+            Text("チーム\(scorer.rank)位")
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(Theme.orange)
+                .padding(.horizontal, 6).padding(.vertical, 2)
+                .background(.white.opacity(0.95), in: Capsule())
+        }
+        .padding(.horizontal, 14).padding(.vertical, 10)
+        .background(
+            LinearGradient(colors: [Theme.orange, Theme.orange.opacity(0.7)],
+                           startPoint: .topLeading, endPoint: .bottomTrailing),
+            in: RoundedRectangle(cornerRadius: 14, style: .continuous)
+        )
+        .shadow(color: .black.opacity(0.3), radius: 6, y: 3)
     }
 }

@@ -12,8 +12,9 @@ struct MoreView: View {
                     .init("選手ブログ", "pencil.line", "https://anclas.jp/category/blog/"),
                 ])
 
-                linkGroup("ポッドキャスト", items: [
+                linkGroup("ポッドキャスト・動画", items: [
                     .init("アンクラスのロッカールーム", "headphones", "https://open.spotify.com/show/3RnkWRyIMYe9IdtMmK7KFK", "Spotify で聴く"),
+                    .init("公式YouTubeチャンネル", "play.rectangle.fill", "https://www.youtube.com/@fuk.j.anclas", "YouTube で見る"),
                 ])
 
                 linkGroup("公式SNS・サイト", items: [

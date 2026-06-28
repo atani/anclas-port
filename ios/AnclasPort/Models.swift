@@ -14,7 +14,22 @@ struct AnclasDerived: Codable {
     let nextMatch: Match?
     let latestResult: Match?
     let latestPodcast: PodcastEpisode?
+    let latestYouTube: YouTubeVideo?
     let shopItems: [ShopItem]?
+}
+
+struct YouTubeVideo: Codable, Hashable {
+    let videoId: String
+    let title: String
+    let thumbnailUrl: String
+    let url: String
+    let publishedAt: String
+
+    var isNew: Bool {
+        let f = ISO8601DateFormatter()
+        guard let date = f.date(from: publishedAt) else { return false }
+        return date.timeIntervalSinceNow > -7 * 24 * 60 * 60
+    }
 }
 
 struct ShopItem: Codable, Hashable, Identifiable {
