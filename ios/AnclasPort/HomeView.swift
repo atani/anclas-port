@@ -428,72 +428,111 @@ private struct YouTubeCard: View {
 
 // MARK: - Shop Carousel
 
-/// 公式オンラインショップ商品を3秒ごとにフェードで切り替える自動カルーセル
+/// 上段: 目玉商品ローテーション + 下段: 全商品横スクロール一覧
 private struct ShopCarouselCard: View {
     let items: [ShopItem]
-    @State private var index: Int = 0
+    @State private var featuredIndex: Int = 0
 
-    private let timer = Timer.publish(every: 3.5, on: .main, in: .common).autoconnect()
+    private let timer = Timer.publish(every: 4.0, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        let item = items[index % items.count]
-        Link(destination: URL(string: item.url)!) {
-            VStack(spacing: 0) {
-                // 大きな商品画像
-                AsyncImage(url: URL(string: item.imageUrl)) { phase in
-                    switch phase {
-                    case .success(let image):
-                        image.resizable().aspectRatio(contentMode: .fit)
-                    default:
-                        Color(.tertiarySystemFill)
-                    }
-                }
-                .frame(maxWidth: .infinity)
-                .frame(height: 200)
-                .background(Color.white)
-                .clipped()
-
-                // 商品名・価格・リンク
-                HStack(spacing: 12) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(item.name)
-                            .font(.subheadline.weight(.bold))
-                            .lineLimit(2)
-                            .multilineTextAlignment(.leading)
-                        HStack(alignment: .firstTextBaseline, spacing: 8) {
-                            Text(item.price)
-                                .font(.title3.weight(.heavy))
-                                .foregroundStyle(Theme.orange)
-                            Text("税込")
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
+        VStack(spacing: 14) {
+            // 上段: 大きい目玉商品（自動ローテ）
+            let featured = items[featuredIndex % items.count]
+            Link(destination: URL(string: featured.url)!) {
+                VStack(spacing: 0) {
+                    AsyncImage(url: URL(string: featured.imageUrl)) { phase in
+                        switch phase {
+                        case .success(let image):
+                            image.resizable().aspectRatio(contentMode: .fit)
+                        default:
+                            Color(.tertiarySystemFill)
                         }
                     }
-                    Spacer(minLength: 0)
-                    VStack(spacing: 4) {
-                        Text("BASE で購入")
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 180)
+                    .background(Color.white)
+                    .clipped()
+
+                    HStack(spacing: 10) {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text(featured.name)
+                                .font(.subheadline.weight(.bold))
+                                .lineLimit(1)
+                            Text(featured.price)
+                                .font(.headline.weight(.heavy))
+                                .foregroundStyle(Theme.orange)
+                        }
+                        Spacer(minLength: 0)
+                        Text("購入 →")
                             .font(.caption.weight(.bold))
                             .foregroundStyle(.white)
                             .padding(.horizontal, 12).padding(.vertical, 6)
                             .background(Theme.orange, in: Capsule())
-                        Text("\(index % items.count + 1) / \(items.count)")
-                            .font(.caption2.monospacedDigit())
-                            .foregroundStyle(.tertiary)
+                    }
+                    .padding(.horizontal, 14).padding(.vertical, 10)
+                }
+                .background(Color(.secondarySystemGroupedBackground))
+                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                .padding(.horizontal, 16)
+                .id(featured.id)
+                .transition(.opacity)
+            }
+            .buttonStyle(.plain)
+            .animation(.easeInOut(duration: 0.4), value: featuredIndex)
+
+            // 下段: 全商品を横スクロールで探索
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 10) {
+                    ForEach(items) { item in
+                        Link(destination: URL(string: item.url)!) {
+                            VStack(spacing: 6) {
+                                AsyncImage(url: URL(string: item.imageUrl)) { phase in
+                                    switch phase {
+                                    case .success(let image):
+                                        image.resizable().aspectRatio(contentMode: .fill)
+                                    default:
+                                        Color(.tertiarySystemFill)
+                                    }
+                                }
+                                .frame(width: 100, height: 100)
+                                .background(Color.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+
+                                Text(item.price)
+                                    .font(.caption2.weight(.bold))
+                                    .foregroundStyle(Theme.orange)
+                                Text(item.name)
+                                    .font(.caption2)
+                                    .lineLimit(2)
+                                    .multilineTextAlignment(.center)
+                                    .frame(width: 100)
+                            }
+                        }
+                        .buttonStyle(.plain)
                     }
                 }
-                .padding(16)
+                .padding(.horizontal, 16)
             }
-            .frame(maxWidth: .infinity)
-            .background(Color(.secondarySystemGroupedBackground))
-            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-            .padding(.horizontal, 16)
-            .id(item.id)
-            .transition(.opacity)
+
+            // ショップ全体へのリンク
+            Link(destination: URL(string: "https://anclas.base.shop/")!) {
+                HStack {
+                    Image(systemName: "bag.fill")
+                        .foregroundStyle(.white)
+                    Text("ショップで全商品を見る")
+                        .font(.subheadline.weight(.bold))
+                        .foregroundStyle(.white)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+                .background(Theme.orange, in: RoundedRectangle(cornerRadius: 12, style: .continuous))
+                .padding(.horizontal, 16)
+            }
+            .buttonStyle(.plain)
         }
-        .buttonStyle(.plain)
-        .animation(.easeInOut(duration: 0.4), value: index)
         .onReceive(timer) { _ in
-            index = (index + 1) % items.count
+            featuredIndex = (featuredIndex + 1) % items.count
         }
     }
 }
