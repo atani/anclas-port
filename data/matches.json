@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-28T04:22:50.470Z",
+  "generatedAt": "2026-06-28T05:58:12.014Z",
   "season": "2026",
   "anclas": {
     "nextMatch": {
@@ -4441,8 +4441,11 @@
       "datetime": "2026-06-28T13:00:00+09:00",
       "homeTeam": "柳ヶ浦高等学校　女子サッカー部",
       "awayTeam": "国見FCレディース",
-      "status": "scheduled",
-      "score": null,
+      "status": "finished",
+      "score": {
+        "home": 2,
+        "away": 0
+      },
       "isAnclas": false,
       "sourceUrl": "https://q-league.net/qleague/match_sitagaki-73/",
       "venue": "平成令和の森陸上競技場",
