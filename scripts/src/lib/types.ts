@@ -168,6 +168,14 @@ export interface StandingRow {
   isAnclas: boolean;
 }
 
+/** アシストランキングの1行（試合データから自前集計） */
+export interface AssistRank {
+  rank: number;
+  name: string;
+  number: number | null;
+  assists: number;
+}
+
 /** standings.json のルート */
 export interface StandingsData {
   generatedAt: string;
@@ -176,6 +184,8 @@ export interface StandingsData {
   table: StandingRow[];
   /** アンクラスの得点ランキング（GoalNote 由来）。未取得なら空配列 */
   scorers: ScorerRank[];
+  /** アンクラスのアシストランキング（試合データから自前集計） */
+  assists: AssistRank[];
 }
 
 /** 選手の写真サイズ別URL */

@@ -300,12 +300,53 @@ async function main(): Promise<void> {
     }
   }
 
+  // アシストランキング（試合データから自前集計）
+  const assistMap = new Map<string, { name: string; number: number | null; assists: number }>();
+  const anclasNumbers = new Set<number>();
+  try {
+    const pData = JSON.parse(readFileSync(new URL("players.json", DATA_DIR), "utf-8")) as { players: { number: number | null; nameJa: string }[] };
+    for (const p of pData.players) if (p.number !== null) anclasNumbers.add(p.number);
+  } catch { /* ignore */ }
+  for (const m of matches) {
+    if (!m.isAnclas || m.status !== "finished") continue;
+    for (const g of m.goals) {
+      if (g.team !== ANCLAS_TEAM_NAME) continue;
+      const a = g.assist;
+      if (!a || a.includes("PK") || a.startsWith("×")) continue;
+      const parts = a.split(/[→↑]/);
+      if (parts.length < 2) continue;
+      const numMatch = parts[0]?.match(/^(\d+)/);
+      if (!numMatch) continue;
+      const num = Number(numMatch[1]);
+      if (anclasNumbers.size > 0 && !anclasNumbers.has(num)) continue;
+      const key = String(num);
+      const existing = assistMap.get(key);
+      if (existing) {
+        existing.assists++;
+      } else {
+        const numToName = loadPlayerNumberByName();
+        let name = `#${num}`;
+        for (const [n, nb] of numToName) if (nb === num) { name = n.replace(/[\s　]/g, " ").trim() || name; break; }
+        assistMap.set(key, { name, number: num, assists: 1 });
+      }
+    }
+  }
+  const assistsSorted = [...assistMap.values()].sort((a, b) => b.assists - a.assists);
+  let prevAssists = -1;
+  let prevRank = 0;
+  const assists = assistsSorted.map((a, i) => {
+    if (a.assists !== prevAssists) { prevRank = i + 1; prevAssists = a.assists; }
+    return { rank: prevRank, ...a };
+  });
+  if (assists.length > 0) logger.info(`アシストランキング: ${assists.length}人`);
+
   const standingsData: StandingsData = {
     generatedAt,
     season,
     competition: COMPETITION,
     table: calculateStandings(matches),
     scorers,
+    assists,
   };
 
   writeJson("matches.json", matchesData);
