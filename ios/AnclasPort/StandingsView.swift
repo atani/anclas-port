@@ -24,10 +24,21 @@ struct StandingsView: View {
                         .frame(maxWidth: .infinity)
 
                     if let scorers = data.scorers, !scorers.isEmpty {
-                        SectionLabel("得点ランキング")
+                        SectionLabel("得点ランキング", icon: "soccerball")
                         VStack(spacing: 0) {
                             ForEach(Array(scorers.enumerated()), id: \.element.id) { idx, scorer in
                                 ScorerRowView(scorer: scorer, isLast: idx == scorers.count - 1)
+                            }
+                        }
+                        .anclasCard(padding: 0)
+                        .padding(.horizontal, 16)
+                    }
+
+                    if let assists = data.assists, !assists.isEmpty {
+                        SectionLabel("アシストランキング", icon: "arrow.turn.up.right")
+                        VStack(spacing: 0) {
+                            ForEach(Array(assists.enumerated()), id: \.element.id) { idx, assist in
+                                AssistRowView(assist: assist, isLast: idx == assists.count - 1)
                             }
                         }
                         .anclasCard(padding: 0)
@@ -159,6 +170,49 @@ private struct ScorerRowView: View {
                         .foregroundStyle(Theme.orange)
                     Text("点")
                         .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
+                .frame(width: 56, alignment: .trailing)
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 11)
+
+            if !isLast {
+                Divider().padding(.leading, 14)
+            }
+        }
+    }
+}
+
+private struct AssistRowView: View {
+    let assist: AssistRank
+    let isLast: Bool
+
+    var body: some View {
+        VStack(spacing: 0) {
+            HStack(spacing: 0) {
+                RankBadge(rank: assist.rank, isAnclas: false)
+                    .frame(width: 36)
+
+                HStack(spacing: 6) {
+                    if let number = assist.number {
+                        Text("#\(number)")
+                            .font(.caption.weight(.bold).monospacedDigit())
+                            .foregroundStyle(.secondary)
+                    }
+                    Text(assist.name)
+                        .font(.callout)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+                HStack(alignment: .firstTextBaseline, spacing: 2) {
+                    Text("\(assist.assists)")
+                        .font(.title3.weight(.heavy).monospacedDigit())
+                        .foregroundStyle(Theme.orange)
+                    Text("A")
+                        .font(.caption2.weight(.bold))
                         .foregroundStyle(.secondary)
                 }
                 .frame(width: 56, alignment: .trailing)

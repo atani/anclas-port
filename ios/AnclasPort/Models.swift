@@ -202,6 +202,16 @@ struct StandingsData: Codable {
     let competition: String
     let table: [StandingRow]
     let scorers: [ScorerRank]?
+    let assists: [AssistRank]?
+}
+
+struct AssistRank: Codable, Identifiable {
+    let rank: Int
+    let name: String
+    let number: Int?
+    let assists: Int
+
+    var id: String { "\(rank)-\(name)" }
 }
 
 struct ScorerRank: Codable, Identifiable {
