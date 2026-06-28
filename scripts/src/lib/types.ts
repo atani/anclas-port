@@ -137,6 +137,8 @@ export interface MatchesData {
     latestResult: Match | null;
     /** ポッドキャスト最新エピソード。取得失敗時 null */
     latestPodcast: PodcastEpisode | null;
+    /** 公式オンラインショップの商品（取得失敗時は空配列） */
+    shopItems: ShopItem[];
   };
   /** アンクラスが所属する1部の全試合（節・日時順） */
   matches: Match[];
@@ -207,6 +209,15 @@ export interface Player {
   personal: { label: string; value: string }[];
   /** クラブ公式の選手ページURL */
   sourceUrl: string;
+}
+
+/** オンラインショップの商品 */
+export interface ShopItem {
+  id: string;
+  name: string;
+  price: string;
+  imageUrl: string;
+  url: string;
 }
 
 /** ポッドキャスト最新エピソード */

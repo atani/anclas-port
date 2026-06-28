@@ -89,7 +89,7 @@ private struct ScoreBoard: View {
             HStack(spacing: 0) {
                 // ホーム
                 VStack(spacing: 4) {
-                    Text(match.homeTeam)
+                    Text(match.homeTeam.teamDisplay)
                         .font(.subheadline.weight(.bold))
                         .foregroundStyle(match.homeTeam == Match.anclasName ? Theme.orange : .primary)
                         .multilineTextAlignment(.center)
@@ -112,7 +112,7 @@ private struct ScoreBoard: View {
 
                 // アウェイ
                 VStack(spacing: 4) {
-                    Text(match.awayTeam)
+                    Text(match.awayTeam.teamDisplay)
                         .font(.subheadline.weight(.bold))
                         .foregroundStyle(match.awayTeam == Match.anclasName ? Theme.orange : .primary)
                         .multilineTextAlignment(.center)

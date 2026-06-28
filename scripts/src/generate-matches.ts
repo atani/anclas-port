@@ -9,6 +9,7 @@ import {
   parseScorerRanking,
 } from "./lib/goalnote-parser.js";
 import { parseQLeagueMatches } from "./lib/qleague-parser.js";
+import { fetchShopItems } from "./lib/shop.js";
 import { fetchLatestPodcast } from "./lib/spotify.js";
 import { calculateStandings } from "./lib/standings.js";
 import { findMatchPoster, findMatchReport } from "./lib/wordpress-client.js";
@@ -196,6 +197,20 @@ async function main(): Promise<void> {
     logger.warn("ポッドキャスト取得失敗");
   }
 
+  // 6. オンラインショップ商品（取得失敗時は前回値を引き継ぐ）
+  let shopItems = await fetchShopItems();
+  if (shopItems.length === 0 && existsSync(prevPath)) {
+    try {
+      const prev = JSON.parse(readFileSync(prevPath, "utf-8")) as MatchesData;
+      if (prev.anclas.shopItems?.length) {
+        shopItems = prev.anclas.shopItems;
+        logger.info(`ショップ: 前回値${shopItems.length}件を引き継ぎ`);
+      }
+    } catch { /* ignore */ }
+  } else if (shopItems.length > 0) {
+    logger.info(`ショップ: ${shopItems.length}商品取得`);
+  }
+
   const generatedAt = new Date().toISOString();
   const season = inferSeason(matches);
 
@@ -206,6 +221,7 @@ async function main(): Promise<void> {
       nextMatch,
       latestResult: pickLatestResult(matches),
       latestPodcast,
+      shopItems,
     },
     matches,
   };
