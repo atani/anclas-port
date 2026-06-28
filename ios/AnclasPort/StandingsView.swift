@@ -358,13 +358,16 @@ private struct AppearanceChart: View {
         var subInCount: [String: Int] = [:]
         for m in matches {
             let myTeam = m.anclasIsHome ? "home" : "away"
+            var startersThisMatch = Set<String>()
             for s in m.starters ?? [] where s.team == myTeam {
                 guard rosterNorm.contains(normalize(s.name)) else { continue }
                 starterCount[s.name, default: 0] += 1
+                startersThisMatch.insert(normalize(s.name))
             }
-            // 途中出場 = substitutions で IN した選手（実際にピッチに立った回数）
+            // 途中出場 = substitutions で IN した選手（スタメンでない場合のみ）
             for sub in m.substitutions ?? [] where sub.team == myTeam {
                 guard rosterNorm.contains(normalize(sub.inName)) else { continue }
+                guard !startersThisMatch.contains(normalize(sub.inName)) else { continue }
                 subInCount[sub.inName, default: 0] += 1
             }
         }
