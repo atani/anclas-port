@@ -47,17 +47,21 @@ struct StandingsView: View {
 private struct ColumnHeader: View {
     var body: some View {
         HStack(spacing: 0) {
-            Text("順").frame(width: 36)
+            Text("順").frame(width: 28)
             Text("チーム").frame(maxWidth: .infinity, alignment: .leading)
             Group {
                 Text("試"); Text("勝"); Text("分"); Text("敗")
             }
-            .frame(width: 26)
-            Text("勝点").frame(width: 40)
+            .frame(width: 22)
+            Group {
+                Text("得"); Text("失"); Text("差")
+            }
+            .frame(width: 24)
+            Text("点").frame(width: 30)
         }
         .font(.caption2.weight(.bold))
         .foregroundStyle(.secondary)
-        .padding(.horizontal, 14)
+        .padding(.horizontal, 10)
         .padding(.vertical, 10)
         .background(Theme.navy.opacity(0.06))
     }
@@ -71,13 +75,13 @@ private struct StandingRowView: View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
                 RankBadge(rank: row.rank, isAnclas: row.isAnclas)
-                    .frame(width: 36)
+                    .frame(width: 28)
 
-                Text(row.team)
-                    .font(.callout.weight(row.isAnclas ? .bold : .regular))
+                Text(row.team.teamDisplay)
+                    .font(.caption.weight(row.isAnclas ? .bold : .regular))
                     .foregroundStyle(row.isAnclas ? Theme.orange : .primary)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.7)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.6)
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 Group {
@@ -86,15 +90,24 @@ private struct StandingRowView: View {
                     Text("\(row.draw)")
                     Text("\(row.loss)")
                 }
-                .font(.callout.monospacedDigit())
-                .frame(width: 26)
+                .font(.caption.monospacedDigit())
+                .frame(width: 22)
+
+                Group {
+                    Text("\(row.gf)")
+                    Text("\(row.ga)")
+                    Text(row.gd > 0 ? "+\(row.gd)" : "\(row.gd)")
+                        .foregroundStyle(row.gd > 0 ? .green : row.gd < 0 ? .red : .secondary)
+                }
+                .font(.caption.monospacedDigit())
+                .frame(width: 24)
 
                 Text("\(row.points)")
-                    .font(.body.weight(.heavy).monospacedDigit())
+                    .font(.callout.weight(.heavy).monospacedDigit())
                     .foregroundStyle(row.isAnclas ? Theme.orange : .primary)
-                    .frame(width: 40)
+                    .frame(width: 30)
             }
-            .padding(.horizontal, 14)
+            .padding(.horizontal, 10)
             .padding(.vertical, 11)
             .background(row.isAnclas ? Theme.orange.opacity(0.10) : Color.clear)
             .overlay(alignment: .leading) {
