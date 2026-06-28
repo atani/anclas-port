@@ -58,6 +58,11 @@ struct MatchDetailView: View {
                     PhotoGallerySection(urls: photos)
                 }
 
+                // マッチデープログラム
+                if let programUrl = match.matchdayProgramUrl, let url = URL(string: programUrl) {
+                    MatchdayProgramButton(url: url)
+                }
+
                 Spacer(minLength: 40)
             }
         }
@@ -650,6 +655,40 @@ private struct ZoomableImage: View {
                 }
             }
         }
+    }
+}
+
+// MARK: - Matchday Program
+
+private struct MatchdayProgramButton: View {
+    let url: URL
+
+    var body: some View {
+        Link(destination: url) {
+            HStack(spacing: 12) {
+                Image(systemName: "doc.richtext.fill")
+                    .font(.title2)
+                    .foregroundStyle(.white)
+                    .frame(width: 44, height: 44)
+                    .background(Theme.orange, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("マッチデープログラム")
+                        .font(.subheadline.weight(.bold))
+                    Text("PDF を表示")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
+                Spacer()
+                Image(systemName: "arrow.up.right")
+                    .font(.caption)
+                    .foregroundStyle(.tertiary)
+            }
+            .padding(14)
+            .background(Color(.secondarySystemGroupedBackground))
+            .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+            .padding(.horizontal, 16)
+        }
+        .buttonStyle(.plain)
     }
 }
 

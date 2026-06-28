@@ -84,6 +84,7 @@ struct Match: Codable, Identifiable, Hashable {
     let photoGallery: [String]?
     let goalnoteUrl: String?
     let posterUrl: String?
+    let matchdayProgramUrl: String?
 }
 
 struct MatchReport: Codable, Hashable {

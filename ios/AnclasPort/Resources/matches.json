@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-28T00:58:45.197Z",
+  "generatedAt": "2026-06-28T03:03:29.427Z",
   "season": "2026",
   "anclas": {
     "nextMatch": {
@@ -23,6 +23,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -326,6 +327,7 @@
       },
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341594",
       "posterUrl": null,
+      "matchdayProgramUrl": "https://anclas.jp/wp-content/uploads/2026/06/6.27%E3%83%9E%E3%83%83%E3%83%81%E3%83%87%E3%83%BC%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0.pdf",
       "cards": [
         {
           "number": 15,
@@ -560,6 +562,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341564",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -865,6 +868,7 @@
       },
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341563",
       "posterUrl": null,
+      "matchdayProgramUrl": "https://anclas.jp/wp-content/uploads/2026/04/4.12%E3%83%9E%E3%83%83%E3%83%81%E3%83%87%E3%83%BC%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0.pdf",
       "cards": [],
       "matchReport": {
         "summary": "1000人プロジェクトとして迎えたリーグ開幕戦。\n\nホームゲームには656名もの多くの方々にご来場いただき、スタジアム全体が熱い後押しに包まれる中での一戦となった。\n\n前半は相手の勢いに押し込まれる苦しい展開。\n\n守備で耐える時間が続く中、先制点を許し0-1で前半を終える。\n\n迎えた後半、チームは別人のような戦いを見せる。球際の強度、切り替えの速さが一気に上がり、流れを完全に引き寄せると、連続得点で逆転に成功。\n\nしかし、勝利目前の終盤、わずかな隙を突かれ失点。\n\n最後まで全員で戦い抜いたが、試合は2-2の引き分けで終了。\n\n勝ち切る悔しさは残るものの、チームとしての成長と底力を示した一戦となった。\n\n次戦は、アウェイゲーム、水俣ユニオンフットボールクラブウィメンとの一戦。\n\n引き続き、ご声援をよろしくお願いします。",
@@ -962,6 +966,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341566",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -990,6 +995,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341568",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -1018,6 +1024,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341585",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -1046,6 +1053,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341584",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -1074,6 +1082,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341569",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -1102,6 +1111,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341571",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -1130,6 +1140,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341572",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -1412,6 +1423,7 @@
       },
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341570",
       "posterUrl": null,
+      "matchdayProgramUrl": "https://anclas.jp/wp-content/uploads/2026/05/5.3%E3%83%9E%E3%83%83%E3%83%81%E3%83%87%E3%83%BC%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0.pdf",
       "cards": [],
       "matchReport": {
         "summary": "前半から主導権を握り、ホームの声援を背に安定した試合運びで勝利を収めた。\n\n立ち上がりから、相手陣内でプレーする時間を増やし、前半のうちに2得点を奪う。守備面でも集中力高く対応し、相手に決定機を与えず、2-0で試合を折り返した。\n\n後半は一転して相手の粘り強い守備に苦しみ、チャンスを作りながらもなかなか得点を奪えない時間が続く。それでも焦れることなく攻め続けた結果、80分にPKを獲得。これを落ち着いて決め、貴重な追加点を奪い3-0とした。\n\nその後も最後まで集中を切らさず、クリーンシートで試合終了。雨の中での難しいコンディションだったが、多くの観客の声援が選手たちの背中を押し、勝利へと繋がった。\n\n悪天候の中、スタジアムに足を運んでいただいた皆様に心より感謝いたします。次節もこの勢いのまま、チーム一丸となって戦っていきます。引き続き応援よろしくお願いいたします。",
@@ -1559,6 +1571,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341573",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -1587,6 +1600,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341574",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -1615,6 +1629,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341578",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -1643,6 +1658,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341575",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -1947,6 +1963,7 @@
       },
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341576",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": {
         "summary": "立ち上がりから試合の主導権を握ったチームは、前半3分にセットプレーから先制点を奪う最高のスタートを切った。\n\n勢いそのままに数分後には追加点を決め、前半のうちに2-0とリードを広げる展開となった。\n\n後半に入っても集中力を切らさず、相手ゴールへ圧力をかけ続けると、相手のオウンゴールを誘発し3点目を獲得。\n\n守備陣も最後まで安定した対応を見せ、相手に得点を許さず試合終了。 攻守にわたり隙のない戦いを見せたチームが、3-0の完封勝利を収めた。",
@@ -2034,6 +2051,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341577",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -2062,6 +2080,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341580",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -2090,6 +2109,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341582",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -2401,6 +2421,7 @@
       },
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341579",
       "posterUrl": null,
+      "matchdayProgramUrl": "https://anclas.jp/wp-content/uploads/2026/05/5.24%E3%83%9E%E3%83%83%E3%83%81%E3%83%87%E3%83%BC%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0.pdf",
       "cards": [],
       "matchReport": {
         "summary": "連戦特有の難しさもある中で、チームとして我慢強く戦いながら勝点3を掴み取った一戦となった。\n\n前半は相手にボールを保持される時間が長く、自分たちの守備の時間が続く展開となった。\n\nセカンドボールへの反応や球際の部分でも相手に上回られる場面が多く、なかなか自分たちのリズムを作ることができなかった。\n\n押し込まれる時間帯もあったが、守備陣を中心に粘り強く対応し、身体を張った守備で相手に決定的なチャンスを与えず。\n\nGKを含めた集中した守備で無失点のまま前半を終えた。\n\n後半に入ると、チーム全体の運動量と切り替えの部分が改善され、徐々に流れを引き寄せる展開に。\n\n球際で戦う姿勢やセカンドボールへの反応も良くなり、前半よりも高い位置でプレーできる時間が増えていった。\n\nその中で、積極的にゴール前へ人数をかけた攻撃から先制点を獲得。\n\n先制後はチーム全体に勢いが生まれ、攻守両面でアグレッシブなプレーを継続。\n\n追加点も奪い、苦しい試合展開の中でも自分たちで流れを変えながら勝利を掴み取った。\n\n全員が役割を果たし、総力戦で掴んだ大きな勝利となった。",
@@ -2826,6 +2847,7 @@
       },
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341583",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": {
         "summary": "立ち上がりから球際や競り合いで互角の展開となった。攻撃の場面で最後までやり切れず、ボールの失い方が悪くなったところを相手に突かれ、カウンターから失点を許し、0-1で前半を折り返す。\n\n後半はよりゴールに向かう姿勢を強めながら試合を進めると、コーナーキックから同点ゴールを奪い試合を振り出しに戻す。\n\nその後も粘り強く戦い続け、獲得したPKを冷静に決めて逆転に成功。最後まで全員で集中を切らすことなく戦い抜き、2-1で勝利を収めた。\n\n苦しい展開の中でも下を向くことなく、自分たちで試合をひっくり返して勝点3を獲得できたことは大きな収穫となった。\n\n一方で、攻撃時のボールロストや失点につながった場面など、改善すべき課題も見えた試合となった。\n\nアウェイの地まで駆けつけてくれたファン・サポーターの声援を力に変え、最後まで戦い抜くことができた。",
@@ -3009,6 +3031,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341586",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -3037,6 +3060,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341588",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -3357,6 +3381,7 @@
       },
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341587",
       "posterUrl": null,
+      "matchdayProgramUrl": "https://anclas.jp/wp-content/uploads/2026/06/6.7%E3%83%9E%E3%83%83%E3%83%81%E3%83%87%E3%83%BC%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0.pdf",
       "cards": [],
       "matchReport": {
         "summary": "前半はお互いに集中した守備を見せ、一進一退の攻防が続く展開となった。\n\nチャンスを作りながらも得点には至らず、スコアレスで試合を折り返した。\n\n後半も拮抗した展開が続く中、チーム全員が粘り強く戦い続けた。\n\n試合終盤、途中出場した選手が決定機をしっかりとものにし、待望の先制ゴールを獲得。\n\nそのまま最後まで集中を切らさずに守り切り、1-0で勝利を収めた。\n\n苦しい試合展開の中でも最後まで諦めずに戦い抜き、交代選手を含めたチーム全員の力で勝ち取った価値ある勝利となった。",
@@ -3591,6 +3616,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341590",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -3619,6 +3645,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341592",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -3647,6 +3674,7 @@
       "stats": null,
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341581",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -3929,6 +3957,7 @@
       },
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341591",
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": {
         "summary": "試合は立ち上がりから拮抗した展開となり、お互いに守備の強度が高く、なかなか決定機を作ることができなかった。\n\n球際での激しい攻防が続く中、両チームともゴール前まで迫る場面はあったものの、最後の局面でやり切れず、前半を0-0で折り返した。\n\n後半も一進一退の攻防が続く中、少ないチャンスを確実に仕留めて先制に成功。\n\nその後はリードを守る展開となり、試合終盤には相手の猛攻を受ける苦しい時間帯が続いたが、全員が集中を切らさず体を張った守備で対応。\n\n最後までゴールを許さず、無失点で試合を締めくくった。\n\nお互いに決定機の少ない難しいゲームだったが、勝負どころで得点を奪い、終盤の相手の猛攻にも耐え切って1-0で勝利となった。",
@@ -4333,6 +4362,7 @@
       },
       "goalnoteUrl": "https://www.goalnote.net/detail-schedule-game.php?tid=18626&sid=341594",
       "posterUrl": null,
+      "matchdayProgramUrl": "https://anclas.jp/wp-content/uploads/2026/06/6.27%E3%83%9E%E3%83%83%E3%83%81%E3%83%87%E3%83%BC%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%A0.pdf",
       "cards": [
         {
           "number": 15,
@@ -4371,6 +4401,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4396,6 +4427,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4421,6 +4453,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4446,6 +4479,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4471,6 +4505,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4496,6 +4531,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4521,6 +4557,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4546,6 +4583,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4571,6 +4609,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4596,6 +4635,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4621,6 +4661,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4646,6 +4687,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4671,6 +4713,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4696,6 +4739,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4721,6 +4765,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4746,6 +4791,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4771,6 +4817,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4796,6 +4843,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4821,6 +4869,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4846,6 +4895,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4871,6 +4921,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4896,6 +4947,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4921,6 +4973,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4946,6 +4999,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4971,6 +5025,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -4996,6 +5051,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -5021,6 +5077,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
@@ -5046,6 +5103,7 @@
       "stats": null,
       "goalnoteUrl": null,
       "posterUrl": null,
+      "matchdayProgramUrl": null,
       "cards": [],
       "matchReport": null,
       "photoGallery": []
