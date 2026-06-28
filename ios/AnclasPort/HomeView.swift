@@ -45,6 +45,11 @@ struct HomeView: View {
                     .padding(.horizontal, 12)
                     .padding(.top, 8)
 
+                    // 2026シーズンスローガン
+                    SloganBanner()
+                        .padding(.horizontal, 12)
+                        .padding(.top, 12)
+
                     VStack(spacing: 20) {
                         if let next = store.data?.anclas.nextMatch {
                             SectionLabel("NEXT MATCH")
@@ -315,25 +320,69 @@ private struct EmptyCard: View {
     }
 }
 
+// MARK: - Slogan Banner
+
+/// 2026 シーズンスローガン
+private struct SloganBanner: View {
+    var body: some View {
+        VStack(spacing: 4) {
+            HStack(spacing: 6) {
+                Text("2026 SEASON SLOGAN")
+                    .font(.caption2.weight(.heavy))
+                    .tracking(1.5)
+                    .foregroundStyle(Theme.orange)
+            }
+            Text("RISE again")
+                .font(.system(size: 28, weight: .heavy, design: .serif))
+                .italic()
+                .foregroundStyle(Theme.navy)
+            Text("もう一度、ともに。")
+                .font(.subheadline.weight(.semibold))
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 16)
+        .background(
+            LinearGradient(
+                colors: [
+                    Theme.orange.opacity(0.08),
+                    Theme.orange.opacity(0.02),
+                ],
+                startPoint: .top, endPoint: .bottom
+            )
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .strokeBorder(Theme.orange.opacity(0.3), lineWidth: 1)
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+}
+
 // MARK: - YouTube
 
 private struct YouTubeCard: View {
     let video: YouTubeVideo
+
+    /// ショート動画判定（ID が "shorts/" を含むか、サムネが縦長を示すか）
+    /// YouTube は通常 hqdefault.jpg=480x360（4:3）を返すが、実画像のサイズで判定する
     var body: some View {
         if let url = URL(string: video.url) {
             Link(destination: url) {
                 VStack(spacing: 0) {
                     ZStack(alignment: .center) {
+                        // 16:9 でフィット表示（ショート=縦長は letterbox、通常=横長はfill寄り）
                         AsyncImage(url: URL(string: video.thumbnailUrl)) { phase in
                             switch phase {
                             case .success(let image):
-                                image.resizable().aspectRatio(contentMode: .fill)
+                                image.resizable().aspectRatio(contentMode: .fit)
                             default:
                                 Color(.tertiarySystemFill)
                             }
                         }
-                        .frame(height: 180)
-                        .clipped()
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 200)
+                        .background(Color.black)
 
                         Image(systemName: "play.circle.fill")
                             .font(.system(size: 56))
