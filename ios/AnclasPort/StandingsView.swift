@@ -130,6 +130,13 @@ private struct ScorerRowView: View {
                         .font(.callout)
                         .lineLimit(1)
                         .minimumScaleFactor(0.7)
+                    if let lr = scorer.leagueRank {
+                        Text("リーグ\(lr)位")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                            .padding(.horizontal, 6).padding(.vertical, 2)
+                            .background(Color(.tertiarySystemGroupedBackground), in: Capsule())
+                    }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
 

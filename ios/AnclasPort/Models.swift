@@ -179,7 +179,8 @@ struct StandingsData: Codable {
 }
 
 struct ScorerRank: Codable, Identifiable {
-    let rank: Int
+    let rank: Int          // チーム内順位
+    let leagueRank: Int?   // リーグ全体順位
     let name: String
     let number: Int?
     let goals: Int

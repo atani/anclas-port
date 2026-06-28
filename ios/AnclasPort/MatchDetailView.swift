@@ -472,36 +472,184 @@ private struct MemberCell: View {
 
 private struct PhotoGallerySection: View {
     let urls: [String]
+    @State private var viewerIndex: Int? = nil
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("フォトギャラリー")
-                .font(.subheadline.weight(.bold))
-                .foregroundStyle(Theme.orange)
+            HStack(spacing: 6) {
+                Text("フォトギャラリー")
+                    .font(.subheadline.weight(.bold))
+                    .foregroundStyle(Theme.orange)
+                Text("\(urls.count)枚")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            }
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 10) {
-                    ForEach(urls, id: \.self) { urlStr in
-                        if let url = URL(string: urlStr) {
-                            Link(destination: url) {
-                                AsyncImage(url: url) { phase in
-                                    switch phase {
-                                    case .success(let image):
-                                        image.resizable().aspectRatio(contentMode: .fill)
-                                    default:
-                                        Color(.tertiarySystemFill)
-                                    }
+                    ForEach(Array(urls.enumerated()), id: \.element) { idx, urlStr in
+                        Button {
+                            viewerIndex = idx
+                        } label: {
+                            AsyncImage(url: URL(string: urlStr)) { phase in
+                                switch phase {
+                                case .success(let image):
+                                    image.resizable().aspectRatio(contentMode: .fill)
+                                default:
+                                    Color(.tertiarySystemFill)
                                 }
-                                .frame(width: 160, height: 120)
-                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
                             }
-                            .buttonStyle(.plain)
+                            .frame(width: 160, height: 120)
+                            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            .overlay(alignment: .bottomTrailing) {
+                                Text("\(idx + 1)")
+                                    .font(.caption2.weight(.bold))
+                                    .foregroundStyle(.white)
+                                    .padding(.horizontal, 6).padding(.vertical, 2)
+                                    .background(.black.opacity(0.5), in: Capsule())
+                                    .padding(6)
+                            }
                         }
+                        .buttonStyle(.plain)
                     }
                 }
             }
         }
         .card()
+        .fullScreenCover(item: Binding(
+            get: { viewerIndex.map(IndexBox.init) },
+            set: { viewerIndex = $0?.value }
+        )) { box in
+            PhotoViewer(urls: urls, startIndex: box.value, onClose: { viewerIndex = nil })
+        }
+    }
+}
+
+private struct IndexBox: Identifiable {
+    let value: Int
+    var id: Int { value }
+}
+
+private struct PhotoViewer: View {
+    let urls: [String]
+    let startIndex: Int
+    let onClose: () -> Void
+    @State private var current: Int
+
+    init(urls: [String], startIndex: Int, onClose: @escaping () -> Void) {
+        self.urls = urls
+        self.startIndex = startIndex
+        self.onClose = onClose
+        _current = State(initialValue: startIndex)
+    }
+
+    var body: some View {
+        ZStack {
+            Color.black.ignoresSafeArea()
+
+            TabView(selection: $current) {
+                ForEach(Array(urls.enumerated()), id: \.offset) { idx, urlStr in
+                    ZoomableImage(urlString: urlStr)
+                        .tag(idx)
+                }
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+
+            VStack {
+                HStack {
+                    Text("\(current + 1) / \(urls.count)")
+                        .font(.subheadline.weight(.semibold))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 12).padding(.vertical, 6)
+                        .background(.black.opacity(0.5), in: Capsule())
+                    Spacer()
+                    Button {
+                        onClose()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.body.weight(.bold))
+                            .foregroundStyle(.white)
+                            .frame(width: 36, height: 36)
+                            .background(.black.opacity(0.5), in: Circle())
+                    }
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 8)
+                Spacer()
+            }
+        }
+        .statusBarHidden()
+    }
+}
+
+/// ピンチズーム・ダブルタップで拡大できる画像ビュー
+private struct ZoomableImage: View {
+    let urlString: String
+    @State private var scale: CGFloat = 1.0
+    @State private var lastScale: CGFloat = 1.0
+    @State private var offset: CGSize = .zero
+    @State private var lastOffset: CGSize = .zero
+
+    var body: some View {
+        GeometryReader { geo in
+            AsyncImage(url: URL(string: urlString)) { phase in
+                switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: geo.size.width, height: geo.size.height)
+                        .scaleEffect(scale)
+                        .offset(offset)
+                        .gesture(
+                            MagnificationGesture()
+                                .onChanged { value in
+                                    scale = min(max(lastScale * value, 1.0), 5.0)
+                                }
+                                .onEnded { _ in
+                                    lastScale = scale
+                                    if scale <= 1.0 {
+                                        withAnimation(.easeOut(duration: 0.2)) {
+                                            offset = .zero
+                                            lastOffset = .zero
+                                        }
+                                    }
+                                }
+                        )
+                        .simultaneousGesture(
+                            DragGesture()
+                                .onChanged { value in
+                                    guard scale > 1.0 else { return }
+                                    offset = CGSize(
+                                        width: lastOffset.width + value.translation.width,
+                                        height: lastOffset.height + value.translation.height
+                                    )
+                                }
+                                .onEnded { _ in lastOffset = offset }
+                        )
+                        .onTapGesture(count: 2) {
+                            withAnimation(.easeInOut(duration: 0.25)) {
+                                if scale > 1.0 {
+                                    scale = 1.0
+                                    lastScale = 1.0
+                                    offset = .zero
+                                    lastOffset = .zero
+                                } else {
+                                    scale = 2.5
+                                    lastScale = 2.5
+                                }
+                            }
+                        }
+                case .empty:
+                    ProgressView().tint(.white).frame(width: geo.size.width, height: geo.size.height)
+                default:
+                    Image(systemName: "photo")
+                        .font(.system(size: 60))
+                        .foregroundStyle(.white.opacity(0.4))
+                        .frame(width: geo.size.width, height: geo.size.height)
+                }
+            }
+        }
     }
 }
 

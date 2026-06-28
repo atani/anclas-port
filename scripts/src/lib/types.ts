@@ -77,8 +77,10 @@ export interface Match {
 
 /** 得点ランキングの1行（GoalNote 由来。アンクラス選手のみ） */
 export interface ScorerRank {
-  /** リーグ全体での順位 */
+  /** チーム内（アンクラス内）での順位（1から振り直し） */
   rank: number;
+  /** リーグ全体での順位（GoalNote 原典） */
+  leagueRank: number;
   name: string;
   /** 背番号（選手名鑑と突き合わせ。取れなければ null） */
   number: number | null;

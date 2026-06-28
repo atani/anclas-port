@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-28T00:01:18.291Z",
+  "generatedAt": "2026-06-28T00:14:01.666Z",
   "season": "2026",
   "competition": "Qリーグ",
   "table": [
@@ -110,49 +110,57 @@
   ],
   "scorers": [
     {
-      "rank": 2,
+      "rank": 1,
+      "leagueRank": 2,
       "name": "嘉数 クレア姫麗",
       "number": 11,
       "goals": 4
     },
     {
-      "rank": 4,
+      "rank": 2,
+      "leagueRank": 4,
       "name": "原 日樺",
       "number": 13,
       "goals": 3
     },
     {
-      "rank": 9,
+      "rank": 3,
+      "leagueRank": 9,
       "name": "澁澤 光",
       "number": 3,
       "goals": 2
     },
     {
-      "rank": 9,
+      "rank": 3,
+      "leagueRank": 9,
       "name": "端山 新",
       "number": 16,
       "goals": 2
     },
     {
-      "rank": 9,
+      "rank": 3,
+      "leagueRank": 9,
       "name": "玉城 薪瀬",
       "number": 18,
       "goals": 2
     },
     {
-      "rank": 18,
+      "rank": 6,
+      "leagueRank": 18,
       "name": "大河内 友貴",
       "number": 5,
       "goals": 1
     },
     {
-      "rank": 18,
+      "rank": 6,
+      "leagueRank": 18,
       "name": "平坂 咲希",
       "number": 10,
       "goals": 1
     },
     {
-      "rank": 18,
+      "rank": 6,
+      "leagueRank": 18,
       "name": "田中 花奈",
       "number": 15,
       "goals": 1
