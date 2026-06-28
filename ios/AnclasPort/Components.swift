@@ -38,6 +38,9 @@ struct SectionLabel: View {
             Text(text)
                 .font(.subheadline.weight(.bold))
                 .tracking(0.5)
+                .lineLimit(1)
+                .fixedSize(horizontal: false, vertical: true)
+            Spacer(minLength: 0)
         }
         .foregroundStyle(Theme.orange)
         .frame(maxWidth: .infinity, alignment: .leading)
