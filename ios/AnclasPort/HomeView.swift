@@ -60,11 +60,11 @@ struct HomeView: View {
                             LoadingState()
                         }
                     }
-                    .frame(maxWidth: .infinity)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 20)
                     .padding(.bottom, 12)
                 }
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
             .background(Color(.systemGroupedBackground))
             .navigationBarHidden(true)
@@ -73,6 +73,8 @@ struct HomeView: View {
             }
             .refreshable { await store.refresh() }
         }
+        // 固定デザインのため極端な文字サイズでもレイアウトが崩れないよう上限をキャップ
+        .dynamicTypeSize(...DynamicTypeSize.xLarge)
     }
 }
 
@@ -122,6 +124,7 @@ private struct NextMatchCard: View {
             HStack(spacing: 12) {
                 TeamName(name: match.homeTeam, isAnclas: match.anclasIsHome)
                 Text("VS").font(.title3.weight(.heavy)).foregroundStyle(Theme.orange)
+                    .layoutPriority(1)
                 TeamName(name: match.awayTeam, isAnclas: !match.anclasIsHome)
             }
 
@@ -129,6 +132,8 @@ private struct NextMatchCard: View {
                 Text(d.formattedJa() + " KO")
                     .font(.title3.weight(.semibold))
                     .monospacedDigit()
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
                 CountdownBadge(days: d.daysFromNow())
             }
 
@@ -176,10 +181,16 @@ private struct LatestResultCard: View {
             if let line = match.anclasScoreLine {
                 HStack(spacing: 14) {
                     Text("アンクラス").font(.headline).foregroundStyle(Theme.orange)
+                        .lineLimit(1).minimumScaleFactor(0.7)
+                        .frame(maxWidth: .infinity)
                     Text("\(line.mine) - \(line.theirs)")
                         .font(.system(size: 34, weight: .heavy)).monospacedDigit()
+                        .lineLimit(1).minimumScaleFactor(0.6)
+                        .layoutPriority(1)
                     Text(match.opponent.teamDisplay).font(.headline)
                         .lineLimit(3).multilineTextAlignment(.center)
+                        .minimumScaleFactor(0.7)
+                        .frame(maxWidth: .infinity)
                 }
             }
             HStack {
