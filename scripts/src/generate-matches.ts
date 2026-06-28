@@ -190,7 +190,46 @@ async function main(): Promise<void> {
     }
   }
 
-  // 5. ポッドキャスト最新エピソード（oembed, 認証不要）
+  // 5.5. マッチデープログラム PDF（ホームゲームのみ）
+  {
+    let found = 0;
+    for (const m of matches) {
+      if (!m.isAnclas) continue;
+      // 前回値引き継ぎ
+      if (m.matchdayProgramUrl) { found++; continue; }
+      const [y, mon, day] = m.date.split("-").map(Number);
+      const monthStr = String(mon).padStart(2, "0");
+      const dateLabel = `${mon}.${day}`;
+      const encoded = encodeURIComponent(`${dateLabel}マッチデープログラム`) + ".pdf";
+      const url = `https://anclas.jp/wp-content/uploads/${y}/${monthStr}/${encoded}`;
+      try {
+        const res = await fetch(url, { method: "HEAD", signal: AbortSignal.timeout(5_000) });
+        if (res.ok) {
+          m.matchdayProgramUrl = url;
+          found++;
+        }
+      } catch { /* not found */ }
+    }
+    if (found > 0) logger.info(`マッチデープログラム: ${found}試合分`);
+  }
+
+  // 前回値引き継ぎ: matchdayProgramUrl
+  if (existsSync(prevPath)) {
+    try {
+      const prev = JSON.parse(readFileSync(prevPath, "utf-8")) as MatchesData;
+      const prevById = new Map(prev.matches.map((p) => [p.id, p]));
+      for (const m of matches) {
+        if (!m.matchdayProgramUrl) {
+          const p = prevById.get(m.id);
+          if (p?.matchdayProgramUrl) {
+            m.matchdayProgramUrl = p.matchdayProgramUrl;
+          }
+        }
+      }
+    } catch { /* ignore */ }
+  }
+
+  // 6. ポッドキャスト最新エピソード（oembed, 認証不要）
   let latestPodcast = await fetchLatestPodcast();
   if (latestPodcast) {
     logger.info(`ポッドキャスト: ${latestPodcast.title.slice(0, 40)}`);
