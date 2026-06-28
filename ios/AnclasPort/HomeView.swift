@@ -11,7 +11,7 @@ struct HomeView: View {
                         .padding(.horizontal, 12)
                         .padding(.top, 8)
 
-                    VStack(spacing: 20) {
+                    VStack(alignment: .leading, spacing: 20) {
                         if let next = store.data?.anclas.nextMatch {
                             SectionLabel("NEXT MATCH")
                             NextMatchCard(match: next)
@@ -60,9 +60,11 @@ struct HomeView: View {
                             LoadingState()
                         }
                     }
+                    .frame(maxWidth: .infinity)
                     .padding(.top, 20)
                     .padding(.bottom, 12)
                 }
+                .frame(maxWidth: .infinity)
             }
             .background(Color(.systemGroupedBackground))
             .navigationBarHidden(true)
