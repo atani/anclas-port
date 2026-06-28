@@ -455,7 +455,8 @@ private struct ShopCarouselCard: View {
         VStack(spacing: 14) {
             // 上段: 大きい目玉商品（自動ローテ）
             let featured = items[featuredIndex % items.count]
-            Link(destination: URL(string: featured.url)!) {
+            if let featuredURL = URL(string: featured.url) {
+            Link(destination: featuredURL) {
                 VStack(spacing: 0) {
                     AsyncImage(url: URL(string: featured.imageUrl)) { phase in
                         switch phase {
@@ -496,12 +497,14 @@ private struct ShopCarouselCard: View {
             }
             .buttonStyle(.plain)
             .animation(.easeInOut(duration: 0.4), value: featuredIndex)
+            }
 
             // 下段: 全商品を横スクロールで探索
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 10) {
                     ForEach(items) { item in
-                        Link(destination: URL(string: item.url)!) {
+                        if let itemURL = URL(string: item.url) {
+                        Link(destination: itemURL) {
                             VStack(spacing: 6) {
                                 AsyncImage(url: URL(string: item.imageUrl)) { phase in
                                     switch phase {
@@ -526,13 +529,15 @@ private struct ShopCarouselCard: View {
                             }
                         }
                         .buttonStyle(.plain)
+                        }
                     }
                 }
                 .padding(.horizontal, 16)
             }
 
             // ショップ全体へのリンク
-            Link(destination: URL(string: "https://anclas.base.shop/")!) {
+            if let shopURL = URL(string: "https://anclas.base.shop/") {
+            Link(destination: shopURL) {
                 HStack {
                     Image(systemName: "bag.fill")
                         .foregroundStyle(.white)
@@ -546,6 +551,7 @@ private struct ShopCarouselCard: View {
                 .padding(.horizontal, 16)
             }
             .buttonStyle(.plain)
+            }
         }
         .onReceive(timer) { _ in
             featuredIndex = (featuredIndex + 1) % items.count
