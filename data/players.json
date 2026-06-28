@@ -1,10 +1,11 @@
 {
-  "generatedAt": "2026-06-27T15:37:11.752Z",
+  "generatedAt": "2026-06-28T00:01:19.715Z",
   "season": "2026",
   "players": [
     {
       "id": 25405,
       "number": 3,
+      "position": null,
       "nameJa": "澁澤光",
       "nameEn": "SHIBUSAWA HIKARU",
       "nickname": "ひか",
@@ -80,6 +81,7 @@
     {
       "id": 25403,
       "number": 5,
+      "position": null,
       "nameJa": "大河内友貴",
       "nameEn": "OKOUCHI YUKI",
       "nickname": "ゆき、ゆきちゃん",
@@ -155,6 +157,7 @@
     {
       "id": 25369,
       "number": 6,
+      "position": null,
       "nameJa": "森和奏",
       "nameEn": "MORI WAKANA",
       "nickname": "わかな",
@@ -230,6 +233,7 @@
     {
       "id": 25410,
       "number": 7,
+      "position": null,
       "nameJa": "杉浦華穂",
       "nameEn": "SUGIURA KAHO",
       "nickname": "かほ",
@@ -305,6 +309,7 @@
     {
       "id": 25399,
       "number": 8,
+      "position": null,
       "nameJa": "野沢真由",
       "nameEn": "NOZAWA MAYU",
       "nickname": "まゆ",
@@ -380,6 +385,7 @@
     {
       "id": 25376,
       "number": 9,
+      "position": null,
       "nameJa": "田邉いちご",
       "nameEn": "TANABE ICHIGO",
       "nickname": "ごん、ぶー、ごいち",
@@ -455,6 +461,7 @@
     {
       "id": 25391,
       "number": 10,
+      "position": null,
       "nameJa": "平坂咲希",
       "nameEn": "HIRASAKA SAKI",
       "nickname": "さち",
@@ -530,6 +537,7 @@
     {
       "id": 25383,
       "number": 11,
+      "position": null,
       "nameJa": "嘉数クレア姫麗",
       "nameEn": "KAKAZU CLAIRE KIRARA",
       "nickname": "くーちゃん、くー、くれ",
@@ -605,6 +613,7 @@
     {
       "id": 25401,
       "number": 13,
+      "position": null,
       "nameJa": "原日樺",
       "nameEn": "HARA NICHIKA",
       "nickname": "にちか",
@@ -680,6 +689,7 @@
     {
       "id": 25363,
       "number": 14,
+      "position": null,
       "nameJa": "宮脇ゆりあ",
       "nameEn": "MIYAWAKI YURIA",
       "nickname": "ゆり",
@@ -755,6 +765,7 @@
     {
       "id": 25380,
       "number": 15,
+      "position": null,
       "nameJa": "田中花奈",
       "nameEn": "TANAKA HANA",
       "nickname": "はな",
@@ -830,6 +841,7 @@
     {
       "id": 25387,
       "number": 16,
+      "position": null,
       "nameJa": "端山新",
       "nameEn": "HAYAMA ARATA",
       "nickname": "あらた",
@@ -905,6 +917,7 @@
     {
       "id": 25385,
       "number": 17,
+      "position": null,
       "nameJa": "釜坂慧",
       "nameEn": "KAMASAKA KEI",
       "nickname": "けい",
@@ -980,6 +993,7 @@
     {
       "id": 25389,
       "number": 18,
+      "position": null,
       "nameJa": "玉城薪瀬",
       "nameEn": "TAMASHIRO MAKISE",
       "nickname": "まきせ",
@@ -1055,6 +1069,7 @@
     {
       "id": 25374,
       "number": 20,
+      "position": null,
       "nameJa": "田川葵",
       "nameEn": "TAGAWA AOI",
       "nickname": "あおい",
@@ -1130,6 +1145,7 @@
     {
       "id": 25366,
       "number": 21,
+      "position": null,
       "nameJa": "進藤真奈花",
       "nameEn": "SHINDO MANAKA",
       "nickname": "まな、まなきち",
@@ -1205,6 +1221,7 @@
     {
       "id": 25408,
       "number": 22,
+      "position": null,
       "nameJa": "野田夏未",
       "nameEn": "NODA NATSUMI",
       "nickname": "なつ",
@@ -1280,6 +1297,7 @@
     {
       "id": 25494,
       "number": 23,
+      "position": null,
       "nameJa": "北条あゆみ",
       "nameEn": "HOJO AYUMI",
       "nickname": "あゆみ、ぽち",

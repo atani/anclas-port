@@ -22,6 +22,17 @@ struct StandingsView: View {
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity)
+
+                    if let scorers = data.scorers, !scorers.isEmpty {
+                        SectionLabel("得点ランキング")
+                        VStack(spacing: 0) {
+                            ForEach(Array(scorers.enumerated()), id: \.element.id) { idx, scorer in
+                                ScorerRowView(scorer: scorer, isLast: idx == scorers.count - 1)
+                            }
+                        }
+                        .anclasCard(padding: 0)
+                        .padding(.horizontal, 16)
+                    }
                 } else {
                     LoadingState(message: "順位表を読み込み中…")
                 }
@@ -91,6 +102,49 @@ private struct StandingRowView: View {
                     Rectangle().fill(Theme.orange).frame(width: 4)
                 }
             }
+
+            if !isLast {
+                Divider().padding(.leading, 14)
+            }
+        }
+    }
+}
+
+private struct ScorerRowView: View {
+    let scorer: ScorerRank
+    let isLast: Bool
+
+    var body: some View {
+        VStack(spacing: 0) {
+            HStack(spacing: 0) {
+                RankBadge(rank: scorer.rank, isAnclas: false)
+                    .frame(width: 36)
+
+                HStack(spacing: 6) {
+                    if let number = scorer.number {
+                        Text("#\(number)")
+                            .font(.caption.weight(.bold).monospacedDigit())
+                            .foregroundStyle(.secondary)
+                    }
+                    Text(scorer.name)
+                        .font(.callout)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+                HStack(alignment: .firstTextBaseline, spacing: 2) {
+                    Text("\(scorer.goals)")
+                        .font(.title3.weight(.heavy).monospacedDigit())
+                        .foregroundStyle(Theme.orange)
+                    Text("点")
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
+                }
+                .frame(width: 56, alignment: .trailing)
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 11)
 
             if !isLast {
                 Divider().padding(.leading, 14)

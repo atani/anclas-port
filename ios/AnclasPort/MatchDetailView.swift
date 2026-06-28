@@ -53,6 +53,11 @@ struct MatchDetailView: View {
                     MatchReportSection(report: report)
                 }
 
+                // フォトギャラリー
+                if let photos = match.photoGallery, !photos.isEmpty {
+                    PhotoGallerySection(urls: photos)
+                }
+
                 Spacer(minLength: 40)
             }
         }
@@ -123,16 +128,10 @@ private struct ScoreBoard: View {
                     .background(Theme.outcomeColor(o), in: Capsule())
             }
 
-            // 日時
+            // 日時（会場は下の試合情報テーブルに集約）
             if let d = match.startDate {
                 Text(d.formattedJa("yyyy/M/d(E) HH:mm") + " KO")
                     .font(.subheadline).foregroundStyle(.secondary).monospacedDigit()
-            }
-
-            // 会場
-            if let venue = match.venue {
-                Text(venue)
-                    .font(.subheadline).foregroundStyle(.secondary)
             }
         }
         .padding(20)
@@ -466,6 +465,43 @@ private struct MemberCell: View {
                     .font(.caption2).foregroundStyle(.quaternary)
             }
         }
+    }
+}
+
+// MARK: - Photo Gallery
+
+private struct PhotoGallerySection: View {
+    let urls: [String]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text("フォトギャラリー")
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(Theme.orange)
+
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 10) {
+                    ForEach(urls, id: \.self) { urlStr in
+                        if let url = URL(string: urlStr) {
+                            Link(destination: url) {
+                                AsyncImage(url: url) { phase in
+                                    switch phase {
+                                    case .success(let image):
+                                        image.resizable().aspectRatio(contentMode: .fill)
+                                    default:
+                                        Color(.tertiarySystemFill)
+                                    }
+                                }
+                                .frame(width: 160, height: 120)
+                                .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                }
+            }
+        }
+        .card()
     }
 }
 

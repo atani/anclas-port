@@ -6,6 +6,7 @@ import {
   enrichMatchesWithSchedule,
   parseGoalNoteGame,
   parseGoalNoteSchedule,
+  parseScorerRanking,
 } from "../src/lib/goalnote-parser.js";
 
 const scheduleFix = readFileSync(
@@ -31,7 +32,15 @@ test("parseGoalNoteSchedule: 全試合行を抽出し会場が含まれる", () 
 test("enrichMatchesWithSchedule: 日付+チーム名で会場を補完", () => {
   const rows = parseGoalNoteSchedule(scheduleFix);
   const matches = [
-    { date: "2026-04-12", homeTeam: "福岡J・アンクラス", awayTeam: "ヴィアマテラス宮崎Alegrita", venue: null as string | null, goalnoteUrl: null as string | null },
+    {
+      date: "2026-04-12",
+      homeTeam: "福岡J・アンクラス",
+      awayTeam: "ヴィアマテラス宮崎Alegrita",
+      venue: null as string | null,
+      goalnoteUrl: null as string | null,
+      status: "scheduled" as "scheduled" | "finished",
+      score: null as { home: number; away: number } | null,
+    },
   ];
   enrichMatchesWithSchedule(matches, rows);
   assert.ok(matches[0]!.venue, "会場が補完された");

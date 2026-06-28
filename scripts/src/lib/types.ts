@@ -68,6 +68,21 @@ export interface Match {
   cards: CardEvent[];
   /** マッチレポート（anclas.jp 由来）。未取得なら null */
   matchReport: MatchReport | null;
+  /** フォトギャラリー画像URL（anclas.jp マッチレポート由来）。未取得なら空配列 */
+  photoGallery: string[];
+}
+
+/** 試合のフォトギャラリー画像URL（anclas.jp マッチレポート由来） */
+// Match.photoGallery: string[] として保持する
+
+/** 得点ランキングの1行（GoalNote 由来。アンクラス選手のみ） */
+export interface ScorerRank {
+  /** リーグ全体での順位 */
+  rank: number;
+  name: string;
+  /** 背番号（選手名鑑と突き合わせ。取れなければ null） */
+  number: number | null;
+  goals: number;
 }
 
 /** 警告・退場（GoalNote game page 由来） */
@@ -149,6 +164,8 @@ export interface StandingsData {
   season: string;
   competition: string;
   table: StandingRow[];
+  /** アンクラスの得点ランキング（GoalNote 由来）。未取得なら空配列 */
+  scorers: ScorerRank[];
 }
 
 /** 選手の写真サイズ別URL */

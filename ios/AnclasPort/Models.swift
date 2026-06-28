@@ -56,6 +56,7 @@ struct Match: Codable, Identifiable, Hashable {
     let cards: [CardEvent]?
     let stats: MatchStats?
     let matchReport: MatchReport?
+    let photoGallery: [String]?
     let goalnoteUrl: String?
     let posterUrl: String?
 }
@@ -174,6 +175,16 @@ struct StandingsData: Codable {
     let season: String
     let competition: String
     let table: [StandingRow]
+    let scorers: [ScorerRank]?
+}
+
+struct ScorerRank: Codable, Identifiable {
+    let rank: Int
+    let name: String
+    let number: Int?
+    let goals: Int
+
+    var id: String { "\(rank)-\(name)" }
 }
 
 struct StandingRow: Codable, Identifiable {

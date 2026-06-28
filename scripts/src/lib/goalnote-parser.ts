@@ -3,6 +3,7 @@ import {
   type CardEvent,
   type GoalEvent,
   type Position,
+  type ScorerRank,
   type Substitution,
 } from "./types.js";
 
@@ -88,21 +89,46 @@ export function parseGoalNoteSchedule(html: string): GoalNoteScheduleRow[] {
   return rows;
 }
 
-/** schedule page の行と matches を日付+チーム名でマッチングし、会場とgame URLを補完 */
+/** チーム名を正規化して照合キーにする（全半角・スペース・ウィ/ウイ揺れを吸収） */
+function normTeam(s: string): string {
+  return s
+    .replace(/[\s　]/g, "")
+    .replace(/[！-～]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0))
+    .replace(/ウイ/g, "ウィ");
+}
+
+interface EnrichableMatch {
+  date: string;
+  homeTeam: string;
+  awayTeam: string;
+  venue: string | null;
+  goalnoteUrl: string | null;
+  status: "scheduled" | "finished";
+  score: { home: number; away: number } | null;
+}
+
+/**
+ * schedule page の行と matches を日付+チーム名で照合し、会場・game URL を補完する。
+ * さらに GoalNote が結果を持つのに q-league が未消化（vs）の試合は、
+ * GoalNote のスコアで確定扱いにする（GoalNote の方が結果反映が速いため）。
+ */
 export function enrichMatchesWithSchedule(
-  matches: { date: string; homeTeam: string; awayTeam: string; venue: string | null; goalnoteUrl: string | null }[],
+  matches: EnrichableMatch[],
   scheduleRows: GoalNoteScheduleRow[],
 ): void {
   const index = new Map<string, GoalNoteScheduleRow>();
   for (const r of scheduleRows) {
-    index.set(`${r.date}|${r.homeTeam}`, r);
+    index.set(`${r.date}|${normTeam(r.homeTeam)}`, r);
   }
   for (const m of matches) {
-    const key = `${m.date}|${m.homeTeam}`;
-    const row = index.get(key);
-    if (row) {
-      if (row.venue) m.venue = row.venue;
-      if (row.gameUrl) m.goalnoteUrl = row.gameUrl;
+    const row = index.get(`${m.date}|${normTeam(m.homeTeam)}`);
+    if (!row) continue;
+    if (row.venue) m.venue = row.venue;
+    if (row.gameUrl) m.goalnoteUrl = row.gameUrl;
+    // q-league 未更新だが GoalNote に結果がある → 確定扱いにする
+    if (m.status === "scheduled" && row.score) {
+      m.status = "finished";
+      m.score = row.score;
     }
   }
 }
@@ -237,63 +263,63 @@ function parseLineups(html: string, homeTeam: string): { starters: GoalNotePlaye
   return { starters, subs };
 }
 
-/** game page から選手交代を抽出 */
-function parseSubstitutions(html: string, homeTeam: string): Substitution[] {
-  const subs: Substitution[] = [];
-  // 交代セクション: 時間行(1セル) + 交代行(4セル: OUT#, OUT名, IN#, IN名)
+/** 1つの交代 <table> から交代を抽出（時間行→交代行の繰り返し） */
+function parseSubTable(tableHtml: string, team: "home" | "away"): Substitution[] {
+  const out: Substitution[] = [];
   const trRe = /<tr[^>]*>([\s\S]*?)<\/tr>/gi;
   const tdRe = /<td[^>]*>([\s\S]*?)<\/td>/gi;
-
-  // 得点経過と先発メンバーの後ろに交代セクションがある
-  // 「監督」行より前、「スタメン控え」の後を探す
   let currentMinute = "";
-  let inHomeSubs = true;
-  let homeSubCount = 0;
-
-  // 交代行は lineups セクションの後に出現する
-  // 簡易判定: 4セルで [数字, 名前, 数字, 名前] のパターン
   let tr: RegExpExecArray | null;
-  let pastLineups = false;
-  while ((tr = trRe.exec(html)) !== null) {
+  while ((tr = trRe.exec(tableHtml)) !== null) {
     const cells: string[] = [];
     tdRe.lastIndex = 0;
     let td: RegExpExecArray | null;
-    while ((td = tdRe.exec(tr[1] ?? "")) !== null) {
-      cells.push(strip(td[1] ?? ""));
-    }
+    while ((td = tdRe.exec(tr[1] ?? "")) !== null) cells.push(strip(td[1] ?? ""));
 
-    // 監督行で終了
-    if (cells.length >= 1 && /^監督$/.test(cells[0] ?? "")) {
-      pastLineups = true;
-    }
-
-    if (!pastLineups) continue;
-
-    // 時間行（1セル）
     if (cells.length === 1 && /\d+分|ＨＴ|HT/.test(cells[0] ?? "")) {
       currentMinute = cells[0] ?? "";
       continue;
     }
-
-    // 交代行（4セル: OUT#, OUT名, IN#, IN名）
-    if (cells.length >= 4 && /^\d+$/.test(cells[0] ?? "") && /^\d+$/.test(cells[2] ?? "")) {
-      // ホーム/アウェイ判定: 最初のチームの交代がまとまって出た後にアウェイ
-      subs.push({
+    if (cells.length === 4 && /^\d+$/.test(cells[0] ?? "") && /^\d+$/.test(cells[2] ?? "")) {
+      out.push({
         minute: currentMinute,
-        team: inHomeSubs ? "home" : "away",
+        team,
         outNumber: Number(cells[0]),
         outName: (cells[1] ?? "").replace(/\s*\(Cap\.\)/i, ""),
         inNumber: Number(cells[2]),
         inName: (cells[3] ?? "").replace(/\s*\(Cap\.\)/i, ""),
       });
-      if (inHomeSubs) homeSubCount++;
-    }
-
-    // 得点経過セクションに入ったらホーム交代は終了
-    if (cells.length >= 2 && /得点経過/.test(cells[0] ?? "")) {
-      if (homeSubCount > 0) inHomeSubs = false;
     }
   }
+  return out;
+}
+
+/**
+ * game page から選手交代を抽出。
+ * 交代は <table> 単位でチーム別に分かれている（team1=KICK OFF 側 → team2）。
+ * 交代行 [OUT番号, OUT名, IN番号, IN名] を含む table を文書順に集め、
+ * [0]=team1, [1]=team2 として home/away を割り当てる。
+ */
+function parseSubstitutions(html: string, homeTeam: string): Substitution[] {
+  const team1Match = html.match(/class="score-team1"[^>]*>\s*([\s\S]*?)<(?:div|\/th)/i);
+  const team1Name = team1Match ? strip(team1Match[1] ?? "") : "";
+  const team1IsHome = team1Name.includes(homeTeam.slice(0, 4));
+
+  // 交代行は OUT/IN の間に <th class="change"> 矢印マーカーを持つ。それを含む table を集める
+  const tableRe = /<table[^>]*>([\s\S]*?)<\/table>/gi;
+  const subTables: string[] = [];
+  let tbl: RegExpExecArray | null;
+  while ((tbl = tableRe.exec(html)) !== null) {
+    const body = tbl[1] ?? "";
+    if (/class="change"/.test(body)) subTables.push(body);
+  }
+
+  const team1Side: "home" | "away" = team1IsHome ? "home" : "away";
+  const team2Side: "home" | "away" = team1IsHome ? "away" : "home";
+
+  const subs: Substitution[] = [];
+  if (subTables[0]) subs.push(...parseSubTable(subTables[0], team1Side));
+  if (subTables[1]) subs.push(...parseSubTable(subTables[1], team2Side));
   return subs;
 }
 
@@ -390,6 +416,52 @@ export async function fetchGoalNoteSchedule(tid: string = TOURNAMENT_ID): Promis
     headers: { "User-Agent": "anclas-port-pipeline (+https://github.com/atani/anclas-port)" },
   });
   if (!res.ok) throw new Error(`GoalNote schedule fetch failed: ${res.status}`);
+  return res.text();
+}
+
+/**
+ * 得点ランキングページからアンクラス選手の得点ランキングを抽出する。
+ * テーブル: [順位, 選手名, チーム名, 得点]。アンクラスの選手のみ返す。
+ * number は playerNumberByName で名前→背番号を補完（無ければ null）。
+ */
+export function parseScorerRanking(
+  html: string,
+  playerNumberByName: Map<string, number>,
+): ScorerRank[] {
+  const norm = (s: string) => s.replace(/[\s　]/g, "");
+  const tableMatch = html.match(/<table[^>]*>([\s\S]*?)<\/table>/i);
+  if (!tableMatch) return [];
+  const rows = tableMatch[1]?.match(/<tr[^>]*>[\s\S]*?<\/tr>/gi) ?? [];
+  const scorers: ScorerRank[] = [];
+  for (const row of rows) {
+    const cells = [...row.matchAll(/<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi)].map((m) =>
+      strip(m[1] ?? ""),
+    );
+    if (cells.length < 4) continue;
+    const rank = Number(cells[0]);
+    const name = cells[1] ?? "";
+    const team = cells[2] ?? "";
+    const goals = Number(cells[3]);
+    if (!Number.isFinite(rank) || !Number.isFinite(goals)) continue;
+    if (team !== ANCLAS_TEAM_NAME) continue;
+    scorers.push({
+      rank,
+      name,
+      number: playerNumberByName.get(norm(name)) ?? null,
+      goals,
+    });
+  }
+  return scorers;
+}
+
+/** GoalNote の得点ランキングページを取得 */
+export async function fetchGoalNoteRanking(tid: string = TOURNAMENT_ID): Promise<string> {
+  const url = `${BASE_URL}detail-ranking.php?tid=${tid}`;
+  const res = await fetch(url, {
+    signal: AbortSignal.timeout(15_000),
+    headers: { "User-Agent": "anclas-port-pipeline (+https://github.com/atani/anclas-port)" },
+  });
+  if (!res.ok) throw new Error(`GoalNote ranking fetch failed: ${res.status}`);
   return res.text();
 }
 
