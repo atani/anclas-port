@@ -74,7 +74,12 @@ struct HomeView: View {
 
                         if let video = store.data?.anclas.latestYouTube {
                             SectionLabel(video.isNew ? "📺 NEW VIDEO" : "YOUTUBE")
-                            YouTubeCard(video: video)
+                            YouTubeCard(video: video, isShort: false)
+                        }
+
+                        if let short = store.data?.anclas.latestYouTubeShort {
+                            SectionLabel(short.isNew ? "⚡️ NEW SHORT" : "SHORTS")
+                            YouTubeCard(video: short, isShort: true)
                         }
 
                         if let items = store.data?.anclas.shopItems, !items.isEmpty {
@@ -325,37 +330,30 @@ private struct EmptyCard: View {
 /// 2026 シーズンスローガン
 private struct SloganBanner: View {
     var body: some View {
-        VStack(spacing: 4) {
-            HStack(spacing: 6) {
-                Text("2026 SEASON SLOGAN")
-                    .font(.caption2.weight(.heavy))
-                    .tracking(1.5)
-                    .foregroundStyle(Theme.orange)
-            }
+        VStack(spacing: 6) {
+            Text("2026 SEASON SLOGAN")
+                .font(.caption2.weight(.heavy))
+                .tracking(2)
+                .foregroundStyle(.white.opacity(0.85))
             Text("RISE again")
-                .font(.system(size: 28, weight: .heavy, design: .serif))
+                .font(.system(size: 34, weight: .heavy, design: .serif))
                 .italic()
-                .foregroundStyle(Theme.navy)
+                .foregroundStyle(.white)
+                .shadow(color: .black.opacity(0.25), radius: 4, y: 2)
             Text("もう一度、ともに。")
-                .font(.subheadline.weight(.semibold))
-                .foregroundStyle(.secondary)
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(.white)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 16)
+        .padding(.vertical, 20)
         .background(
             LinearGradient(
-                colors: [
-                    Theme.orange.opacity(0.08),
-                    Theme.orange.opacity(0.02),
-                ],
-                startPoint: .top, endPoint: .bottom
+                colors: [Theme.orange, Theme.orange.opacity(0.85), Theme.navy],
+                startPoint: .topLeading, endPoint: .bottomTrailing
             )
         )
-        .overlay(
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .strokeBorder(Theme.orange.opacity(0.3), lineWidth: 1)
-        )
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .shadow(color: Theme.orange.opacity(0.25), radius: 8, y: 3)
     }
 }
 
@@ -363,26 +361,25 @@ private struct SloganBanner: View {
 
 private struct YouTubeCard: View {
     let video: YouTubeVideo
+    var isShort: Bool = false
 
-    /// ショート動画判定（ID が "shorts/" を含むか、サムネが縦長を示すか）
-    /// YouTube は通常 hqdefault.jpg=480x360（4:3）を返すが、実画像のサイズで判定する
     var body: some View {
         if let url = URL(string: video.url) {
             Link(destination: url) {
                 VStack(spacing: 0) {
                     ZStack(alignment: .center) {
-                        // 16:9 でフィット表示（ショート=縦長は letterbox、通常=横長はfill寄り）
                         AsyncImage(url: URL(string: video.thumbnailUrl)) { phase in
                             switch phase {
                             case .success(let image):
-                                image.resizable().aspectRatio(contentMode: .fit)
+                                image.resizable().aspectRatio(contentMode: isShort ? .fill : .fit)
                             default:
                                 Color(.tertiarySystemFill)
                             }
                         }
                         .frame(maxWidth: .infinity)
-                        .frame(height: 200)
+                        .frame(height: isShort ? 280 : 200)
                         .background(Color.black)
+                        .clipped()
 
                         Image(systemName: "play.circle.fill")
                             .font(.system(size: 56))
@@ -394,7 +391,7 @@ private struct YouTubeCard: View {
 
                     VStack(alignment: .leading, spacing: 4) {
                         HStack(spacing: 6) {
-                            Label("公式チャンネル", systemImage: "play.rectangle.fill")
+                            Label(isShort ? "公式ショート" : "公式チャンネル", systemImage: isShort ? "bolt.fill" : "play.rectangle.fill")
                                 .font(.caption2.weight(.semibold))
                                 .foregroundStyle(Theme.orange)
                             if video.isNew {

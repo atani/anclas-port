@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-28T00:40:47.155Z",
+  "generatedAt": "2026-06-28T00:58:45.197Z",
   "season": "2026",
   "anclas": {
     "nextMatch": {
@@ -356,6 +356,13 @@
       "thumbnailUrl": "https://i2.ytimg.com/vi/1Je5QQTGuDE/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=1Je5QQTGuDE",
       "publishedAt": "2026-04-30T11:00:06+00:00"
+    },
+    "latestYouTubeShort": {
+      "videoId": "lbfzRHU1Djs",
+      "title": "想いをのせたラップを選手のアイデアで制作！！！",
+      "thumbnailUrl": "https://i1.ytimg.com/vi/lbfzRHU1Djs/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/lbfzRHU1Djs",
+      "publishedAt": "2026-03-27T09:01:00+00:00"
     },
     "shopItems": [
       {

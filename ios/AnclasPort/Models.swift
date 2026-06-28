@@ -15,6 +15,7 @@ struct AnclasDerived: Codable {
     let latestResult: Match?
     let latestPodcast: PodcastEpisode?
     let latestYouTube: YouTubeVideo?
+    let latestYouTubeShort: YouTubeVideo?
     let shopItems: [ShopItem]?
 }
 
