@@ -14,6 +14,15 @@ struct AnclasDerived: Codable {
     let nextMatch: Match?
     let latestResult: Match?
     let latestPodcast: PodcastEpisode?
+    let shopItems: [ShopItem]?
+}
+
+struct ShopItem: Codable, Hashable, Identifiable {
+    let id: String
+    let name: String
+    let price: String
+    let imageUrl: String
+    let url: String
 }
 
 struct PodcastEpisode: Codable, Hashable {

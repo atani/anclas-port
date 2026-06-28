@@ -69,12 +69,15 @@ private struct ScheduleCard: View {
 
             if match.isFinished, let line = match.anclasScoreLine {
                 HStack(spacing: 10) {
-                    Text(match.anclasIsHome ? match.homeTeam : match.awayTeam)
+                    Text((match.anclasIsHome ? match.homeTeam : match.awayTeam).teamDisplay)
                         .font(.subheadline).foregroundStyle(Theme.orange)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
                     Text("\(line.mine) - \(line.theirs)")
                         .font(.title2.weight(.heavy)).monospacedDigit()
-                    Text(match.opponent).font(.subheadline)
-                        .lineLimit(1)
+                    Text(match.opponent.teamDisplay).font(.subheadline)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
                 }
                 if let o = match.anclasOutcome {
                     Text(Theme.outcomeLabel(o))
@@ -84,12 +87,16 @@ private struct ScheduleCard: View {
                 }
             } else {
                 HStack(spacing: 8) {
-                    Text(match.homeTeam)
+                    Text(match.homeTeam.teamDisplay)
                         .font(.subheadline)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
                         .foregroundStyle(match.anclasIsHome ? Theme.orange : .primary)
                     Text("vs").font(.caption).foregroundStyle(.secondary)
-                    Text(match.awayTeam)
+                    Text(match.awayTeam.teamDisplay)
                         .font(.subheadline)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
                         .foregroundStyle(!match.anclasIsHome ? Theme.orange : .primary)
                 }
                 if let d = match.startDate {

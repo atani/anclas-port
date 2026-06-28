@@ -67,6 +67,11 @@ struct HomeView: View {
                             PodcastCard(episode: podcast)
                         }
 
+                        if let items = store.data?.anclas.shopItems, !items.isEmpty {
+                            SectionLabel("🛒 公式オンラインショップ")
+                            ShopCarouselCard(items: items)
+                        }
+
                         if let err = store.errorText {
                             Text(err)
                                 .font(.caption)
@@ -171,7 +176,7 @@ private struct TeamName: View {
     let name: String
     let isAnclas: Bool
     var body: some View {
-        Text(name)
+        Text(name.teamDisplay)
             .font(.headline)
             .multilineTextAlignment(.center)
             .foregroundStyle(isAnclas ? Theme.orange : .primary)
@@ -203,8 +208,8 @@ private struct LatestResultCard: View {
                     Text("アンクラス").font(.headline).foregroundStyle(Theme.orange)
                     Text("\(line.mine) - \(line.theirs)")
                         .font(.system(size: 34, weight: .heavy)).monospacedDigit()
-                    Text(match.opponent).font(.headline)
-                        .lineLimit(2).multilineTextAlignment(.center)
+                    Text(match.opponent.teamDisplay).font(.headline)
+                        .lineLimit(3).multilineTextAlignment(.center)
                 }
             }
             HStack {
@@ -302,5 +307,65 @@ private struct EmptyCard: View {
     let text: String
     var body: some View {
         Text(text).font(.headline).foregroundStyle(.secondary).card()
+    }
+}
+
+// MARK: - Shop Carousel
+
+/// 公式オンラインショップ商品を3秒ごとにフェードで切り替える自動カルーセル
+private struct ShopCarouselCard: View {
+    let items: [ShopItem]
+    @State private var index: Int = 0
+
+    private let timer = Timer.publish(every: 3.5, on: .main, in: .common).autoconnect()
+
+    var body: some View {
+        let item = items[index % items.count]
+        Link(destination: URL(string: item.url)!) {
+            HStack(spacing: 14) {
+                AsyncImage(url: URL(string: item.imageUrl)) { phase in
+                    switch phase {
+                    case .success(let image):
+                        image.resizable().aspectRatio(contentMode: .fill)
+                    default:
+                        Color(.tertiarySystemFill)
+                    }
+                }
+                .frame(width: 88, height: 88)
+                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(item.name)
+                        .font(.subheadline.weight(.semibold))
+                        .lineLimit(2)
+                        .multilineTextAlignment(.leading)
+                    Text(item.price)
+                        .font(.callout.weight(.bold))
+                        .foregroundStyle(Theme.orange)
+                    HStack(spacing: 4) {
+                        Text("BASE で購入 →")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                        Spacer()
+                        Text("\(index % items.count + 1) / \(items.count)")
+                            .font(.caption2.monospacedDigit())
+                            .foregroundStyle(.tertiary)
+                    }
+                }
+                Spacer(minLength: 0)
+            }
+            .padding(16)
+            .frame(maxWidth: .infinity)
+            .background(Color(.secondarySystemGroupedBackground))
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .padding(.horizontal, 16)
+            .id(item.id) // フェード再生用
+            .transition(.opacity)
+        }
+        .buttonStyle(.plain)
+        .animation(.easeInOut(duration: 0.4), value: index)
+        .onReceive(timer) { _ in
+            index = (index + 1) % items.count
+        }
     }
 }

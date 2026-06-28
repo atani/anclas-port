@@ -33,6 +33,30 @@ enum Theme {
     }
 }
 
+/// 長いチーム名を見やすく整形する。
+/// - 末尾の補足語（女子サッカー部 / レディース / Alegrita / VENTUS 等）の直前で改行
+/// - 既にチーム名に含まれる全角スペースも改行位置として優先
+extension String {
+    /// 試合カード等で2行に折り返す用の整形済みチーム名
+    var teamDisplay: String {
+        let s = self
+        // 既に「全角スペース」で分節されている場合（例: 東海大学付属福岡高等学校　女子サッカー部）はそこで改行
+        if s.contains("　") { return s.replacingOccurrences(of: "　", with: "\n") }
+        // 末尾サフィックスの直前で改行
+        let suffixes = [
+            "女子サッカー部", "サッカー部", "レディース", "ウィメン", "ウイメン",
+            "Alegrita", "VENTUS", "Reserve",
+        ]
+        for sfx in suffixes {
+            if s.hasSuffix(sfx) && s.count > sfx.count {
+                let cut = s.index(s.endIndex, offsetBy: -sfx.count)
+                return String(s[..<cut]) + "\n" + sfx
+            }
+        }
+        return s
+    }
+}
+
 extension Date {
     func formattedJa(_ template: String = "M/d(E) HH:mm") -> String {
         let f = DateFormatter()

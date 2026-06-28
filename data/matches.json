@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-28T00:16:50.634Z",
+  "generatedAt": "2026-06-28T00:26:46.832Z",
   "season": "2026",
   "anclas": {
     "nextMatch": {
@@ -349,7 +349,177 @@
       "showUrl": "https://open.spotify.com/show/3RnkWRyIMYe9IdtMmK7KFK",
       "embedUrl": "https://open.spotify.com/embed/show/3RnkWRyIMYe9IdtMmK7KFK?utm_source=oembed",
       "publishedAt": "2026-06-25"
-    }
+    },
+    "shopItems": [
+      {
+        "id": "146226679",
+        "name": "【40周年記念！】マフラータオル2026",
+        "price": "¥3,750",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/2edc17bff3df3722b83a66f36d2058cd.jpg?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/146226679"
+      },
+      {
+        "id": "146226597",
+        "name": "オレンジフェイスタオル",
+        "price": "¥4,500",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/f85a12bda2f78c81de78a076ffc68b1b.jpg?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/146226597"
+      },
+      {
+        "id": "141942648",
+        "name": "2026シーズン選手キーホルダー",
+        "price": "¥770",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/1c6b73b82f3570b59dcb4c8ffaa9e46a.jpg?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/141942648"
+      },
+      {
+        "id": "140216254",
+        "name": "2026オーセンティックユニフォーム　【オレンジ】",
+        "price": "¥16,500",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/90dc1f90173d11022a9da327accaeb3a.jpg?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/140216254"
+      },
+      {
+        "id": "140217401",
+        "name": "2026オーセンティックユニフォーム　【アクア】",
+        "price": "¥16,500",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/04f1c498bfc850805cff43c6274574e1.jpg?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/140217401"
+      },
+      {
+        "id": "140216939",
+        "name": "2026オーセンティックユニフォーム　【ホワイト】",
+        "price": "¥16,500",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/abf342f7be661bb3eab0e542fa4fa05b.jpg?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/140216939"
+      },
+      {
+        "id": "140217933",
+        "name": "2026オーセンティックユニフォーム【サクラ】",
+        "price": "¥16,500",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/76710215a7072bafd3ef77c0c12c9173.jpg?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/140217933"
+      },
+      {
+        "id": "85193356",
+        "name": "エンブレムフェイスタオル",
+        "price": "¥2,310",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/b3000fa066c5c2692d4ef55bcd838ffe.png?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/85193356"
+      },
+      {
+        "id": "75388658",
+        "name": "アンクラスロゴ　スポーツタオル",
+        "price": "¥2,310",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/ba32eebcd7fbc1dd878a4a8974b06e5c.png?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/75388658"
+      },
+      {
+        "id": "107175531",
+        "name": "シマシマ柄クリアファイル",
+        "price": "¥188",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/384bf9836016d69108d4300a401dbf6a.png?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/107175531"
+      },
+      {
+        "id": "68279765",
+        "name": "乾燥対策に！布立体マスク",
+        "price": "¥990",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/b9372fa19a788bc3c97c78993c2ea64d.png?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/68279765"
+      },
+      {
+        "id": "88700531",
+        "name": "トートバック　【薄手】",
+        "price": "¥825",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/d254771f4cd319dbcc5946736882b8b8.png?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/88700531"
+      },
+      {
+        "id": "89089501",
+        "name": "アンクラスオリジナルウェアジャケット(アシックス)",
+        "price": "¥1,155",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/dc78bec62668add3540f07699ba650cc.png?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/89089501"
+      },
+      {
+        "id": "89089722",
+        "name": "アンクラスオリジナルウェアパンツ (アシックス)",
+        "price": "¥1,155",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/fe220e6a5db4f769dfb211e7e1d52f6e.png?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/89089722"
+      },
+      {
+        "id": "78570588",
+        "name": "オレンジTシャツ",
+        "price": "¥1,238",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/5906ce62cd3836c2d2ddf78a3c5c3e2d.png?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/78570588"
+      },
+      {
+        "id": "75389054",
+        "name": "巾着袋　カラー：ネイビー",
+        "price": "¥537",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/75f6bbf9f9eb051ca5870e562871d34d.png?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/75389054"
+      },
+      {
+        "id": "68273158",
+        "name": "アンクラッキー メモ帳",
+        "price": "¥413",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/8afb5079a58c7d508895b6f989ca80f6.png?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/68273158"
+      },
+      {
+        "id": "68273240",
+        "name": "ボールペン",
+        "price": "¥413",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/6a056c00af20da809e9677c8d8e45f15.png?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/68273240"
+      },
+      {
+        "id": "68276436",
+        "name": "スマホリング",
+        "price": "¥770",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/aa373d014b9f02194a3a34d82d9d1a0b.png?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/68276436"
+      },
+      {
+        "id": "68275852",
+        "name": "リボンマグネット",
+        "price": "¥520",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/7a353d02d5246dc6d2e34c6cbe6a8203.png?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/68275852"
+      },
+      {
+        "id": "68276805",
+        "name": "ミニトートバック",
+        "price": "¥413",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/c9bdcae16159caec421ade4d07502e95.png?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/68276805"
+      },
+      {
+        "id": "68280141",
+        "name": "ドライスウェットジップパーカー　キッズサイズ(140・150)",
+        "price": "¥2,625",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/2ac451347f9b0d61303d3632ae2670f9.png?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/68280141"
+      },
+      {
+        "id": "68280273",
+        "name": "ドライスウェットジップパーカー　サイズ：SS-3L",
+        "price": "¥2,850",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/d230d882597e2f30ade869c532bfb505.png?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/68280273"
+      },
+      {
+        "id": "68274160",
+        "name": "ネイビーサッカーパンツ",
+        "price": "¥1,875",
+        "imageUrl": "https://baseec-img-mng.akamaized.net/images/item/origin/7d0724ffa38f45bd23d21064a7a4fc4b.png?imformat=generic&amp;q=90&amp;im=Resize,width=640,type=normal",
+        "url": "https://anclas.base.shop/items/68274160"
+      }
+    ]
   },
   "matches": [
     {
