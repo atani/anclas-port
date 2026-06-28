@@ -349,7 +349,10 @@ private struct HeroHeader: View {
             }
             .padding(.horizontal, 18)
             .padding(.vertical, 14)
+            .frame(maxWidth: .infinity)
         }
+        .frame(maxWidth: .infinity)
+        .fixedSize(horizontal: false, vertical: true)
         .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .shadow(color: Theme.orange.opacity(0.25), radius: 8, y: 3)
     }
