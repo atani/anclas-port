@@ -7,48 +7,9 @@ struct HomeView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 0) {
-                    // ヘッダー: オレンジ背景 + エンブレム + アプリ名
-                    ZStack(alignment: .bottomTrailing) {
-                        LinearGradient(
-                            colors: [Theme.orange, Theme.orange.opacity(0.85)],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-
-                        Image("Character")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 100)
-                            .opacity(0.25)
-                            .offset(x: 10, y: 10)
-                    }
-                    .frame(height: 120)
-                    .overlay(alignment: .leading) {
-                        HStack(spacing: 12) {
-                            Image("Emblem")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(height: 60)
-                                .shadow(radius: 4)
-                            VStack(alignment: .leading, spacing: 2) {
-                                Text("アンクラス Port")
-                                    .font(.title2.weight(.bold))
-                                    .foregroundStyle(.white)
-                                Text("福岡J・アンクラス")
-                                    .font(.caption.weight(.medium))
-                                    .foregroundStyle(.white.opacity(0.8))
-                            }
-                        }
-                        .padding(.leading, 20)
-                    }
-                    .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                    .padding(.horizontal, 12)
-                    .padding(.top, 8)
-
-                    // 2026シーズンスローガン
-                    SloganBanner()
+                    HeroHeader()
                         .padding(.horizontal, 12)
-                        .padding(.top, 12)
+                        .padding(.top, 8)
 
                     VStack(spacing: 20) {
                         if let next = store.data?.anclas.nextMatch {
@@ -325,34 +286,71 @@ private struct EmptyCard: View {
     }
 }
 
-// MARK: - Slogan Banner
+// MARK: - Hero Header (ヘッダー + スローガン統合)
 
-/// 2026 シーズンスローガン
-private struct SloganBanner: View {
+private struct HeroHeader: View {
     var body: some View {
-        VStack(spacing: 6) {
-            Text("2026 SEASON SLOGAN")
-                .font(.caption2.weight(.heavy))
-                .tracking(2)
-                .foregroundStyle(.white.opacity(0.85))
-            Text("RISE again")
-                .font(.system(size: 34, weight: .heavy, design: .serif))
-                .italic()
-                .foregroundStyle(.white)
-                .shadow(color: .black.opacity(0.25), radius: 4, y: 2)
-            Text("もう一度、ともに。")
-                .font(.subheadline.weight(.bold))
-                .foregroundStyle(.white)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(.vertical, 20)
-        .background(
+        ZStack(alignment: .topTrailing) {
+            // 背景: オレンジ→ネイビーの斜めグラデ
             LinearGradient(
-                colors: [Theme.orange, Theme.orange.opacity(0.85), Theme.navy],
-                startPoint: .topLeading, endPoint: .bottomTrailing
+                colors: [Theme.orange, Theme.orange.opacity(0.95), Theme.navy.opacity(0.95), Theme.navy],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
             )
-        )
-        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+
+            // 装飾: マスコット透かし
+            Image("Character")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 110)
+                .opacity(0.15)
+                .padding(.top, 4)
+                .padding(.trailing, 4)
+
+            VStack(spacing: 10) {
+                // 上段: エンブレム + アプリ名
+                HStack(spacing: 12) {
+                    Image("Emblem")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(height: 48)
+                        .shadow(color: .black.opacity(0.3), radius: 4)
+                    VStack(alignment: .leading, spacing: 1) {
+                        Text("アンクラス Port")
+                            .font(.title3.weight(.heavy))
+                            .foregroundStyle(.white)
+                        Text("福岡J・アンクラス")
+                            .font(.caption2.weight(.semibold))
+                            .foregroundStyle(.white.opacity(0.85))
+                    }
+                    Spacer(minLength: 0)
+                }
+
+                Rectangle()
+                    .fill(.white.opacity(0.25))
+                    .frame(height: 1)
+
+                // 下段: シーズンスローガン
+                VStack(spacing: 1) {
+                    Text("2026 SEASON SLOGAN")
+                        .font(.caption2.weight(.heavy))
+                        .tracking(2)
+                        .foregroundStyle(.white.opacity(0.85))
+                    Text("RISE again")
+                        .font(.system(size: 26, weight: .heavy, design: .serif))
+                        .italic()
+                        .foregroundStyle(.white)
+                        .shadow(color: .black.opacity(0.3), radius: 4, y: 2)
+                    Text("もう一度、ともに。")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(.white.opacity(0.95))
+                }
+                .frame(maxWidth: .infinity)
+            }
+            .padding(.horizontal, 18)
+            .padding(.vertical, 14)
+        }
+        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
         .shadow(color: Theme.orange.opacity(0.25), radius: 8, y: 3)
     }
 }
