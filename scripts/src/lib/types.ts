@@ -137,8 +137,10 @@ export interface MatchesData {
     latestResult: Match | null;
     /** ポッドキャスト最新エピソード。取得失敗時 null */
     latestPodcast: PodcastEpisode | null;
-    /** YouTube 最新動画。取得失敗時 null */
+    /** YouTube 最新動画（通常動画）。取得失敗時 null */
     latestYouTube: YouTubeVideo | null;
+    /** YouTube 最新ショート動画。取得失敗時 null */
+    latestYouTubeShort: YouTubeVideo | null;
     /** 公式オンラインショップの商品（取得失敗時は空配列） */
     shopItems: ShopItem[];
   };

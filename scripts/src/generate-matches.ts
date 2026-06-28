@@ -11,7 +11,7 @@ import {
 import { parseQLeagueMatches } from "./lib/qleague-parser.js";
 import { fetchShopItems } from "./lib/shop.js";
 import { fetchLatestPodcast } from "./lib/spotify.js";
-import { fetchLatestYouTubeVideo } from "./lib/youtube.js";
+import { fetchLatestYouTubeVideos } from "./lib/youtube.js";
 import { calculateStandings } from "./lib/standings.js";
 import { findMatchPoster, findMatchReport } from "./lib/wordpress-client.js";
 import { logger } from "./lib/logger.js";
@@ -198,13 +198,11 @@ async function main(): Promise<void> {
     logger.warn("ポッドキャスト取得失敗");
   }
 
-  // 6. YouTube 最新動画
-  const latestYouTube = await fetchLatestYouTubeVideo();
-  if (latestYouTube) {
-    logger.info(`YouTube: ${latestYouTube.title.slice(0, 40)}`);
-  } else {
-    logger.warn("YouTube 取得失敗");
-  }
+  // 6. YouTube 最新（通常動画＋ショート別々に）
+  const { latest: latestYouTube, latestShort: latestYouTubeShort } = await fetchLatestYouTubeVideos();
+  if (latestYouTube) logger.info(`YouTube: ${latestYouTube.title.slice(0, 40)}`);
+  if (latestYouTubeShort) logger.info(`YouTubeショート: ${latestYouTubeShort.title.slice(0, 40)}`);
+  if (!latestYouTube && !latestYouTubeShort) logger.warn("YouTube 取得失敗");
 
   // 7. オンラインショップ商品（取得失敗時は前回値を引き継ぐ）
   let shopItems = await fetchShopItems();
@@ -231,6 +229,7 @@ async function main(): Promise<void> {
       latestResult: pickLatestResult(matches),
       latestPodcast,
       latestYouTube,
+      latestYouTubeShort,
       shopItems,
     },
     matches,
