@@ -4,7 +4,7 @@
  * 選手名鑑（TOP選手紹介カテゴリ）の動的検出と _embed 取得を追加した。
  */
 
-import type { MatchReport } from "./types.js";
+import type { BlogPost, MatchReport } from "./types.js";
 
 const BASE_URL = "https://anclas.jp/wp-json/wp/v2";
 
@@ -283,4 +283,60 @@ export async function findMatchReport(
     // WP API 失敗は無視
   }
   return null;
+}
+
+const BLOG_CATEGORY_ID = 5;
+
+interface WpBlogPost {
+  title: { rendered: string };
+  link: string;
+  date: string;
+}
+
+interface RawBlogEntry {
+  number: number;
+  name: string | null;
+  post: BlogPost;
+}
+
+/**
+ * 選手ブログ記事を全件取得し、背番号＋名前付きで返す。
+ * 紐付け側で名前照合できるよう、背番号だけでなくタイトル内の選手名も抽出する。
+ * これにより背番号が変わっても安全に紐付けられる。
+ */
+export async function fetchPlayerBlogPosts(): Promise<RawBlogEntry[]> {
+  const entries: RawBlogEntry[] = [];
+  let page = 1;
+  const perPage = 100;
+  try {
+    while (true) {
+      const url = `${BASE_URL}/posts?categories=${BLOG_CATEGORY_ID}&per_page=${perPage}&page=${page}&_fields=title,link,date`;
+      const res = await fetch(url, { signal: AbortSignal.timeout(15_000) });
+      if (!res.ok) break;
+      const posts = (await res.json()) as WpBlogPost[];
+      if (posts.length === 0) break;
+      for (const p of posts) {
+        const title = decodeEntities(p.title.rendered);
+        const m = title.match(/#(\d+)\s*([　-鿿豈-﫿\u{20000}-\u{2FA1F}A-Za-zぁ-ん゠-ヿ]+(?:\s[　-鿿豈-﫿\u{20000}-\u{2FA1F}A-Za-zぁ-ん゠-ヿ]+)*)?/u);
+        if (!m) continue;
+        entries.push({
+          number: Number(m[1]),
+          name: m[2]?.replace(/\s+/g, "") ?? null,
+          post: { title, url: p.link, date: p.date.slice(0, 10) },
+        });
+      }
+      const totalPages = Number(res.headers.get("x-wp-totalpages") ?? "1");
+      if (page >= totalPages) break;
+      page++;
+    }
+  } catch {
+    // blog fetch failure is non-fatal
+  }
+  return entries;
+}
+
+function decodeEntities(s: string): string {
+  return s.replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCodePoint(parseInt(hex, 16)))
+    .replace(/&#(\d+);/g, (_, dec) => String.fromCodePoint(Number(dec)))
+    .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"');
 }

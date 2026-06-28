@@ -60,6 +60,7 @@ test("sortPlayers: 背番号昇順、null は末尾", () => {
     profile: { birthdate: null, hometown: null, height: null, bloodType: null, career: null },
     personal: [],
     sourceUrl: "",
+    blogPosts: [],
   });
   const sorted = sortPlayers([mk(10, 1), mk(null, 2), mk(3, 3)]);
   assert.deepEqual(

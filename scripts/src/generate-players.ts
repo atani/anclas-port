@@ -2,7 +2,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { logger } from "./lib/logger.js";
 import { parsePlayer, sortPlayers } from "./lib/player-parser.js";
 import type { PlayersData } from "./lib/types.js";
-import { getPlayerCategory, getPlayerPosts } from "./lib/wordpress-client.js";
+import { fetchPlayerBlogPosts, getPlayerCategory, getPlayerPosts } from "./lib/wordpress-client.js";
 
 const DATA_DIR = new URL("../../data/", import.meta.url);
 
@@ -22,6 +22,26 @@ async function main(): Promise<void> {
   }
 
   const players = sortPlayers(posts.map(parsePlayer));
+
+  const blogEntries = await fetchPlayerBlogPosts();
+  const norm = (s: string) => s.replace(/[\s　]/g, "");
+  let blogCount = 0;
+  for (const p of players) {
+    // 背番号一致 + 名前照合（背番号変更対策: 名前が含まれない場合は番号のみ）
+    const matched = blogEntries.filter((e) => {
+      if (e.number !== p.number) return false;
+      if (e.name && p.nameJa) {
+        return norm(e.name) === norm(p.nameJa) || norm(p.nameJa).includes(norm(e.name)) || norm(e.name).includes(norm(p.nameJa));
+      }
+      return true;
+    });
+    if (matched.length > 0) {
+      p.blogPosts = matched.map((e) => e.post);
+      blogCount += p.blogPosts.length;
+    }
+  }
+  const playersWithBlog = players.filter((p) => p.blogPosts.length > 0).length;
+  logger.info(`ブログ: ${blogCount}記事を${playersWithBlog}選手に紐付け`);
 
   const data: PlayersData = {
     generatedAt: new Date().toISOString(),
