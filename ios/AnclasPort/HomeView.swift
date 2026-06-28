@@ -144,6 +144,22 @@ private struct NextMatchCard: View {
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }
+
+            if let programUrl = match.matchdayProgramUrl, let url = URL(string: programUrl) {
+                Link(destination: url) {
+                    HStack(spacing: 8) {
+                        Image(systemName: "doc.richtext.fill")
+                            .font(.subheadline)
+                        Text("マッチデープログラムを見る")
+                            .font(.subheadline.weight(.bold))
+                    }
+                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 10)
+                    .background(Theme.navy, in: RoundedRectangle(cornerRadius: 10, style: .continuous))
+                }
+                .buttonStyle(.plain)
+            }
         }
         .card()
     }
