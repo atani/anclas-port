@@ -172,6 +172,10 @@ struct PlayerDetailView: View {
                     PersonalSection(items: player.personal)
                 }
 
+                if let sns = player.sns, !sns.isEmpty {
+                    SnsSection(sns: sns)
+                }
+
                 if let blogs = player.blogPosts, !blogs.isEmpty {
                     BlogSection(posts: blogs)
                 }
@@ -280,6 +284,75 @@ private struct PersonalSection: View {
                 .padding(.horizontal, 12).padding(.vertical, 8)
                 .background(Theme.orange.opacity(0.06))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .card()
+    }
+}
+
+// MARK: - SNS Section
+
+private struct SnsSection: View {
+    let sns: PlayerSns
+
+    private struct SnsLink: Identifiable {
+        let label: String
+        let icon: String
+        let url: String
+        var id: String { label }
+    }
+
+    private var links: [SnsLink] {
+        var result: [SnsLink] = []
+        if let ig = sns.instagram {
+            result.append(SnsLink(label: "Instagram", icon: "camera.fill", url: "https://www.instagram.com/\(ig)/"))
+        }
+        if let x = sns.x {
+            result.append(SnsLink(label: "X (Twitter)", icon: "bird.fill", url: "https://x.com/\(x)"))
+        }
+        if let tt = sns.tiktok {
+            result.append(SnsLink(label: "TikTok", icon: "music.note", url: "https://www.tiktok.com/@\(tt)"))
+        }
+        if let yt = sns.youtube {
+            result.append(SnsLink(label: "YouTube", icon: "play.rectangle.fill", url: "https://www.youtube.com/@\(yt)"))
+        }
+        return result
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 6) {
+                Image(systemName: "link")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(Theme.orange)
+                Text("SNS")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(.secondary)
+            }
+
+            ForEach(links) { link in
+                if let url = URL(string: link.url) {
+                    Link(destination: url) {
+                        HStack(spacing: 10) {
+                            Image(systemName: link.icon)
+                                .font(.subheadline)
+                                .foregroundStyle(.white)
+                                .frame(width: 32, height: 32)
+                                .background(Theme.orange, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                            Text(link.label)
+                                .font(.subheadline.weight(.medium))
+                            Spacer()
+                            Image(systemName: "arrow.up.right")
+                                .font(.caption2)
+                                .foregroundStyle(.tertiary)
+                        }
+                        .padding(.horizontal, 12).padding(.vertical, 8)
+                        .background(Color(.tertiarySystemGroupedBackground))
+                        .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    }
+                    .buttonStyle(.plain)
+                }
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)

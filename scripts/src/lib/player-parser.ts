@@ -146,6 +146,7 @@ export function parsePlayer(post: WPPost): Player {
     personal,
     sourceUrl: post.link,
     blogPosts: [],
+    sns: {},
   };
 }
 

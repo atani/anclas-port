@@ -1,7 +1,7 @@
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { logger } from "./lib/logger.js";
 import { parsePlayer, sortPlayers } from "./lib/player-parser.js";
-import type { PlayersData } from "./lib/types.js";
+import type { PlayerSns, PlayersData } from "./lib/types.js";
 import { fetchPlayerBlogPosts, getPlayerCategory, getPlayerPosts } from "./lib/wordpress-client.js";
 
 const DATA_DIR = new URL("../../data/", import.meta.url);
@@ -42,6 +42,23 @@ async function main(): Promise<void> {
   }
   const playersWithBlog = players.filter((p) => p.blogPosts.length > 0).length;
   logger.info(`ブログ: ${blogCount}記事を${playersWithBlog}選手に紐付け`);
+
+  // SNS アカウント（手動管理の JSON）
+  try {
+    const snsPath = new URL("./data/player-sns.json", import.meta.url);
+    const snsData = JSON.parse(readFileSync(snsPath, "utf-8")) as Record<string, PlayerSns>;
+    let snsCount = 0;
+    for (const p of players) {
+      const key = String(p.number);
+      if (snsData[key] && Object.keys(snsData[key]).some((k) => k !== "_comment")) {
+        p.sns = snsData[key];
+        snsCount++;
+      }
+    }
+    if (snsCount > 0) logger.info(`SNS: ${snsCount}選手に紐付け`);
+  } catch {
+    // SNS ファイルが無くても問題ない
+  }
 
   const data: PlayersData = {
     generatedAt: new Date().toISOString(),
