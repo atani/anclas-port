@@ -7,6 +7,9 @@
 import type { BlogPost, MatchReport } from "./types.js";
 
 const BASE_URL = "https://anclas.jp/wp-json/wp/v2";
+const WP_HEADERS: Record<string, string> = {
+  "User-Agent": "Mozilla/5.0 (compatible; anclas-port-pipeline/1.0; +https://github.com/atani/anclas-port)",
+};
 
 export interface WPMediaSize {
   source_url: string;
@@ -53,7 +56,10 @@ async function wpFetch<T>(path: string, params: Record<string, string> = {}): Pr
   for (const [key, value] of Object.entries(params)) {
     url.searchParams.set(key, value);
   }
-  const res = await fetch(url.toString(), { signal: AbortSignal.timeout(15_000) });
+  const res = await fetch(url.toString(), {
+    signal: AbortSignal.timeout(15_000),
+    headers: WP_HEADERS,
+  });
   if (!res.ok) {
     const body = await res.text().catch(() => "");
     throw new Error(`WordPress API error: ${res.status} ${res.statusText} - ${body}`);
@@ -311,7 +317,7 @@ export async function fetchPlayerBlogPosts(): Promise<RawBlogEntry[]> {
   try {
     while (true) {
       const url = `${BASE_URL}/posts?categories=${BLOG_CATEGORY_ID}&per_page=${perPage}&page=${page}&_fields=title,link,date`;
-      const res = await fetch(url, { signal: AbortSignal.timeout(15_000) });
+      const res = await fetch(url, { signal: AbortSignal.timeout(15_000), headers: WP_HEADERS });
       if (!res.ok) break;
       const posts = (await res.json()) as WpBlogPost[];
       if (posts.length === 0) break;
