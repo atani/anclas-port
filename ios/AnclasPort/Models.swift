@@ -276,6 +276,17 @@ struct BlogPost: Codable, Hashable, Identifiable {
     var id: String { url }
 }
 
+struct PlayerSns: Codable, Hashable {
+    let instagram: String?
+    let x: String?
+    let tiktok: String?
+    let youtube: String?
+
+    var isEmpty: Bool {
+        instagram == nil && x == nil && tiktok == nil && youtube == nil
+    }
+}
+
 struct Player: Codable, Identifiable, Hashable {
     let id: Int
     let number: Int?
@@ -288,6 +299,7 @@ struct Player: Codable, Identifiable, Hashable {
     let personal: [PersonalItem]
     let sourceUrl: String
     let blogPosts: [BlogPost]?
+    let sns: PlayerSns?
 
     var displayNumber: String { number.map { "#\($0)" } ?? "" }
 }

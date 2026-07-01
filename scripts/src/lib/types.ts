@@ -227,6 +227,16 @@ export interface Player {
   sourceUrl: string;
   /** 選手ブログ記事（anclas.jp 由来、新しい順） */
   blogPosts: BlogPost[];
+  /** 公開SNSアカウント（手動管理、publicアカウントのみ） */
+  sns: PlayerSns;
+}
+
+/** 選手の公開SNSアカウント */
+export interface PlayerSns {
+  instagram?: string;
+  x?: string;
+  tiktok?: string;
+  youtube?: string;
 }
 
 /** 選手ブログ記事 */
