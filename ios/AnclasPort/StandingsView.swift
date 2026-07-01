@@ -50,6 +50,14 @@ struct StandingsView: View {
                     if let matches = store.matchesData?.matches {
                         let anclasMatches = matches.filter { $0.isAnclas && $0.isFinished && $0.score != nil }
                         if !anclasMatches.isEmpty {
+                            SectionLabel("シーズンサマリー", icon: "chart.bar.fill")
+                            SeasonSummaryCard(matches: anclasMatches)
+                                .padding(.horizontal, 16)
+
+                            SectionLabel("ホーム vs アウェイ", icon: "house.fill")
+                            HomeAwayCard(matches: anclasMatches)
+                                .padding(.horizontal, 16)
+
                             SectionLabel("ゴール時間帯", icon: "clock.fill")
                             GoalTimeChart(matches: anclasMatches)
                                 .padding(.horizontal, 16)
@@ -408,5 +416,170 @@ private struct AppearanceChart: View {
         .padding(16)
         .background(Color(.secondarySystemGroupedBackground))
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+}
+
+// MARK: - Season Summary
+
+private struct SeasonSummaryCard: View {
+    let matches: [Match]
+
+    private var stats: (wins: Int, draws: Int, losses: Int, points: Int, gf: Int, ga: Int, cleanSheets: Int, form: [Match.Outcome]) {
+        var w = 0, d = 0, l = 0, gf = 0, ga = 0, cs = 0
+        var form: [Match.Outcome] = []
+        for m in matches {
+            guard let score = m.score else { continue }
+            let mine = m.anclasIsHome ? score.home : score.away
+            let theirs = m.anclasIsHome ? score.away : score.home
+            gf += mine; ga += theirs
+            if theirs == 0 { cs += 1 }
+            if mine > theirs { w += 1 } else if mine == theirs { d += 1 } else { l += 1 }
+            if let o = m.anclasOutcome { form.append(o) }
+        }
+        return (w, d, l, w * 3 + d, gf, ga, cs, Array(form.suffix(5)))
+    }
+
+    var body: some View {
+        let s = stats
+        VStack(spacing: 16) {
+            VStack(spacing: 2) {
+                Text("\(s.points)")
+                    .font(.system(size: 48, weight: .heavy).monospacedDigit())
+                    .foregroundStyle(Theme.orange)
+                Text("勝点").font(.caption.weight(.bold)).foregroundStyle(.secondary)
+                Text("\(matches.count)試合消化").font(.caption2).foregroundStyle(.tertiary)
+            }
+
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                StatCell(value: "\(s.wins)勝 \(s.draws)分 \(s.losses)敗", label: "戦績")
+                StatCell(value: "\(s.gf) - \(s.ga)", label: "得点 - 失点")
+                let gd = s.gf - s.ga
+                StatCell(value: gd > 0 ? "+\(gd)" : "\(gd)", label: "得失点差",
+                         valueColor: gd > 0 ? .green : gd < 0 ? .red : .secondary)
+                StatCell(value: "\(s.cleanSheets)", label: "クリーンシート", valueColor: .cyan)
+            }
+
+            VStack(spacing: 6) {
+                Text("直近5試合").font(.caption2.weight(.bold)).foregroundStyle(.secondary)
+                HStack(spacing: 8) {
+                    ForEach(Array(s.form.enumerated()), id: \.offset) { _, outcome in
+                        Text(Theme.outcomeLabel(outcome))
+                            .font(.caption2.weight(.heavy))
+                            .foregroundStyle(.white)
+                            .frame(width: 32, height: 28)
+                            .background(Theme.outcomeColor(outcome),
+                                        in: RoundedRectangle(cornerRadius: 6))
+                    }
+                }
+            }
+        }
+        .padding(20)
+        .background(Color(.secondarySystemGroupedBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+}
+
+private struct StatCell: View {
+    let value: String
+    let label: String
+    var valueColor: Color = .primary
+
+    var body: some View {
+        VStack(spacing: 4) {
+            Text(value)
+                .font(.title3.weight(.heavy).monospacedDigit())
+                .foregroundStyle(valueColor)
+                .lineLimit(1).minimumScaleFactor(0.7)
+            Text(label)
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 10)
+        .background(Color(.tertiarySystemGroupedBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
+}
+
+// MARK: - Home vs Away
+
+private struct HomeAwayCard: View {
+    let matches: [Match]
+
+    private struct HAStat {
+        var played = 0, wins = 0, gf = 0, ga = 0
+        var winRate: String { played == 0 ? "-" : "\(Int(Double(wins) / Double(played) * 100))%" }
+        var avgGF: String { played == 0 ? "-" : String(format: "%.1f", Double(gf) / Double(played)) }
+        var avgGA: String { played == 0 ? "-" : String(format: "%.1f", Double(ga) / Double(played)) }
+    }
+
+    private var homeAway: (home: HAStat, away: HAStat) {
+        var h = HAStat(), a = HAStat()
+        for m in matches {
+            guard let score = m.score else { continue }
+            let mine = m.anclasIsHome ? score.home : score.away
+            let theirs = m.anclasIsHome ? score.away : score.home
+            if m.anclasIsHome {
+                h.played += 1; h.gf += mine; h.ga += theirs
+                if mine > theirs { h.wins += 1 }
+            } else {
+                a.played += 1; a.gf += mine; a.ga += theirs
+                if mine > theirs { a.wins += 1 }
+            }
+        }
+        return (h, a)
+    }
+
+    var body: some View {
+        let (h, a) = homeAway
+        VStack(spacing: 14) {
+            HStack {
+                Label("ホーム \(h.played)試合", systemImage: "house.fill")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(Theme.orange)
+                Spacer()
+                Label("アウェイ \(a.played)試合", systemImage: "airplane")
+                    .font(.caption.weight(.bold))
+                    .foregroundStyle(.cyan)
+            }
+
+            CompareRow(label: "勝率", home: h.winRate, away: a.winRate,
+                       homeColor: Theme.orange, awayColor: .cyan)
+            CompareRow(label: "平均得点", home: h.avgGF, away: a.avgGF,
+                       homeColor: Theme.orange, awayColor: .cyan)
+            CompareRow(label: "平均失点", home: h.avgGA, away: a.avgGA,
+                       homeColor: .red.opacity(0.8), awayColor: .red.opacity(0.8))
+        }
+        .padding(20)
+        .background(Color(.secondarySystemGroupedBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+}
+
+private struct CompareRow: View {
+    let label: String
+    let home: String
+    let away: String
+    var homeColor: Color = .primary
+    var awayColor: Color = .primary
+
+    var body: some View {
+        HStack(spacing: 0) {
+            Text(home)
+                .font(.title3.weight(.heavy).monospacedDigit())
+                .foregroundStyle(homeColor)
+                .frame(maxWidth: .infinity)
+            Text(label)
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.secondary)
+                .frame(width: 70)
+            Text(away)
+                .font(.title3.weight(.heavy).monospacedDigit())
+                .foregroundStyle(awayColor)
+                .frame(maxWidth: .infinity)
+        }
+        .padding(.vertical, 6)
+        .background(Color(.tertiarySystemGroupedBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }
