@@ -441,64 +441,62 @@ private struct SeasonSummaryCard: View {
 
     var body: some View {
         let s = stats
-        VStack(spacing: 14) {
-            // 勝点 + 勝分敗
-            HStack(spacing: 0) {
-                VStack(spacing: 2) {
-                    Text("\(s.points)")
-                        .font(.system(size: 36, weight: .heavy).monospacedDigit())
-                        .foregroundStyle(Theme.orange)
-                    Text("勝点").font(.caption2).foregroundStyle(.secondary)
-                }
-                .frame(maxWidth: .infinity)
-                VStack(spacing: 2) {
-                    HStack(spacing: 4) {
-                        Text("\(s.wins)").foregroundStyle(.green)
-                        Text("·").foregroundStyle(.secondary)
-                        Text("\(s.draws)").foregroundStyle(.secondary)
-                        Text("·").foregroundStyle(.secondary)
-                        Text("\(s.losses)").foregroundStyle(.red)
-                    }
-                    .font(.title2.weight(.heavy).monospacedDigit())
-                    Text("勝·分·敗").font(.caption2).foregroundStyle(.secondary)
-                }
-                .frame(maxWidth: .infinity)
-                VStack(spacing: 2) {
-                    let gd = s.gf - s.ga
-                    Text(gd > 0 ? "+\(gd)" : "\(gd)")
-                        .font(.title2.weight(.heavy).monospacedDigit())
-                        .foregroundStyle(gd > 0 ? .green : gd < 0 ? .red : .secondary)
-                    Text("得失差 (\(s.gf)/\(s.ga))")
-                        .font(.caption2).foregroundStyle(.secondary)
-                }
-                .frame(maxWidth: .infinity)
-                VStack(spacing: 2) {
-                    Text("\(s.cleanSheets)")
-                        .font(.title2.weight(.heavy).monospacedDigit())
-                    Text("完封").font(.caption2).foregroundStyle(.secondary)
-                }
-                .frame(maxWidth: .infinity)
+        VStack(spacing: 16) {
+            VStack(spacing: 2) {
+                Text("\(s.points)")
+                    .font(.system(size: 48, weight: .heavy).monospacedDigit())
+                    .foregroundStyle(Theme.orange)
+                Text("\(matches.count)試合消化").font(.caption).foregroundStyle(.secondary)
             }
 
-            // 直近5試合フォーム
-            HStack(spacing: 6) {
-                Text("直近").font(.caption2).foregroundStyle(.secondary)
-                ForEach(Array(s.form.enumerated()), id: \.offset) { _, outcome in
-                    Text(outcome == .win ? "W" : outcome == .draw ? "D" : "L")
-                        .font(.caption.weight(.heavy))
-                        .foregroundStyle(.white)
-                        .frame(width: 26, height: 26)
-                        .background(
-                            outcome == .win ? Color.green :
-                            outcome == .draw ? Color.gray : Color.red,
-                            in: RoundedRectangle(cornerRadius: 6)
-                        )
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+                StatCell(value: "\(s.wins)勝 \(s.draws)分 \(s.losses)敗", label: "戦績")
+                StatCell(value: "\(s.gf) - \(s.ga)", label: "得点 - 失点")
+                let gd = s.gf - s.ga
+                StatCell(value: gd > 0 ? "+\(gd)" : "\(gd)", label: "得失点差",
+                         valueColor: gd > 0 ? .green : gd < 0 ? .red : .secondary)
+                StatCell(value: "\(s.cleanSheets)", label: "クリーンシート", valueColor: Theme.navy)
+            }
+
+            VStack(spacing: 6) {
+                Text("直近5試合").font(.caption2.weight(.bold)).foregroundStyle(.secondary)
+                HStack(spacing: 8) {
+                    ForEach(Array(s.form.enumerated()), id: \.offset) { _, outcome in
+                        Text(Theme.outcomeLabel(outcome))
+                            .font(.caption2.weight(.heavy))
+                            .foregroundStyle(.white)
+                            .frame(width: 32, height: 28)
+                            .background(Theme.outcomeColor(outcome),
+                                        in: RoundedRectangle(cornerRadius: 6))
+                    }
                 }
             }
         }
-        .padding(16)
+        .padding(20)
         .background(Color(.secondarySystemGroupedBackground))
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+}
+
+private struct StatCell: View {
+    let value: String
+    let label: String
+    var valueColor: Color = .primary
+
+    var body: some View {
+        VStack(spacing: 4) {
+            Text(value)
+                .font(.title3.weight(.heavy).monospacedDigit())
+                .foregroundStyle(valueColor)
+                .lineLimit(1).minimumScaleFactor(0.7)
+            Text(label)
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 10)
+        .background(Color(.tertiarySystemGroupedBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 10))
     }
 }
 
@@ -533,35 +531,54 @@ private struct HomeAwayCard: View {
 
     var body: some View {
         let (h, a) = homeAway
-        VStack(spacing: 12) {
-            HStack(spacing: 0) {
-                Text("").frame(maxWidth: .infinity)
-                Text("ホーム (\(h.played)試合)")
+        VStack(spacing: 14) {
+            HStack {
+                Label("ホーム \(h.played)試合", systemImage: "house.fill")
                     .font(.caption.weight(.bold))
-                    .frame(maxWidth: .infinity)
-                Text("アウェイ (\(a.played)試合)")
+                    .foregroundStyle(Theme.orange)
+                Spacer()
+                Label("アウェイ \(a.played)試合", systemImage: "airplane")
                     .font(.caption.weight(.bold))
-                    .frame(maxWidth: .infinity)
+                    .foregroundStyle(Theme.navy)
             }
-            .foregroundStyle(.secondary)
 
-            ForEach(["勝率", "平均得点", "平均失点"], id: \.self) { label in
-                HStack(spacing: 0) {
-                    Text(label).font(.caption).foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity)
-                    Text(label == "勝率" ? h.winRate : label == "平均得点" ? h.avgGF : h.avgGA)
-                        .font(.title3.weight(.heavy).monospacedDigit())
-                        .foregroundStyle(label == "平均失点" ? .red : Theme.orange)
-                        .frame(maxWidth: .infinity)
-                    Text(label == "勝率" ? a.winRate : label == "平均得点" ? a.avgGF : a.avgGA)
-                        .font(.title3.weight(.heavy).monospacedDigit())
-                        .foregroundStyle(label == "平均失点" ? .red : Theme.orange)
-                        .frame(maxWidth: .infinity)
-                }
-            }
+            CompareRow(label: "勝率", home: h.winRate, away: a.winRate,
+                       homeColor: Theme.orange, awayColor: Theme.navy)
+            CompareRow(label: "平均得点", home: h.avgGF, away: a.avgGF,
+                       homeColor: Theme.orange, awayColor: Theme.navy)
+            CompareRow(label: "平均失点", home: h.avgGA, away: a.avgGA,
+                       homeColor: .red.opacity(0.8), awayColor: .red.opacity(0.8))
         }
-        .padding(16)
+        .padding(20)
         .background(Color(.secondarySystemGroupedBackground))
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+    }
+}
+
+private struct CompareRow: View {
+    let label: String
+    let home: String
+    let away: String
+    var homeColor: Color = .primary
+    var awayColor: Color = .primary
+
+    var body: some View {
+        HStack(spacing: 0) {
+            Text(home)
+                .font(.title3.weight(.heavy).monospacedDigit())
+                .foregroundStyle(homeColor)
+                .frame(maxWidth: .infinity)
+            Text(label)
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(.secondary)
+                .frame(width: 70)
+            Text(away)
+                .font(.title3.weight(.heavy).monospacedDigit())
+                .foregroundStyle(awayColor)
+                .frame(maxWidth: .infinity)
+        }
+        .padding(.vertical, 6)
+        .background(Color(.tertiarySystemGroupedBackground))
+        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }
