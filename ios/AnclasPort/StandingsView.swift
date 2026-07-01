@@ -455,7 +455,7 @@ private struct SeasonSummaryCard: View {
                 let gd = s.gf - s.ga
                 StatCell(value: gd > 0 ? "+\(gd)" : "\(gd)", label: "得失点差",
                          valueColor: gd > 0 ? .green : gd < 0 ? .red : .secondary)
-                StatCell(value: "\(s.cleanSheets)", label: "クリーンシート", valueColor: Theme.navy)
+                StatCell(value: "\(s.cleanSheets)", label: "クリーンシート", valueColor: .cyan)
             }
 
             VStack(spacing: 6) {
@@ -539,13 +539,13 @@ private struct HomeAwayCard: View {
                 Spacer()
                 Label("アウェイ \(a.played)試合", systemImage: "airplane")
                     .font(.caption.weight(.bold))
-                    .foregroundStyle(Theme.navy)
+                    .foregroundStyle(.cyan)
             }
 
             CompareRow(label: "勝率", home: h.winRate, away: a.winRate,
-                       homeColor: Theme.orange, awayColor: Theme.navy)
+                       homeColor: Theme.orange, awayColor: .cyan)
             CompareRow(label: "平均得点", home: h.avgGF, away: a.avgGF,
-                       homeColor: Theme.orange, awayColor: Theme.navy)
+                       homeColor: Theme.orange, awayColor: .cyan)
             CompareRow(label: "平均失点", home: h.avgGA, away: a.avgGA,
                        homeColor: .red.opacity(0.8), awayColor: .red.opacity(0.8))
         }
