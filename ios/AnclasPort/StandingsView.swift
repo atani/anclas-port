@@ -446,7 +446,8 @@ private struct SeasonSummaryCard: View {
                 Text("\(s.points)")
                     .font(.system(size: 48, weight: .heavy).monospacedDigit())
                     .foregroundStyle(Theme.orange)
-                Text("\(matches.count)試合消化").font(.caption).foregroundStyle(.secondary)
+                Text("勝点").font(.caption.weight(.bold)).foregroundStyle(.secondary)
+                Text("\(matches.count)試合消化").font(.caption2).foregroundStyle(.tertiary)
             }
 
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
