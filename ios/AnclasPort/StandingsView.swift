@@ -3,85 +3,136 @@ import Charts
 
 struct StandingsView: View {
     @Environment(DataStore.self) private var store
+    @State private var selectedTab = 0
+
+    private var players: [Player] { store.playersData?.players ?? [] }
+
+    private func findPlayer(name: String, number: Int?) -> Player? {
+        let norm = { (s: String) in s.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "　", with: "") }
+        if let num = number, let p = players.first(where: { $0.number == num }) { return p }
+        return players.first(where: { norm($0.nameJa) == norm(name) })
+    }
 
     var body: some View {
+        NavigationStack {
         ScrollView {
             VStack(spacing: 16) {
-                HeaderBar(title: "順位表")
+                HeaderBar(title: "順位・スタッツ")
 
-                if let data = store.standingsData {
-                    VStack(spacing: 0) {
-                        ColumnHeader()
-                        ForEach(Array(data.table.enumerated()), id: \.element.id) { idx, row in
-                            StandingRowView(row: row, isLast: idx == data.table.count - 1)
-                        }
-                    }
-                    .anclasCard(padding: 0)
-                    .padding(.horizontal, 16)
+                Picker("", selection: $selectedTab) {
+                    Text("順位表").tag(0)
+                    Text("スタッツ").tag(1)
+                }
+                .pickerStyle(.segmented)
+                .padding(.horizontal, 16)
 
-                    Text("\(data.competition)　\(data.season)シーズン")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity)
-
-                    if let scorers = data.scorers, !scorers.isEmpty {
-                        SectionLabel("得点ランキング", icon: "soccerball")
-                        VStack(spacing: 0) {
-                            ForEach(Array(scorers.enumerated()), id: \.element.id) { idx, scorer in
-                                ScorerRowView(scorer: scorer, isLast: idx == scorers.count - 1)
-                            }
-                        }
-                        .anclasCard(padding: 0)
-                        .padding(.horizontal, 16)
-                    }
-
-                    if let assists = data.assists, !assists.isEmpty {
-                        SectionLabel("アシストランキング", icon: "arrow.turn.up.right")
-                        VStack(spacing: 0) {
-                            ForEach(Array(assists.enumerated()), id: \.element.id) { idx, assist in
-                                AssistRowView(assist: assist, isLast: idx == assists.count - 1)
-                            }
-                        }
-                        .anclasCard(padding: 0)
-                        .padding(.horizontal, 16)
-                    }
-
-                    // グラフセクション
-                    if let matches = store.matchesData?.matches {
-                        let anclasMatches = matches.filter { $0.isAnclas && $0.isFinished && $0.score != nil }
-                        if !anclasMatches.isEmpty {
-                            SectionLabel("シーズンサマリー", icon: "chart.bar.fill")
-                            SeasonSummaryCard(matches: anclasMatches)
-                                .padding(.horizontal, 16)
-
-                            SectionLabel("順位推移", icon: "chart.line.uptrend.xyaxis")
-                            RankProgressionChart(allMatches: matches)
-                                .padding(.horizontal, 16)
-
-                            SectionLabel("ホーム vs アウェイ", icon: "house.fill")
-                            HomeAwayCard(matches: anclasMatches)
-                                .padding(.horizontal, 16)
-
-                            SectionLabel("ゴール時間帯", icon: "clock.fill")
-                            GoalTimeChart(matches: anclasMatches)
-                                .padding(.horizontal, 16)
-
-                            SectionLabel("選手別出場回数", icon: "person.3.fill")
-                            AppearanceChart(
-                                matches: anclasMatches,
-                                rosterNames: Set((store.playersData?.players ?? []).map { $0.nameJa })
-                            )
-                                .padding(.horizontal, 16)
-                        }
-                    }
+                if selectedTab == 0 {
+                    standingsContent
                 } else {
-                    LoadingState(message: "順位表を読み込み中…")
+                    statsContent
                 }
             }
             .padding(.vertical, 8)
         }
         .background(Color(.systemGroupedBackground))
+        .navigationBarHidden(true)
+        .navigationDestination(for: Player.self) { player in
+            PlayerDetailView(player: player)
+        }
         .refreshable { await store.refresh() }
+        }
+    }
+
+    @ViewBuilder
+    private var standingsContent: some View {
+        if let data = store.standingsData {
+            VStack(spacing: 0) {
+                ColumnHeader()
+                ForEach(Array(data.table.enumerated()), id: \.element.id) { idx, row in
+                    StandingRowView(row: row, isLast: idx == data.table.count - 1)
+                }
+            }
+            .anclasCard(padding: 0)
+            .padding(.horizontal, 16)
+
+            Text("\(data.competition)　\(data.season)シーズン")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+                .frame(maxWidth: .infinity)
+
+            if let scorers = data.scorers, !scorers.isEmpty {
+                SectionLabel("得点ランキング", icon: "soccerball")
+                VStack(spacing: 0) {
+                    ForEach(Array(scorers.enumerated()), id: \.element.id) { idx, scorer in
+                        if let player = findPlayer(name: scorer.name, number: scorer.number) {
+                            NavigationLink(value: player) {
+                                ScorerRowView(scorer: scorer, isLast: idx == scorers.count - 1)
+                            }
+                            .buttonStyle(.plain)
+                        } else {
+                            ScorerRowView(scorer: scorer, isLast: idx == scorers.count - 1)
+                        }
+                    }
+                }
+                .anclasCard(padding: 0)
+                .padding(.horizontal, 16)
+            }
+
+            if let assists = data.assists, !assists.isEmpty {
+                SectionLabel("アシストランキング", icon: "arrow.turn.up.right")
+                VStack(spacing: 0) {
+                    ForEach(Array(assists.enumerated()), id: \.element.id) { idx, assist in
+                        if let player = findPlayer(name: assist.name, number: assist.number) {
+                            NavigationLink(value: player) {
+                                AssistRowView(assist: assist, isLast: idx == assists.count - 1)
+                            }
+                            .buttonStyle(.plain)
+                        } else {
+                            AssistRowView(assist: assist, isLast: idx == assists.count - 1)
+                        }
+                    }
+                }
+                .anclasCard(padding: 0)
+                .padding(.horizontal, 16)
+            }
+        } else {
+            LoadingState(message: "順位表を読み込み中…")
+        }
+    }
+
+    @ViewBuilder
+    private var statsContent: some View {
+        if let matches = store.matchesData?.matches {
+            let anclasMatches = matches.filter { $0.isAnclas && $0.isFinished && $0.score != nil }
+            if !anclasMatches.isEmpty {
+                SectionLabel("シーズンサマリー", icon: "chart.bar.fill")
+                SeasonSummaryCard(matches: anclasMatches)
+                    .padding(.horizontal, 16)
+
+                SectionLabel("順位推移", icon: "chart.line.uptrend.xyaxis")
+                RankProgressionChart(allMatches: matches)
+                    .padding(.horizontal, 16)
+
+                SectionLabel("ホーム vs アウェイ", icon: "house.fill")
+                HomeAwayCard(matches: anclasMatches)
+                    .padding(.horizontal, 16)
+
+                SectionLabel("ゴール時間帯", icon: "clock.fill")
+                GoalTimeChart(matches: anclasMatches)
+                    .padding(.horizontal, 16)
+
+                SectionLabel("選手別出場回数", icon: "person.3.fill")
+                AppearanceChart(
+                    matches: anclasMatches,
+                    rosterNames: Set((store.playersData?.players ?? []).map { $0.nameJa })
+                )
+                    .padding(.horizontal, 16)
+            } else {
+                LoadingState(message: "スタッツを読み込み中…")
+            }
+        } else {
+            LoadingState(message: "スタッツを読み込み中…")
+        }
     }
 }
 
